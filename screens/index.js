@@ -15,6 +15,13 @@ import OrdersScreen from "./OrdersFlow/OrdersScreen";
 import HelperSettingsScreen from "./SettingsFlow/HelperSettingsScreen";
 import SettingsScreen from "./SettingsFlow/SettingsScreen";
 import ShopSettingsScreen from "./SettingsFlow/ShopSettingsScreen";
+import AddHelperScreen from "./AuthFlow/AddHelperScreen";
+import HelperFormScreen from "./AuthFlow/HelperFormScreen";
+import OtpScreen from "./AuthFlow/OtpScreen";
+import RegistrationFormScreen from "./AuthFlow/RegistrationFormScreen";
+import RegistrationSuccessScreen from "./AuthFlow/RegistrationSuccessScreen";
+import ShopCategoryScreen from "./AuthFlow/ShopCategoryScreen";
+import ShopDetailFormScreen from "./AuthFlow/ShopDetailFormScreen";
 
 export {
     AccountsDetailScreen,
@@ -33,5 +40,12 @@ export {
     OrdersScreen,
     HelperSettingsScreen,
     SettingsScreen,
-    ShopSettingsScreen
+    ShopSettingsScreen,
+    AddHelperScreen,
+    HelperFormScreen,
+    OtpScreen,
+    RegistrationFormScreen,
+    RegistrationSuccessScreen,
+    ShopCategoryScreen,
+    ShopDetailFormScreen
 }
