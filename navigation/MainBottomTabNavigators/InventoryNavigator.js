@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
@@ -9,9 +9,9 @@ import {
     StockBoughtSummaryScreen
 } from '../../screens'
 
-const InventoryNavigator = () => {
-    const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
+const InventoryNavigator = () => {
     return (
         <Stack.Navigator initialRouteName={"InventoryScreen"}>
             <Stack.Screen
@@ -43,4 +43,4 @@ const InventoryNavigator = () => {
     )
 }
 
-export default InventoryNavigator;
+export default InventoryNavigator

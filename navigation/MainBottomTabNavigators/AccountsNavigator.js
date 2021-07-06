@@ -2,16 +2,16 @@ import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
-    AccountsDetailScreen,
     AccountsScreen,
+    AccountsDetailScreen,
     CreditHistoryScreen,
     ExpenseSummaryScreen,
     RevenueSummaryScreen
-} from '../../screens'
+} from "../../screens";
+
+const Stack = createStackNavigator();
 
 const AccountsNavigator = () => {
-    const Stack = createStackNavigator();
-
     return (
         <Stack.Navigator initialRouteName={"AccountsScreen"}>
             <Stack.Screen

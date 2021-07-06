@@ -2,14 +2,14 @@ import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
+    HelperSettingsScreen,
     SettingsScreen,
     ShopSettingsScreen,
-    HelperSettingsScreen
 } from '../../screens'
 
-const SettingsNavigator = () => {
-    const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
+const SettingsNavigator = () => {
     return (
         <Stack.Navigator initialRouteName={"SettingsScreen"}>
             <Stack.Screen
@@ -18,17 +18,17 @@ const SettingsNavigator = () => {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name={"ShopSettingScreen"}
-                component={ShopSettingsScreen}
+                name={"HelperSettingsScreen"}
+                component={HelperSettingsScreen}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name={"HelperSettingsScreen"}
-                component={HelperSettingsScreen}
+                name={"ShopSettingsScreen"}
+                component={ShopSettingsScreen}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
     )
 }
 
-export default SettingsNavigator
+export default SettingsNavigator;

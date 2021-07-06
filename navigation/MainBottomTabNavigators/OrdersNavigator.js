@@ -5,14 +5,16 @@ import {
     OfflineOrderScreen,
     OfflineOrderSummaryScreen,
     OrderExpandedScreen,
-    OrdersScreen
+    OrdersScreen,
 } from '../../screens'
 
-const OrdersNavigator = () => {
-    const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
+const OrdersNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName={"OrdersScreen"}>
+        <Stack.Navigator
+            initialRouteName={"OrdersScreen"}
+        >
             <Stack.Screen
                 name={"OrdersScreen"}
                 component={OrdersScreen}
@@ -37,4 +39,4 @@ const OrdersNavigator = () => {
     )
 }
 
-export default OrdersNavigator;
+export default OrdersNavigator

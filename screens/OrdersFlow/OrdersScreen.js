@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 const OrdersScreen = () => {
     return (
         <View style={styles.container}>
-            <Text>This is the Orders Screen</Text>
+            <Text>This is the orders screen</Text>
         </View>
     )
 }
@@ -12,9 +12,7 @@ const OrdersScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+    },
 })
 
 export default OrdersScreen;

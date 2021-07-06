@@ -1,12 +1,13 @@
 export const COLORS = {
     primary: '#6CC24B',
-    darkGreen: '#56B532',
+    darkGreen: '#31681c',
     orange: '#FF9D00',
     yellow: '#FFC117',
     grey: '#303030',
     lightLavender: '#ab47ff',
     lavender: '#8c24e3',
     darkLavender: '#6d0fbc',
+    green: '#56B532',
 
     // linear-gradient-primary
     fromPrimaryGradientColor: '#32B100',
