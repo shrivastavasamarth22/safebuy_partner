@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {View, Text, StyleSheet, TouchableNativeFeedback, Image} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import '@expo/match-media';
@@ -51,7 +51,7 @@ const smallStyles = StyleSheet.create({
     container: {
         height: 110,
         width: 110,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
         borderRadius: 5,
         elevation: 5,
         marginBottom: 10,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     container: {
         height: 130,
         width: 130,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
         borderRadius: 5,
         elevation: 5,
         marginBottom: 10,

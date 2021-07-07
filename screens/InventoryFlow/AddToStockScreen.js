@@ -11,6 +11,7 @@ import {
     SelectedStockItemCard,
     GradientButton
 } from '../../components'
+import { useSelector, useDispatch } from "react-redux";
 import {COLORS, images} from "../../constants";
 import {items} from '../../mock-data/items';
 
@@ -20,10 +21,18 @@ const AddToStockScreen = ({navigation}) => {
     const [active, setActive] = useState("vegetable");
     const [selected, setSelected] = useState([])
 
-    const toggleSelected = (itemId) => {
+
+    const dispatch = useDispatch();
+
+
+    const checkForSelected = (itemId) => {
         const found = selected.find(id => id === itemId);
+        return !!found
+    }
+
+    const toggleSelected = (itemId) => {
         let newList
-        if (found) {
+        if (checkForSelected(itemId)) {
             newList = selected.filter(id => id !== itemId)
             setSelected(newList)
         } else {
@@ -121,14 +130,12 @@ const AddToStockScreen = ({navigation}) => {
                 showsVerticalScrollIndicator={false}
                 numColumns={3}
                 renderItem={({ item }) => {
-                    const found = selected.find(id => id === item.itemId)
-
                     if (item.empty === true) {
                         return (
                             <View style={isSmallDevice ? smallStyles.itemInvisible : styles.itemInvisible } />
                         )
                     }
-                    if (!found) {
+                    if (!checkForSelected(item.itemId)) {
                         return (
                             <StockItemCard
                                 item={item}
