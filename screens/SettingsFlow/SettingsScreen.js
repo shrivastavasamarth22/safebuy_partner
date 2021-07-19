@@ -1,10 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
+import {
+    HeaderBar,
+    ListButton
+} from '../../components'
+import {COLORS} from "../../constants";
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text>This is the Settings Screen</Text>
+            <StatusBar
+                barStyle={"light-content"}
+                backgroundColor={COLORS.green}
+            />
+            <HeaderBar
+                headerText={"Settings"}
+            />
+            <ListButton
+                buttonText={"Shop Settings"}
+                onPress={() => navigation.navigate("ShopSettingsScreen")}
+                style={{
+                    marginTop: 5
+                }}
+            />
+            <ListButton
+                buttonText={"Helper Settings"}
+            />
         </View>
     )
 }
@@ -12,9 +33,8 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+        backgroundColor: 'white'
+    },
 })
 
 export default SettingsScreen;

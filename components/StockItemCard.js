@@ -1,7 +1,8 @@
-import React  from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableNativeFeedback, Image} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import '@expo/match-media';
+import {BlurView} from "expo-blur";
 import {useMediaQuery} from 'react-responsive';
 import {COLORS} from "../constants";
 
@@ -17,11 +18,16 @@ const StockItemCard = ({item, onPress}) => {
     })
 
     return (
+
         <TouchableNativeFeedback
             useForeground
             onPress={onPress}
         >
-            <View style={isSmallDevice ? smallStyles.container : styles.container}>
+            <BlurView
+                style={isSmallDevice ? smallStyles.container : styles.container}
+                tint={'dark'}
+                intensity={10}
+            >
                 <LinearGradient
                     colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}
                     start={{x: 0, y: 0}}
@@ -42,7 +48,7 @@ const StockItemCard = ({item, onPress}) => {
                 <Text style={isSmallDevice ? smallStyles.hindiNameStyle : styles.hindiNameStyle}>
                     {item.hindiName}
                 </Text>
-            </View>
+            </BlurView>
         </TouchableNativeFeedback>
     )
 }
@@ -51,9 +57,7 @@ const smallStyles = StyleSheet.create({
     container: {
         height: 110,
         width: 110,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
         borderRadius: 5,
-        elevation: 5,
         marginBottom: 10,
         paddingTop: 5,
         flexDirection: 'column-reverse'
@@ -84,12 +88,10 @@ const styles = StyleSheet.create({
     container: {
         height: 130,
         width: 130,
-        backgroundColor: 'rgba(255, 255, 255, 1)',
         borderRadius: 5,
-        elevation: 5,
         marginBottom: 10,
         paddingTop: 5,
-        flexDirection: 'column-reverse'
+        flexDirection: 'column-reverse',
     },
     hindiNameStyle: {
         fontFamily: 'yantramanav_regular',

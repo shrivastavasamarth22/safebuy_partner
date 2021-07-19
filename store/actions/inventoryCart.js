@@ -1,17 +1,37 @@
-export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
-export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
+export const TOGGLE_SELECTED_ITEM = 'TOGGLE_SELECTED_ITEM';
+export const UPDATE_PURCHASE_QTY = 'UPDATE_PURCHASE_QTY';
+export const UPDATE_PURCHASE_PRICE = 'ADD_PURCHASE_PRICE';
+export const UPDATE_SELLING_PRICE = 'UPDATE_SELLING_PRICE'
 
 
-export const addItemToCart = itemId => {
+export const toggleSelectedItem = item => {
     return {
-        type: ADD_ITEM_TO_CART,
-        id: itemId
+        type: TOGGLE_SELECTED_ITEM,
+        item
     }
 }
 
-export const removeItemToCart = itemId => {
+
+export const updatePurchaseQty = (itemId, newQty) => {
     return {
-        type: REMOVE_ITEM_FROM_CART,
-        id: itemId
+        type: UPDATE_PURCHASE_QTY,
+        id: itemId,
+        newQty
+    }
+}
+
+export const updatePurchasePrice = (itemId, newPrice) => {
+    return {
+        type: UPDATE_PURCHASE_PRICE,
+        id: itemId,
+        newPrice
+    }
+}
+
+export const updateSellingPrice = (itemId, newPrice) => {
+    return {
+        type: UPDATE_SELLING_PRICE,
+        id: itemId,
+        newPrice
     }
 }

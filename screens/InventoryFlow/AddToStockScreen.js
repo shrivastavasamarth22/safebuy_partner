@@ -2,6 +2,7 @@ import React, {useState, useMemo} from 'react';
 import {View, StyleSheet, StatusBar, FlatList, ImageBackground} from 'react-native';
 import '@expo/match-media'
 import { useMediaQuery } from 'react-responsive';
+import { useSelector, useDispatch } from "react-redux";
 import {
     TopBar,
     SearchBar,
@@ -9,36 +10,23 @@ import {
     ActiveVegetablePicker,
     StockItemCard,
     SelectedStockItemCard,
-    GradientButton
 } from '../../components'
-import { useSelector, useDispatch } from "react-redux";
+import * as inventoryCartActions from '../../store/actions/inventoryCart'
 import {COLORS, images} from "../../constants";
 import {items} from '../../mock-data/items';
+import {LinearGradient} from "expo-linear-gradient";
 
 const AddToStockScreen = ({navigation}) => {
     const [barVisible, setBarVisible] = useState(false)
     const [search, setSearch] = useState("");
     const [active, setActive] = useState("vegetable");
-    const [selected, setSelected] = useState([])
 
-
+    const selectedItems = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems)
     const dispatch = useDispatch();
 
-
     const checkForSelected = (itemId) => {
-        const found = selected.find(id => id === itemId);
+        const found = selectedItems.find(item => item.itemId === itemId);
         return !!found
-    }
-
-    const toggleSelected = (itemId) => {
-        let newList
-        if (checkForSelected(itemId)) {
-            newList = selected.filter(id => id !== itemId)
-            setSelected(newList)
-        } else {
-            newList = selected.concat(itemId);
-            setSelected(newList)
-        }
     }
 
     const isSmallDevice = useMediaQuery({
@@ -80,6 +68,7 @@ const AddToStockScreen = ({navigation}) => {
 
         return data;
     }
+
 
 
     return (
@@ -139,24 +128,17 @@ const AddToStockScreen = ({navigation}) => {
                         return (
                             <StockItemCard
                                 item={item}
-                                onPress={() => toggleSelected(item.itemId)}
+                                onPress={() => dispatch(inventoryCartActions.toggleSelectedItem(item))}
                             />
                         )
                     } else {
                         return (
                             <SelectedStockItemCard
                                 item={item}
-                                onPress={() => toggleSelected(item.itemId)}
+                                onPress={() => dispatch(inventoryCartActions.toggleSelectedItem(item))}
                             />
                         )
                     }
-                }}
-            />
-            <GradientButton
-                text={"Continue"}
-                style={{
-                    width: "97%",
-                    alignSelf: 'center'
                 }}
             />
         </ImageBackground>
@@ -175,13 +157,31 @@ const smallStyles = StyleSheet.create({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'white'
     },
     itemInvisible: {
         backgroundColor: 'transparent',
         width: 130,
         height: 130,
         marginBottom: 10
+    },
+    buttonStyle: {
+        width: "95%",
+        flexDirection: 'row',
+        alignSelf: 'center',
+        paddingVertical: 5,
+        alignItems: 'center',
+        borderRadius: 8
+    },
+    buttonDetailTextStyle: {
+        fontFamily: 'Roboto_500Medium',
+        fontSize: 16,
+        color: 'white'
+    },
+    buttonTextStyle: {
+        fontFamily: 'Roboto_500Medium',
+        color: 'white',
+        fontSize: 20,
     }
 })
 

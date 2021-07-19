@@ -21,7 +21,7 @@ const SelectedStockItemCard = ({ item, onPress }) => {
             useForeground
             onPress={onPress}
         >
-            <View style={ isSmallDevice ? [smallStyles.container, { elevation: 0, backgroundColor: '#ececec' }] : [styles.container, { elevation: 0, backgroundColor: '#ececec' }]}>
+            <View style={ isSmallDevice ? smallStyles.container : styles.container}>
                 <LinearGradient
                     colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}
                     start={{x: 0, y: 0}}
@@ -42,8 +42,8 @@ const SelectedStockItemCard = ({ item, onPress }) => {
                 <Text style={isSmallDevice ? smallStyles.hindiNameStyle : styles.hindiNameStyle}>
                     {item.hindiName}
                 </Text>
-                <View style={styles.checkMarkStyle}>
-                    <Feather name="check" size={24} color="white" />
+                <View style={!isSmallDevice ? styles.checkMarkStyle : smallStyles.checkMarkStyle}>
+                    <Feather name="check" size={!isSmallDevice ? 24 : 20} color="white" />
                 </View>
             </View>
         </TouchableNativeFeedback>
@@ -54,7 +54,8 @@ const smallStyles = StyleSheet.create({
     container: {
         height: 110,
         width: 110,
-        backgroundColor: '#e1e1e1',
+        elevation: 5,
+        backgroundColor: 'white',
         borderRadius: 5,
         marginBottom: 10,
         paddingTop: 5,
@@ -80,13 +81,25 @@ const smallStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    checkMarkStyle: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        backgroundColor: COLORS.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        right: 0
+    }
 })
 
 const styles = StyleSheet.create({
     container: {
         height: 130,
         width: 130,
-        backgroundColor: '#e1e1e1',
+        backgroundColor: 'white',
+        elevation: 5,
         borderRadius: 5,
         marginBottom: 10,
         paddingTop: 5,
@@ -118,15 +131,15 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     checkMarkStyle: {
-        width: 28,
-        height: 28,
-        borderRadius: 14,
+        width: 24,
+        height: 24,
+        borderRadius: 12,
         backgroundColor: COLORS.primary,
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        top: -5,
-        right: -5
+        top: 0,
+        right: 0
     }
 })
 
