@@ -8,9 +8,7 @@ import {
     Text
 } from "react-native";
 import { useSelector } from "react-redux";
-import "@expo/match-media";
 import {AntDesign, Entypo, MaterialIcons, FontAwesome, Feather} from '@expo/vector-icons';
-import {useMediaQuery} from "react-responsive";
 import {TopBar} from "../../components";
 import {COLORS, images} from "../../constants";
 
