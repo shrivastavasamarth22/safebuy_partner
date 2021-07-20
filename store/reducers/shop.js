@@ -1,4 +1,5 @@
 import {Shop} from "../../models";
+import {images} from "../../constants";
 
 const initialState = {
     shop: new Shop({
