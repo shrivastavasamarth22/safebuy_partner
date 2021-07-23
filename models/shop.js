@@ -1,9 +1,34 @@
 export default class Shop {
     static fromSnapshot(snapshot) {
-        return new Shop(snapshot)
+        return new Shop(snapshot);
     }
 
-    constructor({id, name, ownerName, phone, address1, address2, landmark, city, state, pinCode, lat, lng, category, weeklyHolidays, openTime, closeTime, homeDeliveryCapable, shopBeat, homeDeliveryMinOrderAmount, onLeaveStatus, imageUri}) {
+    constructor({
+        id,
+        name,
+        ownerName,
+        phone,
+        address1,
+        address2,
+        landmark,
+        city,
+        state,
+        pinCode,
+        lat,
+        lng,
+        category,
+        weeklyHolidays,
+        openTime,
+        closeTime,
+        homeDeliveryCapable,
+        shopBeat,
+        homeDeliveryMinOrderAmount,
+        onLeaveStatus,
+        fromLeaveDate,
+        toLeaveDate,
+        imageUri,
+        ownerImageUri,
+    }) {
         this.id = id;
         this.name = name;
         this.ownerName = ownerName;
@@ -24,21 +49,19 @@ export default class Shop {
         this.shopBeat = shopBeat;
         this.homeDeliveryMinOrderAmount = homeDeliveryMinOrderAmount;
         this.onLeaveStatus = onLeaveStatus;
+        this.fromLeaveDate = fromLeaveDate;
+        this.toLeaveDate = toLeaveDate;
         this.imageUri = imageUri;
+        this.ownerImageUri = ownerImageUri;
         this.isImmutable = false;
     }
 
     lock() {
-        this.isImmutable = true
-        return this
+        this.isImmutable = true;
+        return this;
     }
 
-    setAddress(address1,
-               address2,
-               landmark,
-               pinCode,
-               lat,
-               lng) {
+    setAddress(address1, address2, landmark, pinCode, lat, lng) {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
@@ -47,24 +70,24 @@ export default class Shop {
                 landmark,
                 pinCode,
                 lat,
-                lng
-            })
+                lng,
+            });
         }
-        this.address1 = address1
-        this.address2 = address2
-        this.landmark = landmark
-        this.pinCode = pinCode
+        this.address1 = address1;
+        this.address2 = address2;
+        this.landmark = landmark;
+        this.pinCode = pinCode;
         this.lat = lat;
         this.lng = lng;
-        return this
+        return this;
     }
 
     setName(name) {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                name
-            })
+                name,
+            });
         }
         this.name = name;
         return this;
@@ -74,8 +97,8 @@ export default class Shop {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                phone
-            })
+                phone,
+            });
         }
         this.phone = phone;
         return this;
@@ -85,8 +108,8 @@ export default class Shop {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                weeklyHolidays
-            })
+                weeklyHolidays,
+            });
         }
         this.weeklyHolidays = weeklyHolidays;
         return this;
@@ -96,8 +119,8 @@ export default class Shop {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                openTime
-            })
+                openTime,
+            });
         }
         this.openTime = openTime;
         return this;
@@ -107,21 +130,40 @@ export default class Shop {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                closeTime
-            })
+                closeTime,
+            });
         }
         this.closeTime = closeTime;
         return this;
     }
 
-    setOnLeaveStatus(onLeaveStatus) {
+    setOnLeaveStatus(fromLeaveDate, toLeaveDate) {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                onLeaveStatus
-            })
+                onLeaveStatus,
+                fromLeaveDate,
+                toLeaveDate
+            });
         }
-        this.onLeaveStatus = onLeaveStatus;
+        this.fromLeaveDate = fromLeaveDate;
+        this.toLeaveDate = toLeaveDate;
+        this.onLeaveStatus = !this.onLeaveStatus;
         return this;
+    }
+
+    setShopImage(imageUri) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({ ...this, imageUri });
+        }
+        this.imageUri = imageUri;
+        return this;
+    }
+
+    setOwnerImage(ownerImageUri) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({ ...this, ownerImageUri });
+        }
+        this.ownerImageUri = ownerImageUri;
     }
 }
