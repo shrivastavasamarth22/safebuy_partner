@@ -9,7 +9,10 @@ import {
     TouchableWithoutFeedback,
     TextInput,
     Keyboard,
-    ToastAndroid, TouchableNativeFeedback, ScrollView, FlatList
+    ToastAndroid,
+    TouchableNativeFeedback,
+    ScrollView,
+    FlatList, Alert,
 } from "react-native";
 import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -25,7 +28,7 @@ import * as shopActions from "../../store/actions/shop";
 
 import {TopBar, GradientButton, TimePicker, DaySelector} from "../../components";
 import {COLORS, images} from "../../constants";
-import { days } from "../../mock-data";
+import {days} from "../../mock-data";
 
 const ShopSettingsScreen = ({navigation}) => {
     const shopDetails = useSelector((state) => state.shop.shop);
@@ -40,8 +43,10 @@ const ShopSettingsScreen = ({navigation}) => {
 
     const [visible, setVisible] = useState(false);
     const [date, setDate] = useState(new Date())
-    const [openShow, setOpenShow] = useState(false)
-    const [closeShow, setCloseShow] = useState(false)
+    const [openTimeShow, setOpenTimeShow] = useState(false)
+    const [closeTimeShow, setCloseTimeShow] = useState(false)
+    const [fromDateShow, setFromDateShow] = useState(false);
+    const [toDateShow, setToDateShow] = useState(false);
 
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
@@ -58,6 +63,9 @@ const ShopSettingsScreen = ({navigation}) => {
         shopDetails.onLeaveStatus
     );
 
+    const [fromDate, setFromDate] = useState(shopDetails.fromLeaveDate)
+    const [toDate, setToDate] = useState(shopDetails.toLeaveDate)
+
     const onOpenDateTimeChange = (event, selectedDate) => {
         if (selectedDate) {
             const hours = selectedDate.getHours().toString()
@@ -70,7 +78,7 @@ const ShopSettingsScreen = ({navigation}) => {
                     hours: `0${hours}`,
                     minutes: `0${minutes}`
                 })
-            } else if(hourLength === 1 && minuteLength !== 1) {
+            } else if (hourLength === 1 && minuteLength !== 1) {
                 setOpenTime({
                     hours: `0${hours}`,
                     minutes
@@ -87,7 +95,7 @@ const ShopSettingsScreen = ({navigation}) => {
                 })
             }
         }
-        setOpenShow(false)
+        setOpenTimeShow(false)
     }
 
     const onCloseDateTimeChange = (event, selectedDate) => {
@@ -102,7 +110,7 @@ const ShopSettingsScreen = ({navigation}) => {
                     hours: `0${hours}`,
                     minutes: `0${minutes}`
                 })
-            } else if(hourLength === 1 && minuteLength !== 1) {
+            } else if (hourLength === 1 && minuteLength !== 1) {
                 setCloseTime({
                     hours: `0${hours}`,
                     minutes
@@ -119,7 +127,41 @@ const ShopSettingsScreen = ({navigation}) => {
                 })
             }
         }
-        setCloseShow(false)
+        setCloseTimeShow(false)
+    }
+
+    const onFromDateChange = (event, selectedDate) => {
+        if (selectedDate) {
+            if (selectedDate >= date) {
+                setFromDate(selectedDate)
+                setFromDateShow(false)
+            } else {
+                ToastAndroid.showWithGravity(
+                    'Please select an appropriate date date',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                )
+            }
+
+        }
+
+    }
+
+    const onToDateChange = (event, selectedDate) => {
+        if (selectedDate) {
+            if (selectedDate > fromDate) {
+                setToDate(selectedDate);
+                setToDateShow(false)
+            } else {
+                ToastAndroid.showWithGravity(
+                    'Please select an appropriate date',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                )
+            }
+
+        }
+
     }
 
     const onNameChange = (query) => {
@@ -145,6 +187,22 @@ const ShopSettingsScreen = ({navigation}) => {
     const onPinCodeChange = (query) => {
         setPinCode(query);
     };
+
+    const parseDate = (date) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let dt = date.getDate();
+
+        if (dt < 10) {
+            dt = '0' + dt;
+        }
+
+        return `${dt} ${monthNames[month]} ${year}`
+    }
 
     const onOpenBottomSheet = (ref) => {
         if (ref.current) {
@@ -222,22 +280,52 @@ const ShopSettingsScreen = ({navigation}) => {
         )
     }
 
+    const onSaveLeaveDates = () => {
+        dispatch(shopActions.changeOnLeaveStatusToTrue(1, fromDate, toDate))
+        setOnLeaveStatus(true)
+        onCloseBottomSheet(leaveSheetRef)
+        ToastAndroid.showWithGravity(
+            "Dates saved successfully",
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM
+        )
+    }
+
+    const onUnlockShop = () => {
+        dispatch(shopActions.changeOnLeaveStatusToFalse(1))
+        setOnLeaveStatus(false)
+        setFromDate(null);
+        setToDate(null);
+        Alert.alert(
+            'Shop Unlocked',
+            "It is great to have you back! 😊",
+            [
+                {
+                    text: "OK",
+                    onPress: () => {}
+                }
+            ]
+        )
+    }
+
     const NameChangeField = () => {
         return (
             <View style={sheetStyles.smallContainer}>
-                <Text style={sheetStyles.headerStyle}>
-                    Change Shop Name :
-                </Text>
-                <TextInput
-                    style={[sheetStyles.input, {marginBottom: 20}]}
-                    value={name}
-                    onChangeText={(t) => onNameChange(t)}
-                    placeholder={"New Name"}
-                />
-                <GradientButton
-                    text={"Save"}
-                    onPress={onSaveNamePress}
-                />
+                <View style={sheetStyles.contentContainer}>
+                    <Text style={sheetStyles.headerStyle}>
+                        Change Shop Name :
+                    </Text>
+                    <TextInput
+                        style={[sheetStyles.input, {marginBottom: 20}]}
+                        value={name}
+                        onChangeText={(t) => onNameChange(t)}
+                        placeholder={"New Name"}
+                    />
+                    <GradientButton
+                        text={"Save"}
+                        onPress={onSaveNamePress}
+                    />
+                </View>
             </View>
         )
     }
@@ -245,26 +333,28 @@ const ShopSettingsScreen = ({navigation}) => {
     const PhoneChangeField = () => {
         return (
             <View style={sheetStyles.smallContainer}>
-                <Text style={sheetStyles.headerStyle}>
-                    Change Phone Number :
-                </Text>
-                <View style={sheetStyles.inputContainer}>
-                    <View style={sheetStyles.codeContainer}>
-                        <Text style={sheetStyles.countryCode}>
-                            +91
-                        </Text>
+                <View style={sheetStyles.contentContainer}>
+                    <Text style={sheetStyles.headerStyle}>
+                        Change Phone Number :
+                    </Text>
+                    <View style={sheetStyles.inputContainer}>
+                        <View style={sheetStyles.codeContainer}>
+                            <Text style={sheetStyles.countryCode}>
+                                +91
+                            </Text>
+                        </View>
+                        <TextInput
+                            style={[sheetStyles.phoneInput, {marginBottom: 20}]}
+                            value={phone}
+                            onChangeText={(t) => onPhoneChange(t)}
+                            placeholder={"New Number"}
+                        />
                     </View>
-                    <TextInput
-                        style={[sheetStyles.phoneInput, {marginBottom: 20}]}
-                        value={phone}
-                        onChangeText={(t) => onPhoneChange(t)}
-                        placeholder={"New Number"}
+                    <GradientButton
+                        text={"Save"}
+                        onPress={onSavePhonePress}
                     />
                 </View>
-                <GradientButton
-                    text={"Save"}
-                    onPress={onSavePhonePress}
-                />
             </View>
         )
     }
@@ -312,20 +402,20 @@ const ShopSettingsScreen = ({navigation}) => {
             <View style={sheetStyles.mediumContainer}>
                 <TimePicker
                     heading={"Enter Opening Time :"}
-                    icon={<Feather name={"sun"} size={24} color={"#000"} />}
+                    icon={<Feather name={"sun"} size={24} color={"#000"}/>}
                     hours={openTime.hours}
                     minutes={openTime.minutes}
-                    onPress={() => setOpenShow(true)}
+                    onPress={() => setOpenTimeShow(true)}
                 />
                 <TimePicker
                     heading={"Enter Closing Time :"}
                     style={{
                         marginTop: 15
                     }}
-                    icon={<Feather name={"moon"} size={24} color={"#000"} />}
+                    icon={<Feather name={"moon"} size={24} color={"#000"}/>}
                     hours={closeTime.hours}
                     minutes={closeTime.minutes}
-                    onPress={() => setCloseShow(true)}
+                    onPress={() => setCloseTimeShow(true)}
                 />
                 <View style={sheetStyles.mainHolidayButtonContainer}>
                     <TouchableOpacity
@@ -335,7 +425,7 @@ const ShopSettingsScreen = ({navigation}) => {
                         <Text style={sheetStyles.holidayButtonText}>
                             Holidays :
                         </Text>
-                        <Entypo name="chevron-right" size={24} color="#555" />
+                        <Entypo name="chevron-right" size={24} color="#555"/>
                     </TouchableOpacity>
                     <View
                         style={sheetStyles.divider}
@@ -360,10 +450,10 @@ const ShopSettingsScreen = ({navigation}) => {
                 <FlatList
                     data={days}
                     keyExtractor={item => item.english}
-                    renderItem={({ item }) => {
+                    renderItem={({item}) => {
                         const foundDay = weeklyHolidays.find(id => id === item.id)
                         const isFound = !!foundDay
-                        return(
+                        return (
                             <DaySelector
                                 englishText={item.english}
                                 hindiText={item.hindi}
@@ -381,6 +471,67 @@ const ShopSettingsScreen = ({navigation}) => {
                         alignSelf: 'center'
                     }}
                     onPress={() => onCloseBottomSheet(holidaySheetRef)}
+                />
+            </View>
+        )
+    }
+
+    const LeaveChangeField = () => {
+        return (
+            <View style={sheetStyles.smallContainer}>
+                <View style={{
+                    width: "100%",
+                }}>
+                    <TouchableOpacity
+                        style={sheetStyles.rowContainer}
+                        onPress={() => setFromDateShow(true)}
+                    >
+                        <Text style={sheetStyles.fieldText}>
+                            Set Starting Date :
+                        </Text>
+                        {
+                            fromDate !== null
+                                ? <Text style={sheetStyles.buttonText}>
+                                    {parseDate(fromDate)}
+                                </Text>
+                                : <Entypo name={"calendar"} size={28} color={COLORS.blue}/>
+                        }
+                    </TouchableOpacity>
+                    <View
+                        style={sheetStyles.divider}
+                    />
+                </View>
+                <View style={{
+                    width: "100%",
+                    marginTop: 15
+                }}>
+                    <TouchableOpacity
+                        style={sheetStyles.rowContainer}
+                        onPress={() => setToDateShow(true)}
+                    >
+                        <Text style={sheetStyles.fieldText}>
+                            Set Ending Date :
+                        </Text>
+                        {
+                            toDate !== null
+                                ? <Text style={sheetStyles.buttonText}>
+                                    {parseDate(toDate)}
+                                </Text>
+                                : <Entypo name={"calendar"} size={28} color={COLORS.blue}/>
+                        }
+                    </TouchableOpacity>
+                    <View
+                        style={sheetStyles.divider}
+                    />
+                </View>
+                <GradientButton
+                    text={"Save"}
+                    style={{
+                        marginTop: 20,
+                        width: "95%",
+                        alignSelf: 'center'
+                    }}
+                    onPress={onSaveLeaveDates}
                 />
             </View>
         )
@@ -536,27 +687,58 @@ const ShopSettingsScreen = ({navigation}) => {
                         </View>
                     </TouchableNativeFeedback>
 
-                    <TouchableNativeFeedback>
-                        <View style={[styles.settingCard, {paddingVertical: 20}]}>
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
+                    {
+                        !onLeaveStatus
+                            ? <TouchableNativeFeedback
+                                onPress={() => onOpenBottomSheet(leaveSheetRef)}
                             >
-                                <Entypo name="calendar" size={24} color="#555"/>
-                                <View
-                                    style={{
-                                        marginLeft: 40,
-                                    }}
-                                >
-                                    <Text style={styles.valueTextStyle}>
-                                        Take Leave
-                                    </Text>
+                                <View style={[styles.settingCard, {paddingVertical: 20}]}>
+                                    <View
+                                        style={{
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Entypo name="calendar" size={24} color="#555"/>
+                                        <View
+                                            style={{
+                                                marginLeft: 40,
+                                            }}
+                                        >
+                                            <Text style={styles.valueTextStyle}>
+                                                Take A Long Vacation
+                                            </Text>
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        </View>
-                    </TouchableNativeFeedback>
+                            </TouchableNativeFeedback>
+
+                            : <TouchableNativeFeedback
+                                onPress={onUnlockShop}
+                            >
+                                <View style={[styles.settingCard, {paddingVertical: 20}]}>
+                                    <View
+                                        style={{
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Entypo name="calendar" size={24} color="#555"/>
+                                        <View style={{
+                                            marginLeft: 40
+                                        }}>
+                                            <Text style={[styles.valueTextStyle, { width: "70%" }]}>
+                                                {`You are on leave from ${parseDate(fromDate)} to ${parseDate(toDate)}`}
+                                            </Text>
+                                            <Text style={styles.subTextStyle}>
+                                                Tap to unlock
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </TouchableNativeFeedback>
+                    }
+
                 </ScrollView>
             </View>
             {visible ? (
@@ -569,8 +751,10 @@ const ShopSettingsScreen = ({navigation}) => {
                         onCloseBottomSheet(holidaySheetRef)
                         onCloseBottomSheet(leaveSheetRef);
                         setVisible(false)
-                        setOpenShow(false)
-                        setCloseShow(false)
+                        setOpenTimeShow(false)
+                        setCloseTimeShow(false)
+                        setFromDateShow(false)
+                        setToDateShow(false)
                         Keyboard.dismiss();
                     }}
                 >
@@ -586,7 +770,7 @@ const ShopSettingsScreen = ({navigation}) => {
                 </TouchableWithoutFeedback>
             ) : null}
             {
-                openShow && (
+                openTimeShow && (
                     <DateTimePicker
                         value={date}
                         mode={'time'}
@@ -597,13 +781,33 @@ const ShopSettingsScreen = ({navigation}) => {
                 )
             }
             {
-                closeShow && (
+                closeTimeShow && (
                     <DateTimePicker
                         value={date}
                         mode={'time'}
                         is24Hour
                         display={"spinner"}
                         onChange={onCloseDateTimeChange}
+                    />
+                )
+            }
+            {
+                fromDateShow && (
+                    <DateTimePicker
+                        value={date}
+                        mode={'date'}
+                        is24Hour
+                        onChange={onFromDateChange}
+                    />
+                )
+            }
+            {
+                toDateShow && (
+                    <DateTimePicker
+                        value={fromDate}
+                        mode={'date'}
+                        is24Hour
+                        onChange={onToDateChange}
                     />
                 )
             }
@@ -647,6 +851,14 @@ const ShopSettingsScreen = ({navigation}) => {
                 enabledContentGestureInteraction={false}
                 renderContent={HolidaysChangeField}
             />
+            <BottomSheet
+                ref={leaveSheetRef}
+                snapPoints={[0, 200]}
+                initialSnap={0}
+                enabledContentTapInteraction={false}
+                enabledContentGestureInteraction={false}
+                renderContent={LeaveChangeField}
+            />
         </>
     );
 }
@@ -660,7 +872,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "32%",
         resizeMode: "cover",
-        backgroundColor: "red",
     },
     profilePicStyle: {
         position: "absolute",
@@ -726,8 +937,12 @@ const sheetStyles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         backgroundColor: 'white',
-        paddingTop: 15,
+        paddingTop: 15
+    },
+    contentContainer: {
+        width: "100%",
         paddingHorizontal: 24,
+        flex: 1
     },
     mediumContainer: {
         height: 300,
@@ -757,6 +972,13 @@ const sheetStyles = StyleSheet.create({
         fontSize: 16,
         color: "#1d1d1d",
         marginBottom: 10
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 24,
+        marginBottom: 15
     },
     input: {
         width: "100%",
@@ -825,6 +1047,16 @@ const sheetStyles = StyleSheet.create({
         height: 0.6,
         backgroundColor: "#CCC"
     },
+    fieldText: {
+        fontFamily: 'Roboto_400Regular',
+        fontSize: 18,
+        color: 'black',
+    },
+    buttonText: {
+        fontFamily: 'Roboto_500Medium',
+        fontSize: 18,
+        color: COLORS.blue
+    }
 });
 
 export default ShopSettingsScreen;

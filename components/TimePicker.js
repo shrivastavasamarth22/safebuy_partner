@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Feather} from "@expo/vector-icons";
+import {COLORS} from "../constants";
 
 /**
  * @param {string} heading The heading text of the section
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     timeButton: {
         fontFamily: 'Roboto_500Medium',
         fontSize: 20,
-        color: '#2699FB',
+        color: COLORS.blue,
         marginLeft: 10
     },
     divider: {

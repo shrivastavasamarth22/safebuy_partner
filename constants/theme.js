@@ -8,6 +8,7 @@ export const COLORS = {
     lavender: '#8c24e3',
     darkLavender: '#6d0fbc',
     green: '#56B532',
+    blue: '#2699FB',
 
     // linear-gradient-primary
     fromPrimaryGradientColor: '#32B100',

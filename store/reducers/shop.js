@@ -5,9 +5,10 @@ import {
     CHANGE_HOLIDAYS,
     CHANGE_OPEN_TIME,
     CHANGE_CLOSE_TIME,
-    CHANGE_ON_LEAVE_STATUS,
     CHANGE_SHOP_IMAGE,
     CHANGE_OWNER_IMAGE,
+    CHANGE_ON_LEAVE_STATUS_TO_TRUE,
+    CHANGE_ON_LEAVE_STATUS_TO_FALSE
 } from "../actions/shop";
 import {Shop} from "../../models";
 
@@ -99,12 +100,19 @@ export default (state = initialState, action) => {
             return {...state, shop};
         }
 
-        case CHANGE_ON_LEAVE_STATUS: {
-            const shop = state.shop.setOnLeaveStatus(
+        case CHANGE_ON_LEAVE_STATUS_TO_TRUE: {
+            const shop = state.shop.setOnLeaveStatusToTrue(
                 action.payload.fromDate,
                 action.payload.toDate,
             );
             return {...state, shop};
+        }
+
+        case CHANGE_ON_LEAVE_STATUS_TO_FALSE: {
+            const shop = state.shop.setOnLeaveStatusToFalse(
+                action.payload.id
+            );
+            return {...state, shop}
         }
 
         case CHANGE_SHOP_IMAGE: {

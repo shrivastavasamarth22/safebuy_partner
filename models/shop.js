@@ -137,19 +137,35 @@ export default class Shop {
         return this;
     }
 
-    setOnLeaveStatus(fromLeaveDate, toLeaveDate) {
+    setOnLeaveStatusToTrue(fromLeaveDate, toLeaveDate) {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
                 ...this,
-                onLeaveStatus,
+                onLeaveStatus: true,
                 fromLeaveDate,
                 toLeaveDate
             });
         }
         this.fromLeaveDate = fromLeaveDate;
         this.toLeaveDate = toLeaveDate;
-        this.onLeaveStatus = !this.onLeaveStatus;
+        this.onLeaveStatus = true;
         return this;
+    }
+
+    setOnLeaveStatusToFalse(id) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({
+                ...this,
+                onLeaveStatus: false,
+                fromLeaveDate: null,
+                toLeaveDate: null
+            })
+        }
+        this.fromLeaveDate = null;
+        this.toLeaveDate = null;
+        this.onLeaveStatus = false;
+        return this;
+
     }
 
     setShopImage(imageUri) {

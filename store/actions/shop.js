@@ -4,7 +4,8 @@ export const CHANGE_SHOP_ADDRESS = "CHANGE_SHOP_ADDRESS";
 export const CHANGE_HOLIDAYS = "CHANGE_HOLIDAYS";
 export const CHANGE_OPEN_TIME = "CHANGE_OPEN_TIME";
 export const CHANGE_CLOSE_TIME = "CHANGE_CLOSE_TIME";
-export const CHANGE_ON_LEAVE_STATUS = "CHANGE_ON_LEAVE_STATUS";
+export const CHANGE_ON_LEAVE_STATUS_TO_TRUE = "CHANGE_ON_LEAVE_STATUS_TO_TRUE";
+export const CHANGE_ON_LEAVE_STATUS_TO_FALSE = "CHANGE_ON_LEAVE_STATUS_TO_FALSE";
 export const CHANGE_SHOP_IMAGE = "CHANGE_SHOP_IMAGE";
 export const CHANGE_OWNER_IMAGE = "CHANGE_OWNER_IMAGE";
 
@@ -83,9 +84,9 @@ export const changeCloseTime = (id, newHours, newMinutes) => {
     };
 };
 
-export const changeOnLeaveStatus = (id, fromDate, toDate) => {
+export const changeOnLeaveStatusToTrue = (id, fromDate, toDate) => {
     return {
-        type: CHANGE_ON_LEAVE_STATUS,
+        type: CHANGE_ON_LEAVE_STATUS_TO_TRUE,
         payload: {
             id,
             fromDate,
@@ -93,6 +94,15 @@ export const changeOnLeaveStatus = (id, fromDate, toDate) => {
         },
     };
 };
+
+export const changeOnLeaveStatusToFalse = (id) => {
+    return {
+        type: CHANGE_ON_LEAVE_STATUS_TO_FALSE,
+        payload: {
+            id
+        }
+    }
+}
 
 export const changeShopImage = (id, newImageUri) => {
     return {
