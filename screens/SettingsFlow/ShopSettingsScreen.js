@@ -12,7 +12,9 @@ import {
     ToastAndroid,
     TouchableNativeFeedback,
     ScrollView,
-    FlatList, Alert,
+    FlatList,
+    Alert,
+    Dimensions
 } from "react-native";
 import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -24,6 +26,7 @@ import {
     Feather,
 } from "@expo/vector-icons";
 import BottomSheet from "reanimated-bottom-sheet";
+import CalendarPicker from 'react-native-calendar-picker'
 import * as shopActions from "../../store/actions/shop";
 
 import {TopBar, GradientButton, TimePicker, DaySelector} from "../../components";
@@ -45,8 +48,6 @@ const ShopSettingsScreen = ({navigation}) => {
     const [date, setDate] = useState(new Date())
     const [openTimeShow, setOpenTimeShow] = useState(false)
     const [closeTimeShow, setCloseTimeShow] = useState(false)
-    const [fromDateShow, setFromDateShow] = useState(false);
-    const [toDateShow, setToDateShow] = useState(false);
 
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
@@ -65,6 +66,8 @@ const ShopSettingsScreen = ({navigation}) => {
 
     const [fromDate, setFromDate] = useState(shopDetails.fromLeaveDate)
     const [toDate, setToDate] = useState(shopDetails.toLeaveDate)
+
+    const { width } = Dimensions.get('window')
 
     const onOpenDateTimeChange = (event, selectedDate) => {
         if (selectedDate) {
@@ -130,34 +133,12 @@ const ShopSettingsScreen = ({navigation}) => {
         setCloseTimeShow(false)
     }
 
-    const onFromDateChange = (event, selectedDate) => {
+    const onDateChange = (selectedDate, type) => {
         if (selectedDate) {
-            if (selectedDate >= date) {
+            if (type === 'START_DATE') {
                 setFromDate(selectedDate)
-                setFromDateShow(false)
             } else {
-                ToastAndroid.showWithGravity(
-                    'Please select an appropriate date date',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                )
-            }
-
-        }
-
-    }
-
-    const onToDateChange = (event, selectedDate) => {
-        if (selectedDate) {
-            if (selectedDate > fromDate) {
-                setToDate(selectedDate);
-                setToDateShow(false)
-            } else {
-                ToastAndroid.showWithGravity(
-                    'Please select an appropriate date',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER
-                )
+                setToDate(selectedDate)
             }
 
         }
@@ -478,61 +459,48 @@ const ShopSettingsScreen = ({navigation}) => {
 
     const LeaveChangeField = () => {
         return (
-            <View style={sheetStyles.smallContainer}>
+            <View style={sheetStyles.xLargeContainer}>
                 <View style={{
+                    marginTop: 10,
                     width: "100%",
+                    paddingHorizontal: 12,
+                    marginBottom: 20
                 }}>
-                    <TouchableOpacity
-                        style={sheetStyles.rowContainer}
-                        onPress={() => setFromDateShow(true)}
-                    >
-                        <Text style={sheetStyles.fieldText}>
-                            Set Starting Date :
-                        </Text>
-                        {
-                            fromDate !== null
-                                ? <Text style={sheetStyles.buttonText}>
-                                    {parseDate(fromDate)}
-                                </Text>
-                                : <Entypo name={"calendar"} size={28} color={COLORS.blue}/>
-                        }
-                    </TouchableOpacity>
-                    <View
-                        style={sheetStyles.divider}
+                    <Text style={{
+                        fontFamily: 'uber_move_medium',
+                        fontSize: 18,
+                        color: '#555'
+                    }}>
+                        Today :
+                    </Text>
+                    <Text style={{
+                        fontFamily: 'uber_move_bold',
+                        fontSize: 24,
+                        color: '#555'
+                    }}>
+                        {parseDate(date)}
+                    </Text>
+                </View>
+                <View style={sheetStyles.calendarContainer}>
+                    <CalendarPicker
+                        startFromMonday={true}
+                        allowRangeSelection={true}
+                        minDate={date}
+                        todayBackgroundColor={COLORS.blue}
+                        selectedDayColor={COLORS.primary}
+                        selectedDayTextColor={'#FFF'}
+                        onDateChange={onDateChange}
+                        customDayHeaderStyles={() => (
+                            {
+                                textStyle: [sheetStyles.headerStyle, { marginBottom: 0 }]
+                            }
+                        )}
+                        previousTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0 }]}
+                        nextTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0 }]}
+                        monthTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0, fontSize: 24 }]}
+                        yearTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0, fontSize: 24 }]}
                     />
                 </View>
-                <View style={{
-                    width: "100%",
-                    marginTop: 15
-                }}>
-                    <TouchableOpacity
-                        style={sheetStyles.rowContainer}
-                        onPress={() => setToDateShow(true)}
-                    >
-                        <Text style={sheetStyles.fieldText}>
-                            Set Ending Date :
-                        </Text>
-                        {
-                            toDate !== null
-                                ? <Text style={sheetStyles.buttonText}>
-                                    {parseDate(toDate)}
-                                </Text>
-                                : <Entypo name={"calendar"} size={28} color={COLORS.blue}/>
-                        }
-                    </TouchableOpacity>
-                    <View
-                        style={sheetStyles.divider}
-                    />
-                </View>
-                <GradientButton
-                    text={"Save"}
-                    style={{
-                        marginTop: 20,
-                        width: "95%",
-                        alignSelf: 'center'
-                    }}
-                    onPress={onSaveLeaveDates}
-                />
             </View>
         )
     }
@@ -753,8 +721,6 @@ const ShopSettingsScreen = ({navigation}) => {
                         setVisible(false)
                         setOpenTimeShow(false)
                         setCloseTimeShow(false)
-                        setFromDateShow(false)
-                        setToDateShow(false)
                         Keyboard.dismiss();
                     }}
                 >
@@ -788,26 +754,6 @@ const ShopSettingsScreen = ({navigation}) => {
                         is24Hour
                         display={"spinner"}
                         onChange={onCloseDateTimeChange}
-                    />
-                )
-            }
-            {
-                fromDateShow && (
-                    <DateTimePicker
-                        value={date}
-                        mode={'date'}
-                        is24Hour
-                        onChange={onFromDateChange}
-                    />
-                )
-            }
-            {
-                toDateShow && (
-                    <DateTimePicker
-                        value={fromDate}
-                        mode={'date'}
-                        is24Hour
-                        onChange={onToDateChange}
                     />
                 )
             }
@@ -853,7 +799,7 @@ const ShopSettingsScreen = ({navigation}) => {
             />
             <BottomSheet
                 ref={leaveSheetRef}
-                snapPoints={[0, 200]}
+                snapPoints={[0, 600]}
                 initialSnap={0}
                 enabledContentTapInteraction={false}
                 enabledContentGestureInteraction={false}
@@ -964,7 +910,6 @@ const sheetStyles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         backgroundColor: 'white',
-        justifyContent: 'center',
         paddingTop: 15
     },
     headerStyle: {
@@ -1056,6 +1001,11 @@ const sheetStyles = StyleSheet.create({
         fontFamily: 'Roboto_500Medium',
         fontSize: 18,
         color: COLORS.blue
+    },
+    calendarContainer: {
+        width: "100%",
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
 
