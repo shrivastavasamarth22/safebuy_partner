@@ -1,37 +1,31 @@
-import React, {useState, useRef} from "react";
+import React, {useRef, useState} from "react";
 import {
-    View,
-    StyleSheet,
-    StatusBar,
+    Alert,
+    FlatList,
     Image,
-    TouchableOpacity,
-    Text,
-    TouchableWithoutFeedback,
-    TextInput,
     Keyboard,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TextInput,
     ToastAndroid,
     TouchableNativeFeedback,
-    ScrollView,
-    FlatList,
-    Alert,
-    Dimensions
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
 } from "react-native";
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import DateTimePicker from '@react-native-community/datetimepicker'
-import {
-    AntDesign,
-    Entypo,
-    MaterialIcons,
-    FontAwesome,
-    Feather,
-} from "@expo/vector-icons";
+import {AntDesign, Entypo, Feather, FontAwesome, MaterialIcons,} from "@expo/vector-icons";
 import BottomSheet from "reanimated-bottom-sheet";
 import CalendarPicker from 'react-native-calendar-picker'
 import * as shopActions from "../../store/actions/shop";
 
-import {TopBar, GradientButton, TimePicker, DaySelector} from "../../components";
+import {DaySelector, GradientButton, TimePicker, TopBar} from "../../components";
 import {COLORS, images} from "../../constants";
 import {days} from "../../mock-data";
+import {LinearGradient} from "expo-linear-gradient";
 
 const ShopSettingsScreen = ({navigation}) => {
     const shopDetails = useSelector((state) => state.shop.shop);
@@ -67,7 +61,6 @@ const ShopSettingsScreen = ({navigation}) => {
     const [fromDate, setFromDate] = useState(shopDetails.fromLeaveDate)
     const [toDate, setToDate] = useState(shopDetails.toLeaveDate)
 
-    const { width } = Dimensions.get('window')
 
     const onOpenDateTimeChange = (event, selectedDate) => {
         if (selectedDate) {
@@ -136,13 +129,11 @@ const ShopSettingsScreen = ({navigation}) => {
     const onDateChange = (selectedDate, type) => {
         if (selectedDate) {
             if (type === 'START_DATE') {
-                setFromDate(selectedDate)
+                setFromDate(selectedDate.toDate())
             } else {
-                setToDate(selectedDate)
+                setToDate(selectedDate.toDate())
             }
-
         }
-
     }
 
     const onNameChange = (query) => {
@@ -170,19 +161,39 @@ const ShopSettingsScreen = ({navigation}) => {
     };
 
     const parseDate = (date) => {
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
 
-        let year = date.getFullYear();
-        let month = date.getMonth();
-        let dt = date.getDate();
+        let year = date.getUTCFullYear();
+        let month = date.getUTCMonth();
+        let dt = date.getUTCDate();
+        let day = date.getUTCDay();
 
         if (dt < 10) {
             dt = '0' + dt;
         }
 
-        return `${dt} ${monthNames[month]} ${year}`
+        return `${dayNames[day]}, ${dt} ${monthNames[month]} ${year}`
+    }
+
+    const parseDays = () => {
+        if (fromDate !== null && toDate !== null) {
+            const oneDay = 24 * 60 * 60 * 1000;
+            const from_ms = fromDate.getTime();
+            const to_ms = toDate.getTime()
+            let diff = Math.round((Math.abs((from_ms - to_ms)) / oneDay) + 1).toString();
+            if (diff.length === 1) {
+                return `0${diff}`
+            } else {
+                return diff;
+            }
+
+        } else {
+            return "N/A"
+        }
     }
 
     const onOpenBottomSheet = (ref) => {
@@ -283,7 +294,8 @@ const ShopSettingsScreen = ({navigation}) => {
             [
                 {
                     text: "OK",
-                    onPress: () => {}
+                    onPress: () => {
+                    }
                 }
             ]
         )
@@ -459,47 +471,103 @@ const ShopSettingsScreen = ({navigation}) => {
 
     const LeaveChangeField = () => {
         return (
-            <View style={sheetStyles.xLargeContainer}>
-                <View style={{
-                    marginTop: 10,
-                    width: "100%",
-                    paddingHorizontal: 12,
-                    marginBottom: 20
-                }}>
-                    <Text style={{
-                        fontFamily: 'uber_move_medium',
-                        fontSize: 18,
-                        color: '#555'
-                    }}>
-                        Today :
-                    </Text>
-                    <Text style={{
-                        fontFamily: 'uber_move_bold',
-                        fontSize: 24,
-                        color: '#555'
-                    }}>
-                        {parseDate(date)}
-                    </Text>
-                </View>
+            <View style={sheetStyles.xXLargeContainer}>
                 <View style={sheetStyles.calendarContainer}>
                     <CalendarPicker
-                        startFromMonday={true}
+                        startFromMonday={false}
+                        showDayStragglers={false}
                         allowRangeSelection={true}
                         minDate={date}
                         todayBackgroundColor={COLORS.blue}
-                        selectedDayColor={COLORS.primary}
-                        selectedDayTextColor={'#FFF'}
+                        selectedDayTextColor={'white'}
+                        restrictMonthNavigation={true}
+                        selectedRangeStartStyle={{
+                            backgroundColor: COLORS.green,
+                        }}
+                        selectedRangeEndStyle={{
+                            backgroundColor: COLORS.green
+                        }}
+                        selectedRangeStyle={{
+                            backgroundColor: 'rgba(108, 194, 75, 0.8)',
+                        }}
                         onDateChange={onDateChange}
                         customDayHeaderStyles={() => (
                             {
-                                textStyle: [sheetStyles.headerStyle, { marginBottom: 0 }]
+                                textStyle: [sheetStyles.headerStyle, {marginBottom: 0}]
                             }
                         )}
-                        previousTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0 }]}
-                        nextTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0 }]}
-                        monthTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0, fontSize: 24 }]}
-                        yearTitleStyle={[sheetStyles.headerStyle, { marginBottom: 0, fontSize: 24 }]}
+                        previousTitleStyle={[sheetStyles.headerStyle, {marginBottom: 0}]}
+                        nextTitleStyle={[sheetStyles.headerStyle, {marginBottom: 0}]}
+                        monthTitleStyle={[sheetStyles.headerStyle, {marginBottom: 0, fontSize: 24}]}
+                        yearTitleStyle={[sheetStyles.headerStyle, {marginBottom: 0, fontSize: 24}]}
                     />
+                </View>
+
+                <View style={sheetStyles.calendarTextContainer}>
+                    <View>
+                        <Text style={sheetStyles.calendarTextSmall}>
+                            Today :
+                        </Text>
+                        <Text style={sheetStyles.calendarTextLarge}>
+                            {parseDate(date)}
+                        </Text>
+                    </View>
+                    <View style={{
+                        alignItems: 'flex-end'
+                    }}>
+                        <Text style={sheetStyles.calendarTextSmall}>
+                            No. of Close Days :
+                        </Text>
+                        <Text style={sheetStyles.calendarTextLarge}>
+                            {parseDays()}
+                        </Text>
+                    </View>
+                </View>
+
+                <View style={sheetStyles.calendarDateContainer}>
+
+                    <View style={sheetStyles.calendarDateIndicator}>
+                        <Text style={[sheetStyles.calendarTextSmall, {marginBottom: 5, fontSize: 14}]}>
+                            From Date :
+                        </Text>
+                        <Text style={[sheetStyles.calendarTextLarge, {fontSize: 18}]}>
+                            {
+                                fromDate === null ? "Not Selected" : parseDate(fromDate)
+                            }
+                        </Text>
+                    </View>
+
+                    <View style={sheetStyles.calendarDateIndicator}>
+                        <Text style={[sheetStyles.calendarTextSmall, {marginBottom: 5, fontSize: 14}]}>
+                            To Date :
+                        </Text>
+                        <Text style={[sheetStyles.calendarTextLarge, {fontSize: 18}]}>
+                            {
+                                toDate === null ? "Not Selected" : parseDate(toDate)
+                            }
+                        </Text>
+                    </View>
+
+                </View>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'flex-end',
+                    paddingHorizontal: 12
+                }}>
+                    <TouchableOpacity
+                        style={styles.buttonContainer}
+                    >
+                        <LinearGradient
+                            colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 0}}
+                            style={styles.buttonGradientStyle}
+                        >
+                            <Text style={styles.buttonTextStyle}>
+                                Save
+                            </Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -674,7 +742,10 @@ const ShopSettingsScreen = ({navigation}) => {
                                             }}
                                         >
                                             <Text style={styles.valueTextStyle}>
-                                                Take A Long Vacation
+                                                Select Dates
+                                            </Text>
+                                            <Text style={styles.subTextStyle}>
+                                                Shop closed long days
                                             </Text>
                                         </View>
                                     </View>
@@ -695,7 +766,7 @@ const ShopSettingsScreen = ({navigation}) => {
                                         <View style={{
                                             marginLeft: 40
                                         }}>
-                                            <Text style={[styles.valueTextStyle, { width: "70%" }]}>
+                                            <Text style={[styles.valueTextStyle, {width: "70%"}]}>
                                                 {`You are on leave from ${parseDate(fromDate)} to ${parseDate(toDate)}`}
                                             </Text>
                                             <Text style={styles.subTextStyle}>
@@ -799,7 +870,7 @@ const ShopSettingsScreen = ({navigation}) => {
             />
             <BottomSheet
                 ref={leaveSheetRef}
-                snapPoints={[0, 600]}
+                snapPoints={[0, 700]}
                 initialSnap={0}
                 enabledContentTapInteraction={false}
                 enabledContentGestureInteraction={false}
@@ -875,6 +946,21 @@ const styles = StyleSheet.create({
     editButtonStyle: {
         padding: 5,
     },
+    buttonContainer: {
+        marginBottom: 10,
+    },
+    buttonGradientStyle: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: "100%",
+        height: 50,
+        borderRadius: 5
+    },
+    buttonTextStyle: {
+        fontSize: 18,
+        fontFamily: "Roboto_500Medium",
+        color: "white",
+    },
 });
 
 const sheetStyles = StyleSheet.create({
@@ -907,6 +993,13 @@ const sheetStyles = StyleSheet.create({
     },
     xLargeContainer: {
         height: 600,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        backgroundColor: 'white',
+        paddingTop: 15
+    },
+    xXLargeContainer: {
+        height: 700,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         backgroundColor: 'white',
@@ -1006,6 +1099,46 @@ const sheetStyles = StyleSheet.create({
         width: "100%",
         alignItems: 'center',
         justifyContent: 'center',
+        paddingBottom: 10,
+        borderBottomColor: '#CCC',
+        borderBottomWidth: 0.6
+    },
+    calendarTextContainer: {
+        marginTop: 20,
+        paddingVertical: 5,
+        width: "100%",
+        marginBottom: 10,
+        paddingHorizontal: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    calendarTextSmall: {
+        fontFamily: 'uber_move_medium',
+        fontSize: 16,
+        color: '#000',
+        marginBottom: 5,
+    },
+    calendarTextLarge: {
+        fontFamily: 'uber_move_medium',
+        fontSize: 18,
+        color: '#000'
+    },
+    calendarDateContainer: {
+        width: "100%",
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 12,
+        justifyContent: 'space-between',
+    },
+    calendarDateIndicator: {
+        paddingHorizontal: 12,
+        justifyContent: 'center',
+        height: 120,
+        elevation: 5,
+        width: "48%",
+        backgroundColor: 'white',
+        borderRadius: 8
     }
 });
 
