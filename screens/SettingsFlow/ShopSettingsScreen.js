@@ -556,6 +556,7 @@ const ShopSettingsScreen = ({navigation}) => {
                 }}>
                     <TouchableOpacity
                         style={styles.buttonContainer}
+                        onPress={onSaveLeaveDates}
                     >
                         <LinearGradient
                             colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}
