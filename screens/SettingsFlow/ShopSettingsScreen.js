@@ -585,20 +585,43 @@ const ShopSettingsScreen = ({navigation}) => {
                 {/* Top Bar */}
                 <TopBar
                     headerText={"Shop Settings"}
-                    onBackButtonPress={navigation.goBack}
+                    onBackButtonPress={() => navigation.navigate("SettingsScreen")}
                 />
 
                 {/* Shop Picture Banner */}
+
+                {
+                    shopDetails.imageUri !== ""
+                    ? <Image source={{ uri: shopDetails.imageUri }} style={styles.bannerStyle}/>
+                        : <Image source={images.shop} style={styles.bannerStyle}/>
+                }
+
+                <TouchableOpacity
+                    style={{
+                        position: "absolute",
+                        bottom: "56%",
+                        left: 12,
+                    }}
+                    onPress={() => navigation.navigate("CameraScreen", {
+                        purpose: "user"
+                    })}
+                >
+                    {
+                        shopDetails.ownerImageUri !== ""
+                            ? <Image source={{ uri: shopDetails.ownerImageUri }} style={styles.profilePicStyle}/>
+                            : <Image source={images.user} style={styles.profilePicStyle}/>
+                    }
+                </TouchableOpacity>
+
+
                 <TouchableOpacity
                     style={styles.cameraButtonContainer}
-                    onPress={() => {
-                        console.log("Camera Button Pressed");
-                    }}
+                    onPress={() => navigation.navigate("CameraScreen", {
+                        purpose: 'shop'
+                    })}
                 >
                     <AntDesign name="camera" size={26} color="white"/>
                 </TouchableOpacity>
-                <Image source={images.shop} style={styles.bannerStyle}/>
-                <Image source={images.user} style={styles.profilePicStyle}/>
 
                 {/*  Shop Setting Cards  */}
                 <ScrollView style={styles.settingCardContainer}>
@@ -717,7 +740,7 @@ const ShopSettingsScreen = ({navigation}) => {
                                     }}
                                 >
                                     <Text style={styles.valueTextStyle}>
-                                        Shop Timings & Weekly Off
+                                        Daily Shop Timings & Weekly Off
                                     </Text>
                                 </View>
                             </View>
@@ -892,12 +915,9 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
     },
     profilePicStyle: {
-        position: "absolute",
         height: 120,
         width: 120,
         borderRadius: 60,
-        bottom: "56%",
-        left: 12,
     },
     cameraButtonContainer: {
         position: "absolute",
@@ -905,11 +925,11 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         backgroundColor: COLORS.orange,
-        elevation: 20,
         alignItems: "center",
         justifyContent: "center",
         top: "10%",
         right: 12,
+        elevation: 20
     },
     settingCardContainer: {
         flex: 1,

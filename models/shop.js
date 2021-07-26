@@ -181,5 +181,6 @@ export default class Shop {
             return Shop.fromSnapshot({ ...this, ownerImageUri });
         }
         this.ownerImageUri = ownerImageUri;
+        return this;
     }
 }

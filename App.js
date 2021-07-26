@@ -6,9 +6,12 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux";
 
+import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
+
 import inventoryReducer from './store/reducers/inventory'
 import shopReducer from './store/reducers/shop'
 import inventoryCartReducer from './store/reducers/inventory-cart'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
@@ -17,6 +20,24 @@ const rootReducer = combineReducers({
 })
 
 const store = createStore(rootReducer);
+
+const setupProfilePics = async () => {
+
+    const shop_result = await AsyncStorage.getItem('@shop_img')
+    const user_result = await AsyncStorage.getItem('@user_img')
+    const id = store.getState().shop.id;
+
+    if (!shop_result && !user_result) return
+
+    if (shop_result) {
+        store.dispatch(changeShopImage(id, shop_result))
+    }
+
+    if (user_result) {
+        store.dispatch(changeShopImage(id, user_result))
+    }
+
+}
 
 const setupFonts = () => Font.loadAsync({
     'uber_move_medium': require('./assets/fonts/UberMoveMedium.otf'),

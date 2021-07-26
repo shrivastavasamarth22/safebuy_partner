@@ -42,6 +42,7 @@ const initialState = {
         fromLeaveDate: null,
         toLeaveDate: null,
         imageUri: "",
+        ownerImageUri: ""
     }).lock(),
 };
 

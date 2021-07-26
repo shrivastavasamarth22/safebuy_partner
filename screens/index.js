@@ -22,6 +22,7 @@ import RegistrationFormScreen from "./AuthFlow/RegistrationFormScreen";
 import RegistrationSuccessScreen from "./AuthFlow/RegistrationSuccessScreen";
 import ShopCategoryScreen from "./AuthFlow/ShopCategoryScreen";
 import ShopDetailFormScreen from "./AuthFlow/ShopDetailFormScreen";
+import CameraScreen from "./MediaScreens/CameraScreen";
 
 export {
     AccountsDetailScreen,
@@ -47,5 +48,6 @@ export {
     RegistrationFormScreen,
     RegistrationSuccessScreen,
     ShopCategoryScreen,
-    ShopDetailFormScreen
+    ShopDetailFormScreen,
+    CameraScreen
 }

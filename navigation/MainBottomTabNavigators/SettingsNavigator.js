@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
+    CameraScreen,
     HelperSettingsScreen,
     SettingsScreen,
     ShopSettingsScreen,
@@ -26,6 +27,11 @@ const SettingsNavigator = () => {
                 name={"ShopSettingsScreen"}
                 component={ShopSettingsScreen}
                 options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name={"CameraScreen"}
+                component={CameraScreen}
+                options={{headerShown: false}}
             />
         </Stack.Navigator>
     )
