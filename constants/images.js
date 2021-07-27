@@ -24,6 +24,10 @@ export const background = require("../assets/images/BACKGROUND.png");
 export const shop = require("../assets/images/Ganesh.jpg");
 export const user = require('../assets/images/user.png')
 
+export const logo = require('../assets/images/partner-logo.png')
+export const white_logo = require('../assets/images/white_logo.png')
+export const login_background = require('../assets/images/login_background.png')
+
 export default {
     coriander,
     green_chillies,
@@ -44,5 +48,8 @@ export default {
     pomegranate,
     watermelon,
     shop,
-    user
+    user,
+    logo,
+    white_logo,
+    login_background
 };

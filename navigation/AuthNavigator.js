@@ -45,13 +45,6 @@ const AuthNavigator = () => {
                 }}
             />
             <Stack.Screen
-                name={"OtpScreen"}
-                component={OtpScreen}
-                options={{
-                    headerShown: false
-                }}
-            />
-            <Stack.Screen
                 name={"AddHelperScreen"}
                 component={AddHelperScreen}
                 options={{

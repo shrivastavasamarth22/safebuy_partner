@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import * as Font from 'expo-font';
 import AppLoading from "expo-app-loading";
-import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux";
 
+import MainNavigator from "./navigation/MainNavigator";
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
 
 import inventoryReducer from './store/reducers/inventory'
@@ -34,7 +34,7 @@ const setupProfilePics = async () => {
     }
 
     if (user_result) {
-        store.dispatch(changeShopImage(id, user_result))
+        store.dispatch(changeOwnerImage(id, user_result))
     }
 
 }
@@ -78,7 +78,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <MainBottomTabNavigator/>
+                <MainNavigator />
             </NavigationContainer>
         </Provider>
     )
