@@ -4,19 +4,21 @@ import AppLoading from "expo-app-loading";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import MainNavigator from "./navigation/MainNavigator";
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
 
 import inventoryReducer from './store/reducers/inventory'
 import shopReducer from './store/reducers/shop'
-import inventoryCartReducer from './store/reducers/inventory-cart'
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import inventoryCartReducer from './store/reducers/inventory-cart';
+import AuthReducer from './store/reducers/auth'
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
     inventoryCart: inventoryCartReducer,
-    shop: shopReducer
+    shop: shopReducer,
+    auth: AuthReducer
 })
 
 const store = createStore(rootReducer);

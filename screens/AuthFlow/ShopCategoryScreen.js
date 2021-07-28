@@ -1,10 +1,25 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect }  from 'react';
+import {View, Text, StyleSheet, BackHandler, StatusBar} from 'react-native';
+import {HeaderBar} from "../../components";
 
 const ShopCategoryScreen = () => {
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => false)
+    }, [])
+
+
     return (
         <View style={styles.container}>
-            <Text>This is the Shop Category Screen</Text>
+            <StatusBar
+                backgroundColor={'#6d0fbc'}
+                barStyle={'light-content'}
+            />
+            <HeaderBar
+                headerText={"Shop Category"}
+                isLavender={true}
+            />
         </View>
     )
 }
@@ -12,8 +27,7 @@ const ShopCategoryScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: 'white'
     }
 })
 
