@@ -8,7 +8,7 @@ import * as shopActions from '../../store/actions/shop'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const CameraScreen = ({ navigation, route }) => {
+const CameraScreen2 = ({ navigation, route }) => {
     const { purpose } = route.params;
     const [hasPermission, setHasPermission] = useState(null);
     const [camera, setCamera] = useState(null);
@@ -53,15 +53,13 @@ const CameraScreen = ({ navigation, route }) => {
     const saveImage = async () => {
         try {
             if (purpose === 'user') {
-                // await AsyncStorage.setItem('@user_img', image)
                 dispatch(shopActions.changeOwnerImage(1, image))
             } else {
-                // await AsyncStorage.setItem('@shop_img', image)
                 dispatch(shopActions.changeShopImage(1, image))
             }
             navigation.reset({
                 index: 0,
-                routes: [{ name: "ShopSettingsScreen" }]
+                routes: [{ name: "ShopDetailFormScreen" }]
             })
         } catch (e) {
             console.error(e)
@@ -251,4 +249,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CameraScreen;
+export default CameraScreen2;

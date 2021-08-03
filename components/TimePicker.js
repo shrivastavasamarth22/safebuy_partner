@@ -22,20 +22,20 @@ const TimePicker = ({
                     }) => {
     return (
         <View style={[styles.timeContainer, style]}>
-            <View style={styles.timeFieldContainer}>
+            <TouchableOpacity style={styles.timeFieldContainer} onPress={onPress}>
                 <View style={styles.timeHeaderContainer}>
                     {icon}
                     <Text style={styles.timeHeader}>
                         {heading}
                     </Text>
                 </View>
-                <TouchableOpacity style={styles.timeHeaderContainer} onPress={onPress}>
+                <View style={styles.timeHeaderContainer}>
                     <Feather name="clock" size={24} color="#2699FB"/>
                     <Text style={styles.timeButton}>
                         {hours + ":" + minutes}
                     </Text>
-                </TouchableOpacity>
-            </View>
+                </View>
+            </TouchableOpacity>
             <View
                 style={styles.divider}
             />

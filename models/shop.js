@@ -93,6 +93,17 @@ export default class Shop {
         return this;
     }
 
+    setOwnerName(ownerName) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({
+                ...this,
+                ownerName,
+            });
+        }
+        this.ownerName = ownerName;
+        return this;
+    }
+
     setPhone(phone) {
         if (this.isImmutable) {
             return Shop.fromSnapshot({
@@ -143,7 +154,7 @@ export default class Shop {
                 ...this,
                 onLeaveStatus: true,
                 fromLeaveDate,
-                toLeaveDate
+                toLeaveDate,
             });
         }
         this.fromLeaveDate = fromLeaveDate;
@@ -158,14 +169,13 @@ export default class Shop {
                 ...this,
                 onLeaveStatus: false,
                 fromLeaveDate: null,
-                toLeaveDate: null
-            })
+                toLeaveDate: null,
+            });
         }
         this.fromLeaveDate = null;
         this.toLeaveDate = null;
         this.onLeaveStatus = false;
         return this;
-
     }
 
     setShopImage(imageUri) {
@@ -181,6 +191,22 @@ export default class Shop {
             return Shop.fromSnapshot({ ...this, ownerImageUri });
         }
         this.ownerImageUri = ownerImageUri;
+        return this;
+    }
+
+    setHomeDeliveryCapable(homeDeliveryCapable) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({...this, homeDeliveryCapable})
+        }
+        this.homeDeliveryCapable = homeDeliveryCapable;
+        return this;
+    }
+
+    setHomeDeliveryMinOrderAmount(homeDeliveryMinOrderAmount) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({...this, homeDeliveryMinOrderAmount})
+        }
+        this.homeDeliveryMinOrderAmount = homeDeliveryMinOrderAmount;
         return this;
     }
 }

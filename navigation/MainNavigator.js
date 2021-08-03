@@ -7,9 +7,10 @@ import AuthNavigator from "./AuthNavigator";
 
 const Stack = createStackNavigator();
 
-const isSignedIn = useSelector(state => state.auth.isSignedIn)
+
 
 const MainNavigator = () => {
+    const isSignedIn = useSelector(state => state.auth.isSignedIn)
     return (
         <Stack.Navigator>
             {

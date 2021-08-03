@@ -1,13 +1,17 @@
 export const CHANGE_SHOP_NAME = "CHANGE_SHOP_NAME";
+export const CHANGE_OWNER_NAME = "CHANGE_OWNER_NAME";
 export const CHANGE_PHONE_NUMBER = "CHANGE_PHONE_NUMEBR";
 export const CHANGE_SHOP_ADDRESS = "CHANGE_SHOP_ADDRESS";
 export const CHANGE_HOLIDAYS = "CHANGE_HOLIDAYS";
 export const CHANGE_OPEN_TIME = "CHANGE_OPEN_TIME";
 export const CHANGE_CLOSE_TIME = "CHANGE_CLOSE_TIME";
 export const CHANGE_ON_LEAVE_STATUS_TO_TRUE = "CHANGE_ON_LEAVE_STATUS_TO_TRUE";
-export const CHANGE_ON_LEAVE_STATUS_TO_FALSE = "CHANGE_ON_LEAVE_STATUS_TO_FALSE";
+export const CHANGE_ON_LEAVE_STATUS_TO_FALSE =
+    "CHANGE_ON_LEAVE_STATUS_TO_FALSE";
 export const CHANGE_SHOP_IMAGE = "CHANGE_SHOP_IMAGE";
 export const CHANGE_OWNER_IMAGE = "CHANGE_OWNER_IMAGE";
+export const CHANGE_HOME_DELIVERY_CAPABLE = 'CHANGE_HOME_DELIVERY_CAPABLE';
+export const CHANGE_HOME_DELIVERY_AMOUNT = 'CHANGE_HOME_DELIVERY_AMOUNT'
 
 export const changeShopName = (id, newName) => {
     return {
@@ -15,6 +19,16 @@ export const changeShopName = (id, newName) => {
         payload: {
             id,
             newName,
+        },
+    };
+};
+
+export const changeOwnerName = (id, newOwnerName) => {
+    return {
+        type: CHANGE_OWNER_NAME,
+        payload: {
+            id,
+            newOwnerName,
         },
     };
 };
@@ -68,7 +82,7 @@ export const changeOpenTime = (id, newHours, newMinutes) => {
         payload: {
             id,
             newHours,
-            newMinutes
+            newMinutes,
         },
     };
 };
@@ -79,7 +93,7 @@ export const changeCloseTime = (id, newHours, newMinutes) => {
         payload: {
             id,
             newHours,
-            newMinutes
+            newMinutes,
         },
     };
 };
@@ -90,7 +104,7 @@ export const changeOnLeaveStatusToTrue = (id, fromDate, toDate) => {
         payload: {
             id,
             fromDate,
-            toDate
+            toDate,
         },
     };
 };
@@ -99,10 +113,10 @@ export const changeOnLeaveStatusToFalse = (id) => {
     return {
         type: CHANGE_ON_LEAVE_STATUS_TO_FALSE,
         payload: {
-            id
-        }
-    }
-}
+            id,
+        },
+    };
+};
 
 export const changeShopImage = (id, newImageUri) => {
     return {
@@ -123,3 +137,23 @@ export const changeOwnerImage = (id, newOwnerImageUri) => {
         },
     };
 };
+
+export const changeHomeDeliveryCapable = (id, newStatus) => {
+    return {
+        type: CHANGE_HOME_DELIVERY_CAPABLE,
+        payload: {
+            id,
+            newStatus
+        }
+    }
+}
+
+export const changeHomeDeliveryMinOrderAmount = (id, newAmount) => {
+    return {
+        type: CHANGE_HOME_DELIVERY_AMOUNT,
+        payload: {
+            id,
+            newAmount
+        }
+    }
+}

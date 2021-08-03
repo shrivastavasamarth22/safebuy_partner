@@ -5,6 +5,7 @@ import {
     ListButton
 } from '../../components'
 import {COLORS} from "../../constants";
+import {Entypo} from "@expo/vector-icons";
 
 const SettingsScreen = ({ navigation }) => {
     return (
@@ -22,9 +23,11 @@ const SettingsScreen = ({ navigation }) => {
                 style={{
                     marginTop: 5
                 }}
+                icon={<Entypo name="chevron-right" size={24} color="#d1d1d6" />}
             />
             <ListButton
                 buttonText={"Helper Settings"}
+                icon={<Entypo name="chevron-right" size={24} color="#d1d1d6" />}
             />
         </View>
     )

@@ -1,0 +1,1 @@
+export const prices = [75, 100, 125, 150]

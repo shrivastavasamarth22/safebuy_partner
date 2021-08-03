@@ -8,16 +8,17 @@ import { COLORS } from "../constants";
 /**
  * @param {string} headerText The text shown in the bar
  * @param {bool} isLavender Whether the background color is lavender or not
+ * @param {object} style Any additional styles provided to the component
  * */
 
-const HeaderBar = ({ headerText, isLavender }) => {
+const HeaderBar = ({ headerText, isLavender, style }) => {
 
     const isSmallDevice = useMediaQuery({
         maxDeviceWidth: 360
     })
     if (!isSmallDevice) {
         return (
-            <View style={isLavender ? [styles.container, { backgroundColor: "#8c24e3" }] : styles.container}>
+            <View style={isLavender ? [styles.container, { backgroundColor: "#8c24e3" }, style] : [styles.container, style]}>
                 <Text style={styles.headerTextStyle}>
                     {headerText}
                 </Text>
@@ -25,7 +26,7 @@ const HeaderBar = ({ headerText, isLavender }) => {
         )
     } else {
         return (
-            <View style={isLavender ? [styles.container, { height: "9%", backgroundColor: '#8c24e3' }] : [styles.container, { height: "9%" }]}>
+            <View style={isLavender ? [styles.container, { height: "9%", backgroundColor: '#8c24e3' }, style] : [styles.container, { height: "9%" }, style]}>
                 <Text style={styles.headerTextStyle}>
                     {headerText}
                 </Text>

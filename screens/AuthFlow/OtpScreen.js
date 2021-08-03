@@ -1,5 +1,15 @@
 import React, {useState, useRef} from 'react';
-import {View, Text, StyleSheet, Image, TextInput, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    TextInput,
+    TouchableWithoutFeedback,
+    Keyboard,
+    Alert,
+    StatusBar
+} from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import BottomSheet from "reanimated-bottom-sheet";
 
@@ -133,6 +143,10 @@ const OtpScreen = ({ navigation }) => {
     const OtpField = () => {
         return (
             <View style={styles.mediumContainer}>
+                <StatusBar
+                    backgroundColor={'#6d0fbc'}
+                    barStyle={'light-content'}
+                />
                 <View style={styles.sheetContentContainer}>
                     <Text style={styles.headerTextRegular}>
                         We have sent an OTP to your number
@@ -300,7 +314,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#510a8c'
+        backgroundColor: '#8c24e3'
     },
     countryCode: {
         fontFamily: 'uber_move_medium',

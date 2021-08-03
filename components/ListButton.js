@@ -8,7 +8,7 @@ import {Entypo} from "@expo/vector-icons";
  * @param {func} onPress The callback to call when a user presses on the button
  * */
 
-const ListButton = ({ buttonText, style, onPress }) => {
+const ListButton = ({ buttonText, style, onPress, icon }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -18,7 +18,7 @@ const ListButton = ({ buttonText, style, onPress }) => {
                 <Text style={styles.listButtonTextStyle}>
                     {buttonText}
                 </Text>
-                <Entypo name="chevron-right" size={24} color="#d1d1d6" />
+                {icon}
             </View>
             <View
                 style={styles.listDivider}

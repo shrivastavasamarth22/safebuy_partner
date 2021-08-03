@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import MainNavigator from "./navigation/MainNavigator";
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
+import {ShopDetailFormScreen} from "./screens";
 
 import inventoryReducer from './store/reducers/inventory'
 import shopReducer from './store/reducers/shop'
