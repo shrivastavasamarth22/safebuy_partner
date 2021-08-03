@@ -19,6 +19,9 @@ import {HeaderBar, TimePicker, DaySelector, GradientButton} from "../../componen
 import {COLORS} from "../../constants";
 import {days, prices} from "../../mock-data";
 import * as shopActions from '../../store/actions/shop'
+import {LinearGradient} from "expo-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {logIn, logOut} from "../../store/actions/auth";
 
 const ShopDetailFormScreen = ({navigation}) => {
 
@@ -41,7 +44,8 @@ const ShopDetailFormScreen = ({navigation}) => {
     });
     const [weeklyHolidays, setWeeklyHolidays] = useState([]);
 
-    const sheetRef = useRef(null);
+    const holidaySheetRef = useRef(null);
+    const helperSheetRef = useRef(null)
 
     const [openTimeShow, setOpenTimeShow] = useState(false)
     const [closeTimeShow, setCloseTimeShow] = useState(false)
@@ -118,16 +122,16 @@ const ShopDetailFormScreen = ({navigation}) => {
         setCloseTimeShow(false)
     }
 
-    const onOpenBottomSheet = () => {
-        if (sheetRef.current) {
-            sheetRef.current.snapTo(1)
+    const onOpenBottomSheet = (ref) => {
+        if (ref.current) {
+            ref.current.snapTo(1)
             setVisible(true)
         }
     }
 
-    const onCloseBottomSheet = () => {
-        if (sheetRef.current) {
-            sheetRef.current.snapTo(0);
+    const onCloseBottomSheet = (ref) => {
+        if (ref.current) {
+            ref.current.snapTo(0);
             setVisible(false)
         }
     }
@@ -146,13 +150,23 @@ const ShopDetailFormScreen = ({navigation}) => {
         setSelectedPrice(price)
     }
 
-    const onSubmitPress = () => {
+    const onSubmitPress = (argument) => {
         dispatch(shopActions.changeOpenTime(1, openTime.hours, openTime.minutes))
         dispatch(shopActions.changeCloseTime(1, closeTime.hours, closeTime.minutes))
         dispatch(shopActions.changeHolidays(1, weeklyHolidays))
         dispatch(shopActions.changeHomeDeliveryCapable(1, showPrice))
         if (showPrice) {
             dispatch(shopActions.changeHomeDeliveryMinOrderAmount(1, selectedPrice))
+        }
+
+        if (argument === 'yes') {
+            navigation.navigate("AddHelpersScreen")
+        } else {
+            dispatch(logIn())
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "BottomTab" }]
+            })
         }
     }
 
@@ -184,11 +198,49 @@ const ShopDetailFormScreen = ({navigation}) => {
                         width: "95%",
                         alignSelf: 'center'
                     }}
-                    onPress={onCloseBottomSheet}
+                    onPress={() => onCloseBottomSheet(holidaySheetRef)}
                 />
             </View>
         )
     }
+
+    const HelperSheet = () => {
+        return (
+            <View style={styles.smallContainer}>
+                <View style={styles.headingContainer}>
+                    <Text style={styles.headingText}>
+                        Do you want to add Helpers ?
+                    </Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.cancelButtonContainer}
+                        onPress={() => onSubmitPress("no")}
+                    >
+                        <Text style={styles.cancelButtonText}>
+                            No
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.yesButtonContainer}
+                        onPress={() => onSubmitPress("yes")}
+                    >
+                        <LinearGradient
+                            colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 0}}
+                            style={styles.yesButton}
+                        >
+                            <Text style={styles.yesButtonText}>
+                                Yes
+                            </Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+
 
     return (
         <>
@@ -227,7 +279,7 @@ const ShopDetailFormScreen = ({navigation}) => {
 
                 <TouchableOpacity
                     style={styles.holidayButtonContainer}
-                    onPress={onOpenBottomSheet}
+                    onPress={() => onOpenBottomSheet(holidaySheetRef)}
                 >
                     <Text style={styles.holidayButtonText}>
                         Holidays :
@@ -282,7 +334,7 @@ const ShopDetailFormScreen = ({navigation}) => {
                     style={styles.holidayButtonContainer}
                     onPress={toggleSwitch}
                 >
-                    <Text style={styles. holidayButtonText}>
+                    <Text style={styles.holidayButtonText}>
                         Home Delivery:
                     </Text>
                     <View style={showPrice ?
@@ -296,43 +348,43 @@ const ShopDetailFormScreen = ({navigation}) => {
                 </TouchableOpacity>
                 {
                     showPrice ?
-                    <View style={styles.priceOptionContainer}>
-                        <FlatList
-                            data={prices}
-                            horizontal
-                            contentContainerStyle={{
-                                width: "100%",
-                                justifyContent: 'space-between'
-                            }}
-                            keyExtractor={item => item.toString()}
-                            renderItem={({item}) => {
-                                if (selectedPrice === item) {
-                                    return(
-                                        <TouchableOpacity
-                                            style={styles.selectedPriceContainer}
-                                            onPress={() => onPricePress(item)}
-                                        >
-                                            <Text style={styles.selectedPriceText}>
-                                                {`₹ ${item}`}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )
-                                } else {
-                                    return (
-                                        <TouchableOpacity
-                                            style={styles.regularPriceContainer}
-                                            onPress={() => onPricePress(item)}
-                                        >
-                                            <Text style={styles.regularPriceText}>
-                                                {`₹ ${item}`}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )
-                                }
+                        <View style={styles.priceOptionContainer}>
+                            <FlatList
+                                data={prices}
+                                horizontal
+                                contentContainerStyle={{
+                                    width: "100%",
+                                    justifyContent: 'space-between'
+                                }}
+                                keyExtractor={item => item.toString()}
+                                renderItem={({item}) => {
+                                    if (selectedPrice === item) {
+                                        return (
+                                            <TouchableOpacity
+                                                style={styles.selectedPriceContainer}
+                                                onPress={() => onPricePress(item)}
+                                            >
+                                                <Text style={styles.selectedPriceText}>
+                                                    {`₹ ${item}`}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        )
+                                    } else {
+                                        return (
+                                            <TouchableOpacity
+                                                style={styles.regularPriceContainer}
+                                                onPress={() => onPricePress(item)}
+                                            >
+                                                <Text style={styles.regularPriceText}>
+                                                    {`₹ ${item}`}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        )
+                                    }
 
-                            }}
-                        />
-                    </View> : null
+                                }}
+                            />
+                        </View> : null
                 }
                 {
                     showPrice ?
@@ -351,7 +403,7 @@ const ShopDetailFormScreen = ({navigation}) => {
                 }}>
                     <GradientButton
                         text={"Continue"}
-                        onPress={onSubmitPress}
+                        onPress={() => onOpenBottomSheet(helperSheetRef)}
                     />
                 </View>
             </View>
@@ -359,7 +411,8 @@ const ShopDetailFormScreen = ({navigation}) => {
             {visible ? (
                 <TouchableWithoutFeedback
                     onPress={() => {
-                        onCloseBottomSheet();
+                        onCloseBottomSheet(holidaySheetRef);
+                        onCloseBottomSheet(helperSheetRef)
                         setVisible(false)
                         Keyboard.dismiss();
                     }}
@@ -398,12 +451,21 @@ const ShopDetailFormScreen = ({navigation}) => {
                 )
             }
             <BottomSheet
-                ref={sheetRef}
+                ref={holidaySheetRef}
                 snapPoints={[0, 600]}
                 initialSnap={0}
                 enabledContentTapInteraction={false}
                 enabledContentGestureInteraction={false}
                 renderContent={HolidaysChangeField}
+            />
+
+            <BottomSheet
+                ref={helperSheetRef}
+                snapPoints={[0, 200]}
+                initialSnap={0}
+                enabledContentTapInteraction={false}
+                enabledContentGestureInteraction={false}
+                renderContent={HelperSheet}
             />
         </>
     )
@@ -437,6 +499,61 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         backgroundColor: 'white',
         paddingTop: 15
+    },
+    smallContainer: {
+        height: 200,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        backgroundColor: 'white',
+        paddingTop: 15
+    },
+    headingContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonContainer: {
+        flex: 1,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    cancelButtonContainer: {
+        height: 60,
+        width: "45%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderRadius: 8,
+        borderWidth: 0.7,
+        borderColor: COLORS.primary
+    },
+    yesButtonContainer: {
+        height: 60,
+        width: "45%",
+    },
+    yesButton: {
+        width: "100%",
+        height: "100%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 8,
+    },
+    cancelButtonText: {
+        fontFamily: 'Roboto_500Medium',
+        fontSize: 20,
+        color: COLORS.primary
+    },
+    yesButtonText: {
+        fontFamily: 'Roboto_500Medium',
+        fontSize: 20,
+        color: "white"
+    },
+    headingText: {
+        fontFamily: 'Roboto_500Medium',
+        fontSize: 24,
+        textAlign: 'center'
     },
     previewImage: {
         width: 80,

@@ -1,16 +1,15 @@
-export const SIGN_IN = 'SIGN_IN';
-export const SIGN_OUT = 'SIGN_OUT';
+export const LOG_OUT = 'LOG_OUT';
+export const LOG_IN = 'LOG_IN';
 
-export const signIn = () => {
+
+export const logOut = () => {
     return {
-        type: SIGN_IN,
-        payload: true
+        type: LOG_OUT
     }
 }
 
-export const signOut = () => {
+export const logIn = () => {
     return {
-        type: SIGN_OUT,
-        payload: false
+        type: LOG_IN
     }
 }

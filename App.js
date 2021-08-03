@@ -1,19 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import * as Font from 'expo-font';
 import AppLoading from "expo-app-loading";
 import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import MainNavigator from "./navigation/MainNavigator";
+
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
-import {ShopDetailFormScreen} from "./screens";
 
 import inventoryReducer from './store/reducers/inventory'
 import shopReducer from './store/reducers/shop'
 import inventoryCartReducer from './store/reducers/inventory-cart';
-import AuthReducer from './store/reducers/auth'
+import AuthReducer from './store/reducers/auth' ;
+import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
+import AuthNavigator from "./navigation/AuthNavigator";
+import {logIn, logOut} from "./store/actions/auth";
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
@@ -42,6 +45,7 @@ const setupProfilePics = async () => {
 
 }
 
+
 const setupFonts = () => Font.loadAsync({
     'uber_move_medium': require('./assets/fonts/UberMoveMedium.otf'),
     'uber_move_bold': require('./assets/fonts/UberMoveBold.otf'),
@@ -56,7 +60,7 @@ const setupFonts = () => Font.loadAsync({
 const setup = async () => {
     try {
         console.log("---- Starting Setup ----")
-        await Promise.all([setupFonts()])
+        await setupFonts();
         console.log("---- Setup Finished ----")
     } catch (e) {
         console.log("---- Setup Failed ----")
@@ -64,7 +68,10 @@ const setup = async () => {
     }
 }
 
+const Stack = createStackNavigator();
+
 export default function App() {
+    const [isSignedIn, setIsSignedIn] = useState(store.getState().auth.isSignedIn)
 
     const [isReady, setIsReady] = useState(false)
 
@@ -81,7 +88,22 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <MainNavigator />
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name={"Auth"}
+                        component={AuthNavigator}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name={"BottomTab"}
+                        component={MainBottomTabNavigator}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                </Stack.Navigator>
             </NavigationContainer>
         </Provider>
     )

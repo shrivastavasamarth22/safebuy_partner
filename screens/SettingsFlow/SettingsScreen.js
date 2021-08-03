@@ -1,13 +1,22 @@
 import React from 'react';
 import {View, StyleSheet, StatusBar} from 'react-native';
+import {useDispatch} from "react-redux";
 import {
     HeaderBar,
     ListButton
 } from '../../components'
 import {COLORS} from "../../constants";
 import {Entypo} from "@expo/vector-icons";
+import {logOut} from "../../store/actions/auth";
 
 const SettingsScreen = ({ navigation }) => {
+
+    const dispatch = useDispatch();
+
+    const onLogOutPress = () => {
+        dispatch(logOut())
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar
@@ -28,6 +37,11 @@ const SettingsScreen = ({ navigation }) => {
             <ListButton
                 buttonText={"Helper Settings"}
                 icon={<Entypo name="chevron-right" size={24} color="#d1d1d6" />}
+            />
+            <ListButton
+                buttonText={"Log Out"}
+                icon={<Entypo name="chevron-right" size={24} color="#d1d1d6" />}
+                onPress={onLogOutPress}
             />
         </View>
     )
