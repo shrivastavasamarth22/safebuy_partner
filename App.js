@@ -76,12 +76,6 @@ export default function App() {
 
     const [isReady, setIsReady] = useState(false)
 
-    useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => true);
-        return () =>
-            BackHandler.removeEventListener('hardwareBackPress', () => false)
-    }, [])
-
     if (!isReady) {
         return (
             <AppLoading

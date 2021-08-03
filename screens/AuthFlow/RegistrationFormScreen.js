@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
     View,
     Text,
@@ -11,15 +11,15 @@ import {
     Alert
 } from "react-native";
 import * as Location from "expo-location";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 
 import * as shopActions from "../../store/actions/shop";
-import { GradientButton, HeaderBar } from "../../components";
-import { COLORS } from "../../constants";
-import { LinearGradient } from "expo-linear-gradient";
-import { FontAwesome, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import {GradientButton, HeaderBar} from "../../components";
+import {COLORS} from "../../constants";
+import {LinearGradient} from "expo-linear-gradient";
+import {FontAwesome, AntDesign, MaterialIcons} from "@expo/vector-icons";
 
-const RegistrationFormScreen = ({ navigation }) => {
+const RegistrationFormScreen = ({navigation}) => {
     const [name, setName] = useState("Gupta Vegetable Shop");
     const [ownerName, setOwnerName] = useState("Narayan Gupta");
     const [address1, setAddress1] = useState("Shop No 22, Sevoy Market");
@@ -34,11 +34,16 @@ const RegistrationFormScreen = ({ navigation }) => {
 
     useEffect(() => {
         (async () => {
-            let { status } = await Location.requestPermissionsAsync();
+            let {status} = await Location.requestPermissionsAsync();
             if (status !== "granted") {
                 setErrorMsg("Location permission not granted, tap to grant");
             }
         })();
+
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => false)
+
     }, []);
 
     const onNameChange = (name) => {
@@ -97,7 +102,8 @@ const RegistrationFormScreen = ({ navigation }) => {
                 [
                     {
                         text: "Ok",
-                        onPress: () => {}
+                        onPress: () => {
+                        }
                     }
                 ]
             )
@@ -115,7 +121,7 @@ const RegistrationFormScreen = ({ navigation }) => {
                     <Text style={styles.idleButtonText}>
                         Tap to access location
                     </Text>
-                    <FontAwesome name="map-marker" size={24} color="white" />
+                    <FontAwesome name="map-marker" size={24} color="white"/>
                 </TouchableOpacity>
             );
         }
@@ -127,12 +133,12 @@ const RegistrationFormScreen = ({ navigation }) => {
                         COLORS.fromPrimaryGradientColor,
                         COLORS.toPrimaryGradientColor,
                     ]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
                     style={styles.locationButtonIdle}
                 >
                     <Text style={styles.idleButtonText}>Location Recorded</Text>
-                    <AntDesign name="check" size={24} color="white" />
+                    <AntDesign name="check" size={24} color="white"/>
                 </LinearGradient>
             );
         }
@@ -141,11 +147,11 @@ const RegistrationFormScreen = ({ navigation }) => {
             return (
                 <LinearGradient
                     colors={["#fd3f63", "#fc3158"]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
                     style={styles.errorButton}
                 >
-                    <Text style={[styles.idleButtonText, { width: "90%" }]}>
+                    <Text style={[styles.idleButtonText, {width: "90%"}]}>
                         Permission not granted, please go to settings to grant
                         permission
                     </Text>

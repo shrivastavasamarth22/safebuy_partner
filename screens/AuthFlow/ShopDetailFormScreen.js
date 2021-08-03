@@ -50,6 +50,12 @@ const ShopDetailFormScreen = ({navigation}) => {
     const [openTimeShow, setOpenTimeShow] = useState(false)
     const [closeTimeShow, setCloseTimeShow] = useState(false)
 
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => false)
+    }, [])
+
     const dispatch = useDispatch();
 
     const onOpenDateTimeChange = (event, selectedDate) => {

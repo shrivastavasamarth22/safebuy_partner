@@ -4,6 +4,12 @@ import {HeaderBar} from "../../components";
 import { icons } from '../../constants'
 
 const ShopCategoryScreen = ({ navigation }) => {
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => false)
+    }, [])
+
     return (
         <View style={styles.container}>
             <StatusBar
