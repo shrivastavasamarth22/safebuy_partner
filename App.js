@@ -17,6 +17,7 @@ import AuthReducer from './store/reducers/auth' ;
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
 import AuthNavigator from "./navigation/AuthNavigator";
 import {logIn, logOut} from "./store/actions/auth";
+import {BackHandler} from "react-native";
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
@@ -74,6 +75,12 @@ export default function App() {
     const [isSignedIn, setIsSignedIn] = useState(store.getState().auth.isSignedIn)
 
     const [isReady, setIsReady] = useState(false)
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => false)
+    }, [])
 
     if (!isReady) {
         return (

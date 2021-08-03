@@ -52,12 +52,6 @@ const ShopDetailFormScreen = ({navigation}) => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", () => true);
-        return () =>
-            BackHandler.removeEventListener("hardwareBackPress", () => false);
-    }, [])
-
     const onOpenDateTimeChange = (event, selectedDate) => {
         if (selectedDate) {
             const hours = selectedDate.getHours().toString()
@@ -160,7 +154,7 @@ const ShopDetailFormScreen = ({navigation}) => {
         }
 
         if (argument === 'yes') {
-            navigation.navigate("AddHelpersScreen")
+            navigation.navigate("AddHelperScreen")
         } else {
             dispatch(logIn())
             navigation.reset({

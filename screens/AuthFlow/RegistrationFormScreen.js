@@ -39,10 +39,6 @@ const RegistrationFormScreen = ({ navigation }) => {
                 setErrorMsg("Location permission not granted, tap to grant");
             }
         })();
-
-        BackHandler.addEventListener("hardwareBackPress", () => true);
-        return () =>
-            BackHandler.removeEventListener("hardwareBackPress", () => false);
     }, []);
 
     const onNameChange = (name) => {

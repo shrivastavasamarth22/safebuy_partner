@@ -1,5 +1,5 @@
-import React, {useState, useMemo} from 'react';
-import {View, StyleSheet, StatusBar, FlatList, ImageBackground} from 'react-native';
+import React, {useState, useMemo, useEffect} from 'react';
+import {View, StyleSheet, StatusBar, FlatList, ImageBackground, BackHandler} from 'react-native';
 import '@expo/match-media'
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from "react-redux";
