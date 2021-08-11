@@ -1,11 +1,27 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, StatusBar, Image, ToastAndroid, Alert, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    StatusBar,
+    Image,
+    ToastAndroid,
+    Alert,
+    TouchableOpacity,
+    BackHandler
+} from 'react-native';
 import {FontAwesome} from '@expo/vector-icons';
 import {COLORS, images} from "../../constants";
 import {GradientButton, HeaderBar} from "../../components";
 
 const AddHelperScreen = ({navigation}) => {
     const [counter, setCounter] = useState(1)
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => true);
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', () => false)
+    }, [])
 
     const onDecreaseCounter = () => {
         if (counter === 1) {
@@ -22,7 +38,7 @@ const AddHelperScreen = ({navigation}) => {
                         text: "Yes",
                         onPress: () => navigation.reset({
                             index: 0,
-                            routes: [{name: "BottomTab"}]
+                            routes: [{name: "RegistrationSuccessScreen"}]
                         })
                     }
                 ]
@@ -90,6 +106,9 @@ const AddHelperScreen = ({navigation}) => {
                     width: "93%",
                     alignSelf: 'center'
                 }}
+                onPress={() => navigation.navigate("HelperFormScreen1", {
+                    count: counter
+                })}
             />
         </View>
     )

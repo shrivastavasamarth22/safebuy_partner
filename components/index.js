@@ -9,6 +9,7 @@ import GradientButton from "./GradientButton";
 import ListButton from './ListButton'
 import TimePicker from "./TimePicker";
 import DaySelector from "./DaySelector";
+import HelperCard from "./HelperCard"
 export {
     TopBar,
     HeaderBar,
@@ -20,5 +21,6 @@ export {
     GradientButton,
     ListButton,
     TimePicker,
-    DaySelector
+    DaySelector,
+    HelperCard
 }

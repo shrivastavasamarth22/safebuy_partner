@@ -29,6 +29,7 @@ export const white_logo = require('../assets/images/white_logo.png')
 export const login_background = require('../assets/images/login_background.png')
 export const circular_background = require('../assets/images/circular_background.png')
 export const rider = require('../assets/images/rider.png')
+export const success = require('../assets/images/success.png')
 
 export default {
     coriander,
@@ -55,5 +56,6 @@ export default {
     white_logo,
     login_background,
     circular_background,
-    rider
+    rider,
+    success
 };

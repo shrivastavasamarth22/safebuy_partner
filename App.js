@@ -10,20 +10,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
 
+import AuthReducer from './store/reducers/auth';
 import inventoryReducer from './store/reducers/inventory'
 import shopReducer from './store/reducers/shop'
+import HelperReducer from './store/reducers/helper'
 import inventoryCartReducer from './store/reducers/inventory-cart';
-import AuthReducer from './store/reducers/auth' ;
-import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
 import AuthNavigator from "./navigation/AuthNavigator";
-import {logIn, logOut} from "./store/actions/auth";
-import {BackHandler} from "react-native";
+import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
     inventoryCart: inventoryCartReducer,
     shop: shopReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
+    helper: HelperReducer
 })
 
 const store = createStore(rootReducer);

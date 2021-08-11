@@ -36,6 +36,7 @@ const SettingsScreen = ({ navigation }) => {
             />
             <ListButton
                 buttonText={"Helper Settings"}
+                onPress={() => navigation.navigate("HelperSettingsScreen")}
                 icon={<Entypo name="chevron-right" size={24} color="#d1d1d6" />}
             />
             <ListButton

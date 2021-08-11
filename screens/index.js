@@ -16,7 +16,9 @@ import HelperSettingsScreen from "./SettingsFlow/HelperSettingsScreen";
 import SettingsScreen from "./SettingsFlow/SettingsScreen";
 import ShopSettingsScreen from "./SettingsFlow/ShopSettingsScreen";
 import AddHelperScreen from "./AuthFlow/AddHelperScreen";
-import HelperFormScreen from "./AuthFlow/HelperFormScreen";
+import HelperFormScreen1 from "./AuthFlow/HelperFormScreen1";
+import HelperFormScreen2 from "./AuthFlow/HelperFormScreen2";
+import HelperFormScreen3 from "./AuthFlow/HelperFormScreen3";
 import OtpScreen from "./AuthFlow/OtpScreen";
 import RegistrationFormScreen from "./AuthFlow/RegistrationFormScreen";
 import RegistrationSuccessScreen from "./AuthFlow/RegistrationSuccessScreen";
@@ -44,7 +46,9 @@ export {
     SettingsScreen,
     ShopSettingsScreen,
     AddHelperScreen,
-    HelperFormScreen,
+    HelperFormScreen1,
+    HelperFormScreen2,
+    HelperFormScreen3,
     OtpScreen,
     RegistrationFormScreen,
     RegistrationSuccessScreen,

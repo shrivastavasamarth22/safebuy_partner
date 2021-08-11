@@ -22,6 +22,7 @@ export const shopping_basket = require('../assets/icons/shopping_basket.png');
 export const inventory_check = require('../assets/icons/inventory_check.png');
 export const accounts_calc = require('../assets/icons/accounts_calc.png');
 export const settings_cog = require('../assets/icons/settings_cog.png')
+export const helper_icon = require('../assets/icons/helper_icon.png')
 
 export default {
     add,
@@ -47,5 +48,6 @@ export default {
     shopping_basket,
     inventory_check,
     accounts_calc,
-    settings_cog
+    settings_cog,
+    helper_icon
 }
