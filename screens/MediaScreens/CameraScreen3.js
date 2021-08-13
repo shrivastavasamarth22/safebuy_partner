@@ -1,19 +1,17 @@
 import React, {useState, useEffect} from "react";
 import {View, Text, StyleSheet, TouchableOpacity, Image, StatusBar, BackHandler} from "react-native";
 import {Camera} from "expo-camera";
-import { MaterialIcons, Ionicons, AntDesign } from '@expo/vector-icons'
+import {MaterialIcons, Ionicons, AntDesign} from '@expo/vector-icons'
 import {useDispatch} from "react-redux";
 import {COLORS} from "../../constants";
 import * as shopActions from '../../store/actions/shop'
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const CameraScreen = ({ navigation, route }) => {
-    const { purpose } = route.params;
+const CameraScreen3 = ({navigation}) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [camera, setCamera] = useState(null);
     const [image, setImage] = useState(null);
-    const [type, setType] = useState(purpose === 'shop' ? Camera.Constants.Type.back : Camera.Constants.Type.front);
+    const [type, setType] = useState(Camera.Constants.Type.back);
     const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
 
     const dispatch = useDispatch();
@@ -51,19 +49,11 @@ const CameraScreen = ({ navigation, route }) => {
     }
 
     const saveImage = async () => {
-        try {
-            if (purpose === 'user') {
-                dispatch(shopActions.changeOwnerImage(1, image))
-            } else {
-                dispatch(shopActions.changeShopImage(1, image))
-            }
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "ShopDetailFormScreen" }]
-            })
-        } catch (e) {
-            console.error(e)
-        }
+        dispatch(shopActions.changeQrImage(1, image))
+        navigation.reset({
+            index: 0,
+            routes: [{name: "ShopDetailFormScreen"}]
+        })
     }
 
     return (
@@ -76,6 +66,7 @@ const CameraScreen = ({ navigation, route }) => {
                     type={type}
                     autoFocus={Camera.Constants.AutoFocus.on}
                     flashMode={flash}
+                    ratio={"1:1"}
                 />
             </View>
 
@@ -124,10 +115,10 @@ const CameraScreen = ({ navigation, route }) => {
             {
                 image &&
                 <View style={styles.imagePreviewContainer}>
-                    <View style={purpose === 'user' ? styles.previewImageBorder : styles.previewImageBorderSquared}>
+                    <View style={styles.previewImageBorderSquared}>
                         <Image
                             source={{uri: image}}
-                            style={purpose === 'user' ? styles.previewImage : styles.previewImageSquared}
+                            style={styles.previewImageSquared}
                         />
                     </View>
                     <View style={styles.previewButtonContainer}>
@@ -160,10 +151,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     cameraContainer: {
-        height: "70%"
+        height: "70%",
+        alignItems: 'center',
+        backgroundColor: '#222'
     },
     camera: {
-        flex: 1
+        aspectRatio: 1,
+        width: "50%",
+        height: "50%",
+        marginTop: "20%"
     },
     controlContainer: {
         width: "100%",
@@ -202,20 +198,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1
     },
-    previewImageBorder: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 170,
-        height: 170,
-        borderRadius: 85,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
-    },
-    previewImage: {
-        width: 150,
-        height: 150,
-        resizeMode: 'cover',
-        borderRadius: 75,
-    },
     previewButtonContainer: {
         marginTop: 10,
         flexDirection: 'row',
@@ -226,7 +208,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,
-        width: 75,
+        width: 70,
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         borderRadius: 5
     },
@@ -238,15 +220,15 @@ const styles = StyleSheet.create({
     previewImageBorderSquared: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 170,
+        width: 150,
         height: 150,
         backgroundColor: 'rgba(0, 0, 0, 0.2)'
     },
     previewImageSquared: {
-        width: 150,
+        width: 130,
         height: 130,
         resizeMode: 'cover',
     },
 })
 
-export default CameraScreen;
+export default CameraScreen3;

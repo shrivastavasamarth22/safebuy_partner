@@ -26,6 +26,7 @@ import ShopCategoryScreen from "./AuthFlow/ShopCategoryScreen";
 import ShopDetailFormScreen from "./AuthFlow/ShopDetailFormScreen";
 import CameraScreen from "./MediaScreens/CameraScreen";
 import CameraScreen2 from "./MediaScreens/CameraScreen2";
+import CameraScreen3 from "./MediaScreens/CameraScreen3";
 
 export {
     AccountsDetailScreen,
@@ -55,5 +56,6 @@ export {
     ShopCategoryScreen,
     ShopDetailFormScreen,
     CameraScreen,
-    CameraScreen2
+    CameraScreen2,
+    CameraScreen3
 }

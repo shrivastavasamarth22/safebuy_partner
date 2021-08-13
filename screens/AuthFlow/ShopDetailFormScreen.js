@@ -28,6 +28,7 @@ const ShopDetailFormScreen = ({navigation}) => {
     const shopDetails = useSelector(state => state.shop.shop);
     const shopImage = shopDetails.imageUri
     const ownerImage = shopDetails.ownerImageUri
+    const qrImage = shopDetails.qrImageUri
 
     const [date, setDate] = useState(new Date())
     const [visible, setVisible] = useState(false)
@@ -332,6 +333,24 @@ const ShopDetailFormScreen = ({navigation}) => {
 
                 <TouchableOpacity
                     style={styles.holidayButtonContainer}
+                    onPress={() => navigation.navigate("CameraScreen3")}
+                >
+                    <Text style={styles.holidayButtonText}>
+                        Shop QR photo
+                    </Text>
+                    <AntDesign name="qrcode" size={28} color="#CCC"/>
+                </TouchableOpacity>
+                {
+                    qrImage !== ""
+                        ? <Image source={{uri: qrImage}} style={styles.previewImage}/>
+                        : null
+                }
+                <View
+                    style={styles.divider}
+                />
+
+                <TouchableOpacity
+                    style={styles.holidayButtonContainer}
                     onPress={toggleSwitch}
                 >
                     <Text style={styles.holidayButtonText}>
@@ -556,9 +575,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     previewImage: {
-        width: 80,
-        height: 80,
-        borderRadius: 8,
+        width: 50,
+        height: 50,
+        borderRadius: 2,
         marginLeft: 24,
         marginBottom: 15,
         resizeMode: 'cover'

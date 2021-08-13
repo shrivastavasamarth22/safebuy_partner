@@ -8,7 +8,7 @@ import * as shopActions from '../../store/actions/shop'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-const CameraScreen = ({ navigation, route }) => {
+const CameraScreen2 = ({ navigation, route }) => {
     const { purpose } = route.params;
     const [hasPermission, setHasPermission] = useState(null);
     const [camera, setCamera] = useState(null);
@@ -251,4 +251,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default CameraScreen;
+export default CameraScreen2;

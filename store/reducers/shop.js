@@ -8,6 +8,7 @@ import {
     CHANGE_CLOSE_TIME,
     CHANGE_SHOP_IMAGE,
     CHANGE_OWNER_IMAGE,
+    CHANGE_QR_IMAGE,
     CHANGE_ON_LEAVE_STATUS_TO_TRUE,
     CHANGE_ON_LEAVE_STATUS_TO_FALSE,
     CHANGE_HOME_DELIVERY_AMOUNT,
@@ -46,6 +47,7 @@ const initialState = {
         toLeaveDate: null,
         imageUri: "",
         ownerImageUri: "",
+        qrImageUri: ""
     }).lock(),
 };
 
@@ -130,6 +132,11 @@ export default (state = initialState, action) => {
         case CHANGE_OWNER_IMAGE: {
             const shop = state.shop.setOwnerImage(action.payload.newOwnerImageUri);
             return { ...state, shop };
+        }
+
+        case CHANGE_QR_IMAGE: {
+            const shop = state.shop.setQrImage(action.payload.newQrImageUri);
+            return { ...state, shop }
         }
 
         case CHANGE_HOME_DELIVERY_CAPABLE: {

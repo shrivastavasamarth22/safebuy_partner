@@ -10,8 +10,9 @@ export const CHANGE_ON_LEAVE_STATUS_TO_FALSE =
     "CHANGE_ON_LEAVE_STATUS_TO_FALSE";
 export const CHANGE_SHOP_IMAGE = "CHANGE_SHOP_IMAGE";
 export const CHANGE_OWNER_IMAGE = "CHANGE_OWNER_IMAGE";
+export const CHANGE_QR_IMAGE = "CHANGE_QR_IMAGE";
 export const CHANGE_HOME_DELIVERY_CAPABLE = 'CHANGE_HOME_DELIVERY_CAPABLE';
-export const CHANGE_HOME_DELIVERY_AMOUNT = 'CHANGE_HOME_DELIVERY_AMOUNT'
+export const CHANGE_HOME_DELIVERY_AMOUNT = 'CHANGE_HOME_DELIVERY_AMOUNT';
 
 export const changeShopName = (id, newName) => {
     return {
@@ -137,6 +138,16 @@ export const changeOwnerImage = (id, newOwnerImageUri) => {
         },
     };
 };
+
+export const changeQrImage = (id, newQrImageUri) => {
+    return {
+        type: CHANGE_QR_IMAGE,
+        payload: {
+            id,
+            newQrImageUri
+        }
+    }
+}
 
 export const changeHomeDeliveryCapable = (id, newStatus) => {
     return {

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {
-    Alert, BackHandler,
+    Alert,
     FlatList,
     Image,
     Keyboard,
@@ -602,7 +602,7 @@ const ShopSettingsScreen = ({navigation}) => {
                         bottom: "56%",
                         left: 12,
                     }}
-                    onPress={() => navigation.navigate("CameraScreen", {
+                    onPress={() => navigation.navigate("CameraScreen2", {
                         purpose: "user"
                     })}
                 >
@@ -616,7 +616,7 @@ const ShopSettingsScreen = ({navigation}) => {
 
                 <TouchableOpacity
                     style={styles.cameraButtonContainer}
-                    onPress={() => navigation.navigate("CameraScreen", {
+                    onPress={() => navigation.navigate("CameraScreen2", {
                         purpose: 'shop'
                     })}
                 >

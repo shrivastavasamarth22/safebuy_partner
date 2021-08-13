@@ -28,6 +28,7 @@ export default class Shop {
         toLeaveDate,
         imageUri,
         ownerImageUri,
+        qrImageUri
     }) {
         this.id = id;
         this.name = name;
@@ -53,6 +54,7 @@ export default class Shop {
         this.toLeaveDate = toLeaveDate;
         this.imageUri = imageUri;
         this.ownerImageUri = ownerImageUri;
+        this.qrImageUri = qrImageUri
         this.isImmutable = false;
     }
 
@@ -191,6 +193,14 @@ export default class Shop {
             return Shop.fromSnapshot({ ...this, ownerImageUri });
         }
         this.ownerImageUri = ownerImageUri;
+        return this;
+    }
+
+    setQrImage(qrImageUri) {
+        if (this.isImmutable) {
+            return Shop.fromSnapshot({ ...this, qrImageUri })
+        }
+        this.qrImageUri = qrImageUri;
         return this;
     }
 

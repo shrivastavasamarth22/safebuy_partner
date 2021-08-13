@@ -11,7 +11,8 @@ import {
     RegistrationSuccessScreen,
     ShopCategoryScreen,
     ShopDetailFormScreen,
-    CameraScreen2
+    CameraScreen,
+    CameraScreen3
 } from '../screens'
 
 const Stack = createStackNavigator();
@@ -84,7 +85,14 @@ const AuthNavigator = () => {
             />
             <Stack.Screen
                 name={"CameraScreen"}
-                component={CameraScreen2}
+                component={CameraScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name={"CameraScreen3"}
+                component={CameraScreen3}
                 options={{
                     headerShown: false
                 }}
