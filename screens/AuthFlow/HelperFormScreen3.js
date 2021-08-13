@@ -5,7 +5,7 @@ import {COLORS} from "../../constants";
 import {useDispatch} from "react-redux";
 import {addHelper} from "../../store/actions/helper";
 
-const HelperFormScreen2 = ({ navigation }) => {
+const HelperFormScreen3 = ({ navigation }) => {
 
     const [name, setName] = useState(null);
     const [phone, setPhone] = useState(null);
@@ -230,4 +230,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HelperFormScreen2;
+export default HelperFormScreen3;

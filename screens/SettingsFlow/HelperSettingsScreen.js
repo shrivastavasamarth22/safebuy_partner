@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, Image, FlatList, Alert} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, Image, FlatList, Alert, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
 import {TopBar, HelperCard} from '../../components'
 import * as helperActions from '../../store/actions/helper'
 import {COLORS, icons} from "../../constants";
+import {LinearGradient} from "expo-linear-gradient";
 
 const HelperSettingsScreen = ({navigation}) => {
     const helpers = useSelector(state => state.helper.helpers)
@@ -37,6 +38,59 @@ const HelperSettingsScreen = ({navigation}) => {
         })
     }
 
+    const onAddPress = () => {
+        if (helpers.length === 1) {
+            navigation.navigate("HelperFormScreen2", {
+                count: 2,
+            })
+        }
+    }
+
+    const renderList = () => {
+        if (helpers.length > 0) {
+            return (
+                <View>
+                    <FlatList
+                        data={helpers}
+                        keyExtractor={item => item.id}
+                        renderItem={({item}) => {
+                            const status = item.controlStatus
+                            return (
+                                <HelperCard
+                                    helper={item}
+                                    controlStatus={status}
+                                    onRemovePress={() => onRemovePress(item.id)}
+                                    onControlPress={() => onControlPress(item.id)}
+                                />
+                            )
+                        }}
+                    />
+                    {
+                        helpers.length <= 2
+                        ?
+                            <TouchableOpacity
+                                style={styles.addButtonContainer}
+                                onPress={onAddPress}
+                            >
+                                <LinearGradient
+                                    colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}
+                                    start={{x: 0, y: 0}}
+                                    end={{x: 1, y: 0}}
+                                    style={styles.addButton}
+                                >
+                                    <Text style={styles.buttonText}>
+                                        Add More
+                                    </Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                        : null
+
+                    }
+                </View>
+            )
+        }
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar
@@ -57,25 +111,7 @@ const HelperSettingsScreen = ({navigation}) => {
                         My Helpers
                     </Text>
                 </View>
-                {
-                    helpers.length > 0
-                        ? <FlatList
-                            data={helpers}
-                            keyExtractor={item => item.id}
-                            renderItem={({item}) => {
-                                const status = item.controlStatus
-                                return (
-                                    <HelperCard
-                                        helper={item}
-                                        controlStatus={status}
-                                        onRemovePress={() => onRemovePress(item.id)}
-                                        onControlPress={() => onControlPress(item.id)}
-                                    />
-                                )
-                            }}
-                        /> : null
-                }
-
+                {renderList()}
             </View>
         </View>
     )
@@ -106,6 +142,22 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto_500Medium',
         fontSize: 20,
         color: '#555'
+    },
+    addButtonContainer: {
+        alignSelf: 'flex-end',
+        marginTop: 20
+    },
+    addButton: {
+        width: 100,
+        height: 50,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonText: {
+        fontFamily: 'Roboto_500Medium',
+        fontSize: 14,
+        color: 'white'
     }
 })
 
