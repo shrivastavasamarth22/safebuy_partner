@@ -76,6 +76,7 @@ const RegistrationFormScreen = ({navigation}) => {
             setLocation(location);
         } catch (e) {
             setErrorMsg(e.message);
+            console.log(e.message)
         }
     };
 
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
         paddingLeft: 12,
         fontFamily: "uber_move_medium",
         fontSize: 16,
-        marginBottom: 10,
+        marginBottom: 5,
     },
     inputView: {
         width: "100%",

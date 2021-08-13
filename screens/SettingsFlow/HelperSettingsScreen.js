@@ -1,12 +1,41 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, Image, FlatList} from 'react-native';
-import {useSelector} from "react-redux";
-import { TopBar, HelperCard } from '../../components'
+import {View, Text, StyleSheet, StatusBar, Image, FlatList, Alert} from 'react-native';
+import {useSelector, useDispatch} from "react-redux";
+import {TopBar, HelperCard} from '../../components'
+import * as helperActions from '../../store/actions/helper'
 import {COLORS, icons} from "../../constants";
-import {Helper} from "../../models";
 
-const HelperSettingsScreen = ({ navigation }) => {
+const HelperSettingsScreen = ({navigation}) => {
     const helpers = useSelector(state => state.helper.helpers)
+    const dispatch = useDispatch();
+
+    const onRemovePress = (id) => {
+        Alert.alert(
+            "Do you really want to remove this helper?",
+            "This action cannot be undone",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => {
+                    }
+                },
+                {
+                    text: "Yes",
+                    onPress: () => dispatch(helperActions.removeHelper(id))
+                }
+            ]
+        )
+    }
+
+    const onControlPress = (id) => {
+        dispatch(helperActions.changeHelperStatus(id));
+        navigation.reset({
+            index: 0,
+            routes: [
+                {name: "HelperSettingsScreen"}
+            ]
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -28,19 +57,25 @@ const HelperSettingsScreen = ({ navigation }) => {
                         My Helpers
                     </Text>
                 </View>
-                <FlatList
-                    data={helpers}
-                    keyExtractor={item => item.id}
-                    renderItem={({item}) => {
-                        const status = item.controlStatus
-                        return(
-                            <HelperCard
-                                helper={item}
-                                controlStatus={status}
-                            />
-                        )
-                    }}
-                />
+                {
+                    helpers.length > 0
+                        ? <FlatList
+                            data={helpers}
+                            keyExtractor={item => item.id}
+                            renderItem={({item}) => {
+                                const status = item.controlStatus
+                                return (
+                                    <HelperCard
+                                        helper={item}
+                                        controlStatus={status}
+                                        onRemovePress={() => onRemovePress(item.id)}
+                                        onControlPress={() => onControlPress(item.id)}
+                                    />
+                                )
+                            }}
+                        /> : null
+                }
+
             </View>
         </View>
     )

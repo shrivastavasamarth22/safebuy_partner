@@ -1,5 +1,5 @@
 import {Helper} from '../../models'
-import {ADD_HELPER, CHANGE_HELPER_PHONE, REMOVE_HELPER} from "../actions/helper";
+import {ADD_HELPER, CHANGE_HELPER_PHONE, REMOVE_HELPER, CHANGE_HELPER_STATUS} from "../actions/helper";
 
 const randomId = () => {
     return Math.random().toString(36).substr(2, 4).toUpperCase();
@@ -57,6 +57,20 @@ export default (state = initialState, action) => {
                 helpers: newList
             }
         }
+
+        case CHANGE_HELPER_STATUS: {
+            const helpers = state.helpers;
+            const index = helpers.findIndex(helper => helper.id === action.id);
+            const helper = helpers[index];
+            const status = helper.controlStatus
+            helper.controlStatus = !status;
+            helpers[index] = helper;
+            return {
+                ...state,
+                helpers
+            }
+        }
+
 
 
         default:

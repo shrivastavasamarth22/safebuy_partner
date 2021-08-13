@@ -24,7 +24,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.shrivastavasamarth22.safebuy_partner"
+      "package": "com.shrivastavasamarth22.safebuy_partner",
+      "permissions": ["ACCESS_BACKGROUND_LOCATION"]
     },
     "web": {
       "favicon": "./assets/favicon.png"

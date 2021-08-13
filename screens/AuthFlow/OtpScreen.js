@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     },
     background: {
         left: "-10%",
-        top: "-22%",
+        top: "-25%",
         width: "120%",
         height: "75%",
         position: 'absolute',
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
         width: "80%",
         height: "40%",
         resizeMode: 'contain',
-        marginTop: "5%",
+        marginTop: "4%",
         alignSelf: 'center',
         marginBottom: "20%"
     },
