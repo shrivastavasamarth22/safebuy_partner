@@ -8,4 +8,4 @@
 - [ ] Solve weird behavior of AsyncStorage where user_img is not registering and swapping for shop_img and then restore functionality inside Camera Screen and App.js
 - [ ] Fix clashing between change functions in the otp screen, i.e. between the backspace onKeyPressed functions and onChangeFunctions
 - [x] Disable back tracking in AuthFlow navigation
-- [ ] Finish Helper Settings screen, i.e., Add More function and navigation issues with HelperForm screen
+- [x] Finish Helper Settings screen, i.e., Add More function and navigation issues with HelperForm screen
