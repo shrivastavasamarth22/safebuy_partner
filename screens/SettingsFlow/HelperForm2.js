@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, BackHandler, StatusBar, TextInput, Alert, ScrollView} from 'react-native';
-import { HeaderBar, GradientButton } from '../../components'
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, StatusBar, TextInput, Alert, ScrollView} from 'react-native';
+import { TopBar, GradientButton } from '../../components'
 import {COLORS} from "../../constants";
 import {useDispatch} from "react-redux";
 import {addHelper} from "../../store/actions/helper";
 
-const HelperFormScreen1 = ({ navigation, route }) => {
-    const {count} = route.params;
-
+const HelperForm2 = ({ navigation }) => {
     const [name, setName] = useState("Ram Mohan");
     const [phone, setPhone] = useState("9893614220");
     const [address1, setAddress1] = useState("Plot No 145, Trilanga Colony, Gulmohar");
@@ -44,11 +42,10 @@ const HelperFormScreen1 = ({ navigation, route }) => {
     const onSubmitPress = () => {
         if (name, phone, address1, address2, landmark, pinCode) {
             dispatch(addHelper(name, phone, address1, address2, landmark, pinCode))
-            if (count === 1) {
-                navigation.navigate("RegistrationSuccessScreen")
-            } else {
-                navigation.navigate("HelperFormScreen2")
-            }
+            navigation.reset({
+                index: 0,
+                routes: [{name: 'HelperSettingsScreen'}]
+            })
         } else {
             Alert.alert(
                 "Form filled incorrectly",
@@ -64,28 +61,22 @@ const HelperFormScreen1 = ({ navigation, route }) => {
         }
     }
 
-
-    useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => true);
-        return () =>
-            BackHandler.removeEventListener('hardwareBackPress', () => false)
-    }, [])
-
     return (
         <View style={styles.container}>
             <StatusBar
                 backgroundColor={COLORS.green}
                 barStyle={'light-content'}
             />
-            <HeaderBar
-                headerText={"Helper 1 Details"}
+            <TopBar
+                headerText={"Helper 2 Details"}
                 style={{
                     height: 70,
                 }}
+                onBackButtonPress={navigation.goBack}
             />
             <ScrollView style={styles.mainContainer}>
                 <Text style={styles.headingText}>
-                    Helper 1 Details:
+                    Helper 2 Details:
                 </Text>
                 <TextInput
                     value={name}
@@ -133,7 +124,7 @@ const HelperFormScreen1 = ({ navigation, route }) => {
                     keyboardType={'number-pad'}
                 />
                 <GradientButton
-                    text={count === 1 ? "Register" : "Fill Helper 2 Details"}
+                    text={"Register"}
                     onPress={onSubmitPress}
                     style={{
                         marginBottom: 0,
@@ -216,4 +207,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HelperFormScreen1;
+export default HelperForm2;

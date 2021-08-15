@@ -164,10 +164,7 @@ const ShopDetailFormScreen = ({navigation}) => {
             navigation.navigate("AddHelperScreen")
         } else {
             dispatch(logIn())
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "BottomTab" }]
-            })
+            navigation.navigate("RegistrationSuccessScreen")
         }
     }
 

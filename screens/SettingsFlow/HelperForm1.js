@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, BackHandler, StatusBar, TextInput, Alert, ScrollView} from 'react-native';
-import { HeaderBar, GradientButton } from '../../components'
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, StatusBar, TextInput, Alert, ScrollView} from 'react-native';
+import { TopBar, GradientButton } from '../../components'
 import {COLORS} from "../../constants";
 import {useDispatch} from "react-redux";
 import {addHelper} from "../../store/actions/helper";
 
-const HelperFormScreen3 = ({ navigation }) => {
-
-    const [name, setName] = useState(null);
-    const [phone, setPhone] = useState(null);
-    const [address1, setAddress1] = useState(null);
-    const [address2, setAddress2] = useState(null);
-    const [landmark, setLandmark] = useState(null);
-    const [pinCode, setPinCode] = useState(null);
-    const [salary, setSalary] = useState(null);
+const HelperForm1 = ({ navigation }) => {
+    const [name, setName] = useState("Ram Mohan");
+    const [phone, setPhone] = useState("9893614220");
+    const [address1, setAddress1] = useState("Plot No 145, Trilanga Colony, Gulmohar");
+    const [address2, setAddress2] = useState("Gulmohar Market");
+    const [landmark, setLandmark] = useState("Shahpura Lake");
+    const [pinCode, setPinCode] = useState("123456");
 
     const dispatch = useDispatch();
 
@@ -41,14 +39,13 @@ const HelperFormScreen3 = ({ navigation }) => {
         setPinCode(query);
     };
 
-    const onSalaryChange = (query) => {
-        setSalary(query)
-    }
-
     const onSubmitPress = () => {
-        if (name, phone, address1, address2, landmark, pinCode, salary) {
-            dispatch(addHelper(name, phone, address1, address2, landmark, pinCode, salary))
-            navigation.navigate("RegistrationSuccessScreen")
+        if (name, phone, address1, address2, landmark, pinCode) {
+            dispatch(addHelper(name, phone, address1, address2, landmark, pinCode))
+            navigation.reset({
+                index: 0,
+                routes: [{name: 'HelperSettingsScreen'}]
+            })
         } else {
             Alert.alert(
                 "Form filled incorrectly",
@@ -64,28 +61,22 @@ const HelperFormScreen3 = ({ navigation }) => {
         }
     }
 
-
-    useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => true);
-        return () =>
-            BackHandler.removeEventListener('hardwareBackPress', () => false)
-    }, [])
-
     return (
         <View style={styles.container}>
             <StatusBar
                 backgroundColor={COLORS.green}
                 barStyle={'light-content'}
             />
-            <HeaderBar
-                headerText={"Helper 3 Details"}
+            <TopBar
+                headerText={"Helper 1 Details"}
                 style={{
                     height: 70,
                 }}
+                onBackButtonPress={navigation.goBack}
             />
             <ScrollView style={styles.mainContainer}>
                 <Text style={styles.headingText}>
-                    Helper 3 Details:
+                    Helper 1 Details:
                 </Text>
                 <TextInput
                     value={name}
@@ -117,7 +108,7 @@ const HelperFormScreen3 = ({ navigation }) => {
                     value={address2}
                     style={[styles.input, {marginBottom: 10}]}
                     onChangeText={onAddress2Change}
-                    placeholder={" Home Address Line 2"}
+                    placeholder={"Home Address Line 2"}
                 />
                 <TextInput
                     value={landmark}
@@ -132,20 +123,6 @@ const HelperFormScreen3 = ({ navigation }) => {
                     placeholder={"Pin Code"}
                     keyboardType={'number-pad'}
                 />
-                <View style={styles.inputContainer}>
-                    <View style={styles.codeContainer}>
-                        <Text style={styles.countryCode}>
-                            ₹
-                        </Text>
-                    </View>
-                    <TextInput
-                        style={styles.phoneInput}
-                        value={salary}
-                        onChangeText={onSalaryChange}
-                        placeholder={"Monthly Salary"}
-                        keyboardType={'number-pad'}
-                    />
-                </View>
                 <GradientButton
                     text={"Register"}
                     onPress={onSubmitPress}
@@ -230,4 +207,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HelperFormScreen3;
+export default HelperForm1;

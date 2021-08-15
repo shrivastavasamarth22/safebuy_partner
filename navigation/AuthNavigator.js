@@ -5,7 +5,6 @@ import {
     AddHelperScreen,
     HelperFormScreen1,
     HelperFormScreen2,
-    HelperFormScreen3,
     OtpScreen,
     RegistrationFormScreen,
     RegistrationSuccessScreen,
@@ -65,13 +64,6 @@ const AuthNavigator = () => {
             <Stack.Screen
                 name={"HelperFormScreen2"}
                 component={HelperFormScreen2}
-                options={{
-                    headerShown: false
-                }}
-            />
-            <Stack.Screen
-                name={"HelperFormScreen3"}
-                component={HelperFormScreen3}
                 options={{
                     headerShown: false
                 }}

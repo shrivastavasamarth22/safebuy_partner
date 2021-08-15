@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, StatusBar, Image, FlatList, Alert, TouchableOpacity} from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
-import {TopBar, HelperCard} from '../../components'
+import {TopBar, HelperCard, GradientButton} from '../../components'
 import * as helperActions from '../../store/actions/helper'
-import {COLORS, icons} from "../../constants";
+import {COLORS, icons, images} from "../../constants";
 import {LinearGradient} from "expo-linear-gradient";
 
 const HelperSettingsScreen = ({navigation}) => {
@@ -39,10 +39,10 @@ const HelperSettingsScreen = ({navigation}) => {
     }
 
     const onAddPress = () => {
-        if (helpers.length === 1) {
-            navigation.navigate("HelperFormScreen2", {
-                count: 2,
-            })
+        if (helpers.length === 0) {
+            navigation.navigate("HelperForm1")
+        } else if (helpers.length === 1) {
+            navigation.navigate("HelperForm2")
         }
     }
 
@@ -66,8 +66,8 @@ const HelperSettingsScreen = ({navigation}) => {
                         }}
                     />
                     {
-                        helpers.length <= 2
-                        ?
+                        helpers.length = 1
+                            ?
                             <TouchableOpacity
                                 style={styles.addButtonContainer}
                                 onPress={onAddPress}
@@ -83,10 +83,28 @@ const HelperSettingsScreen = ({navigation}) => {
                                     </Text>
                                 </LinearGradient>
                             </TouchableOpacity>
-                        : null
+                            : null
 
                     }
                 </View>
+            )
+        } else {
+            return (
+                <>
+                    <Image
+                        source={images.helper}
+                        style={styles.emptyImageStyle}
+                    />
+                    <Text style={styles.emptyHeaderStyle}>
+                        You have no helpers registered right now
+                    </Text>
+                    <View style={styles.buttonContainer}>
+                        <GradientButton
+                            text={"Add Helper"}
+                            onPress={onAddPress}
+                        />
+                    </View>
+                </>
             )
         }
     }
@@ -158,6 +176,28 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto_500Medium',
         fontSize: 14,
         color: 'white'
+    },
+    emptyImageStyle: {
+        width: "120%",
+        height: "60%",
+        position: 'absolute',
+        marginTop: "20%",
+        left: "-5%",
+        backgroundColor: 'white'
+    },
+    emptyHeaderStyle: {
+        position: 'absolute',
+        top: "60%",
+        fontFamily: 'uber_move_medium',
+        fontSize: 24,
+        color: '#555',
+        textAlign: 'center',
+        alignSelf: 'center'
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
     }
 })
 

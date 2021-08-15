@@ -3,10 +3,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import {
     CameraScreen2,
-    CameraScreen3,
+    CameraScreen4,
     HelperSettingsScreen,
     SettingsScreen,
     ShopSettingsScreen,
+    HelperForm1,
+    HelperForm2,
 } from '../../screens'
 
 const Stack = createStackNavigator();
@@ -35,8 +37,18 @@ const SettingsNavigator = () => {
                 options={{headerShown: false}}
             />
             <Stack.Screen
-                name={"CameraScreen3"}
-                component={CameraScreen3}
+                name={"CameraScreen4"}
+                component={CameraScreen4}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
+                name={"HelperForm1"}
+                component={HelperForm1}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
+                name={"HelperForm2"}
+                component={HelperForm2}
                 options={{headerShown: false}}
             />
         </Stack.Navigator>

@@ -49,7 +49,7 @@ const AddHelperScreen = ({navigation}) => {
     }
 
     const onIncreaseCounter = () => {
-        if (counter === 3) {
+        if (counter === 2) {
             ToastAndroid.showWithGravity(
                 "Cannot increase further",
                 ToastAndroid.SHORT,
@@ -79,7 +79,7 @@ const AddHelperScreen = ({navigation}) => {
                         How many helpers are working ?
                     </Text>
                     <Text style={styles.note}>
-                        Can register maximum 3
+                        Can register maximum 2
                     </Text>
                 </View>
                 <View style={styles.counterContainer}>

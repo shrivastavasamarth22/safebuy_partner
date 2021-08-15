@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, BackHandler, StatusBar, TextInput, Alert, ScrollView} from 'react-native';
-import { HeaderBar, GradientButton } from '../../components'
+import {HeaderBar, GradientButton} from '../../components'
 import {COLORS} from "../../constants";
 import {useDispatch} from "react-redux";
 import {addHelper} from "../../store/actions/helper";
 
-const HelperFormScreen2 = ({ navigation, route }) => {
-    const {count} = route.params;
+const HelperFormScreen2 = ({navigation}) => {
 
     const [name, setName] = useState(null);
     const [phone, setPhone] = useState(null);
@@ -14,7 +13,6 @@ const HelperFormScreen2 = ({ navigation, route }) => {
     const [address2, setAddress2] = useState(null);
     const [landmark, setLandmark] = useState(null);
     const [pinCode, setPinCode] = useState(null);
-    const [salary, setSalary] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -42,18 +40,10 @@ const HelperFormScreen2 = ({ navigation, route }) => {
         setPinCode(query);
     };
 
-    const onSalaryChange = (query) => {
-        setSalary(query)
-    }
-
     const onSubmitPress = () => {
-        if (name, phone, address1, address2, landmark, pinCode, salary) {
-            dispatch(addHelper(name, phone, address1, address2, landmark, pinCode, salary))
-            if (count === 2) {
-                navigation.navigate("RegistrationSuccessScreen")
-            } else {
-                navigation.navigate("HelperFormScreen3")
-            }
+        if (name, phone, address1, address2, landmark, pinCode) {
+            dispatch(addHelper(name, phone, address1, address2, landmark, pinCode))
+            navigation.navigate("RegistrationSuccessScreen")
         } else {
             Alert.alert(
                 "Form filled incorrectly",
@@ -137,22 +127,8 @@ const HelperFormScreen2 = ({ navigation, route }) => {
                     placeholder={"Pin Code"}
                     keyboardType={'number-pad'}
                 />
-                <View style={styles.inputContainer}>
-                    <View style={styles.codeContainer}>
-                        <Text style={styles.countryCode}>
-                            ₹
-                        </Text>
-                    </View>
-                    <TextInput
-                        style={styles.phoneInput}
-                        value={salary}
-                        onChangeText={onSalaryChange}
-                        placeholder={"Monthly Salary"}
-                        keyboardType={'number-pad'}
-                    />
-                </View>
                 <GradientButton
-                    text={count === 2 ? "Register" : "Fill Helper 3 Details"}
+                    text={"Register"}
                     onPress={onSubmitPress}
                     style={{
                         marginBottom: 0,

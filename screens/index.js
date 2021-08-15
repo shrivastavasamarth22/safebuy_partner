@@ -18,7 +18,6 @@ import ShopSettingsScreen from "./SettingsFlow/ShopSettingsScreen";
 import AddHelperScreen from "./AuthFlow/AddHelperScreen";
 import HelperFormScreen1 from "./AuthFlow/HelperFormScreen1";
 import HelperFormScreen2 from "./AuthFlow/HelperFormScreen2";
-import HelperFormScreen3 from "./AuthFlow/HelperFormScreen3";
 import OtpScreen from "./AuthFlow/OtpScreen";
 import RegistrationFormScreen from "./AuthFlow/RegistrationFormScreen";
 import RegistrationSuccessScreen from "./AuthFlow/RegistrationSuccessScreen";
@@ -27,6 +26,9 @@ import ShopDetailFormScreen from "./AuthFlow/ShopDetailFormScreen";
 import CameraScreen from "./MediaScreens/CameraScreen";
 import CameraScreen2 from "./MediaScreens/CameraScreen2";
 import CameraScreen3 from "./MediaScreens/CameraScreen3";
+import CameraScreen4 from "./MediaScreens/CameraScreen4";
+import HelperForm1 from "./SettingsFlow/HelperForm1";
+import HelperForm2 from "./SettingsFlow/HelperForm2";
 
 export {
     AccountsDetailScreen,
@@ -49,7 +51,6 @@ export {
     AddHelperScreen,
     HelperFormScreen1,
     HelperFormScreen2,
-    HelperFormScreen3,
     OtpScreen,
     RegistrationFormScreen,
     RegistrationSuccessScreen,
@@ -57,5 +58,8 @@ export {
     ShopDetailFormScreen,
     CameraScreen,
     CameraScreen2,
-    CameraScreen3
+    CameraScreen3,
+    CameraScreen4,
+    HelperForm1,
+    HelperForm2,
 }

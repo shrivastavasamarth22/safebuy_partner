@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
                 lng: 77.447,
                 assignedOrders: [],
                 controlStatus: false,
-                salaryAmount: action.payload.salaryAmount,
+                salaryAmount: null,
                 salaryStatus: false
             })
 

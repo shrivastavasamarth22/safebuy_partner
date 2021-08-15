@@ -592,7 +592,7 @@ const ShopSettingsScreen = ({navigation}) => {
 
                 {
                     shopDetails.imageUri !== ""
-                    ? <Image source={{ uri: shopDetails.imageUri }} style={styles.bannerStyle}/>
+                        ? <Image source={{uri: shopDetails.imageUri}} style={styles.bannerStyle}/>
                         : <Image source={images.shop} style={styles.bannerStyle}/>
                 }
 
@@ -608,7 +608,7 @@ const ShopSettingsScreen = ({navigation}) => {
                 >
                     {
                         shopDetails.ownerImageUri !== ""
-                            ? <Image source={{ uri: shopDetails.ownerImageUri }} style={styles.profilePicStyle}/>
+                            ? <Image source={{uri: shopDetails.ownerImageUri}} style={styles.profilePicStyle}/>
                             : <Image source={images.user} style={styles.profilePicStyle}/>
                     }
                 </TouchableOpacity>
@@ -722,6 +722,31 @@ const ShopSettingsScreen = ({navigation}) => {
                             <MaterialIcons name="edit" size={24} color="#555"/>
                         </TouchableOpacity>
                     </View>
+
+                    <TouchableNativeFeedback
+                        onPress={() => navigation.navigate("CameraScreen4")}
+                    >
+                        <View style={styles.settingCard}>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    flex: 1
+                                }}
+                            >
+                                <AntDesign name={'qrcode'} size={24} color={'#555'} />
+                                <View
+                                    style={{
+                                        marginLeft: 40,
+                                    }}
+                                >
+                                    <Text style={styles.valueTextStyle}>
+                                        Change QR Code Image
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </TouchableNativeFeedback>
 
                     <TouchableNativeFeedback
                         onPress={() => onOpenBottomSheet(timingsSheetRef)}

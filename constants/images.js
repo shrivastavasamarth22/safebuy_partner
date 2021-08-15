@@ -30,6 +30,7 @@ export const login_background = require('../assets/images/login_background.png')
 export const circular_background = require('../assets/images/circular_background.png')
 export const rider = require('../assets/images/rider.png')
 export const success = require('../assets/images/success.png')
+export const helper = require('../assets/images/helper.png')
 
 export default {
     coriander,
@@ -57,5 +58,6 @@ export default {
     login_background,
     circular_background,
     rider,
-    success
+    success,
+    helper
 };

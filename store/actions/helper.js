@@ -5,7 +5,7 @@ export const CHANGE_HELPER_SALARY = 'CHANGE_HELPER_SAlARY';
 export const CHANGE_HELPER_STATUS = 'CHANGE_HELPER_STATUS'
 export const REMOVE_HELPER = 'REMOVE_HELPER';
 
-export const addHelper = (name, phone, address1, address2, landmark, pinCode, salaryAmount) => {
+export const addHelper = (name, phone, address1, address2, landmark, pinCode) => {
     return {
         type: ADD_HELPER,
         payload: {
@@ -15,7 +15,6 @@ export const addHelper = (name, phone, address1, address2, landmark, pinCode, sa
             address2,
             landmark,
             pinCode,
-            salaryAmount,
         }
     }
 }
