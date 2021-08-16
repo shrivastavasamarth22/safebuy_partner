@@ -223,15 +223,16 @@ const RegistrationFormScreen = ({navigation}) => {
                     <Text style={styles.inputText}>Madhya Pradesh</Text>
                 </View>
                 {renderButton()}
+            </ScrollView>
+            <View style={styles.buttonContainer}>
                 <GradientButton
                     text={"Continue"}
                     onPress={onSubmitPress}
                     style={{
-                        marginBottom: 0,
-                        marginTop: 20,
+                        marginTop: "15%",
                     }}
                 />
-            </ScrollView>
+            </View>
         </View>
     );
 };
@@ -303,6 +304,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+    },
+    buttonContainer: {
+        width: "100%",
+        paddingHorizontal: 24,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
 });
 

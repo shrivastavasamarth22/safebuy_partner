@@ -9,6 +9,7 @@ import {LinearGradient} from "expo-linear-gradient";
 const HelperSettingsScreen = ({navigation}) => {
     const helpers = useSelector(state => state.helper.helpers)
     const dispatch = useDispatch();
+    console.log(helpers)
 
     const onRemovePress = (id) => {
         Alert.alert(
@@ -66,7 +67,7 @@ const HelperSettingsScreen = ({navigation}) => {
                         }}
                     />
                     {
-                        helpers.length = 1
+                        helpers.length === 1
                             ?
                             <TouchableOpacity
                                 style={styles.addButtonContainer}

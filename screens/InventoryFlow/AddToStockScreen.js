@@ -1,5 +1,5 @@
-import React, {useState, useMemo, useEffect} from 'react';
-import {View, StyleSheet, StatusBar, FlatList, ImageBackground, BackHandler} from 'react-native';
+import React, {useState, useMemo} from 'react';
+import {View, StyleSheet, StatusBar, FlatList, ImageBackground} from 'react-native';
 import '@expo/match-media'
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from "react-redux";
@@ -14,14 +14,13 @@ import {
 import * as inventoryCartActions from '../../store/actions/inventoryCart'
 import {COLORS, images} from "../../constants";
 import {items} from '../../mock-data/items';
-import {LinearGradient} from "expo-linear-gradient";
 
 const AddToStockScreen = ({navigation}) => {
     const [barVisible, setBarVisible] = useState(false)
     const [search, setSearch] = useState("");
     const [active, setActive] = useState("vegetable");
 
-    const selectedItems = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems)
+    let selectedItems = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems)
     const dispatch = useDispatch();
 
     const checkForSelected = (itemId) => {
@@ -51,6 +50,7 @@ const AddToStockScreen = ({navigation}) => {
         }
         return {vegetables, fruits}
     }, [items, search])
+
 
     const updateSearch = (query) => {
         setSearch(query);
@@ -128,7 +128,8 @@ const AddToStockScreen = ({navigation}) => {
                         return (
                             <StockItemCard
                                 item={item}
-                                onPress={() => dispatch(inventoryCartActions.toggleSelectedItem(item))}
+                                onPress={() => dispatch(inventoryCartActions.toggleSelectedItem(item))
+                                }
                             />
                         )
                     } else {

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         paddingHorizontal: 24,
-        alignItems: 'flex-end',
+        justifyContent: 'flex-end'
     }
 })
 

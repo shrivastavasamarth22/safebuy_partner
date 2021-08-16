@@ -127,15 +127,13 @@ const HelperFormScreen2 = ({navigation}) => {
                     placeholder={"Pin Code"}
                     keyboardType={'number-pad'}
                 />
+            </ScrollView>
+            <View style={styles.buttonContainer}>
                 <GradientButton
                     text={"Register"}
                     onPress={onSubmitPress}
-                    style={{
-                        marginBottom: 0,
-                        marginTop: "35%",
-                    }}
                 />
-            </ScrollView>
+            </View>
         </View>
     )
 }
@@ -203,12 +201,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "white"
     },
-    buttonStyles: {
-        width: "95%",
-        alignSelf: 'center',
-        position: 'absolute',
-        bottom: 0
-    }
+    buttonContainer: {
+        width: "100%",
+        paddingHorizontal: 24,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
 })
 
 export default HelperFormScreen2;

@@ -6,7 +6,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import {enablePatches, enableES5} from "immer";
 
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
 
@@ -72,6 +72,8 @@ const setup = async () => {
 const Stack = createStackNavigator();
 
 export default function App() {
+    enablePatches();
+    enableES5();
     const [isSignedIn, setIsSignedIn] = useState(store.getState().auth.isSignedIn)
 
     const [isReady, setIsReady] = useState(false)
