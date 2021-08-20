@@ -17,30 +17,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch(action.type) {
-        case TOGGLE_SELECTED_ITEM:
-            const { item } = action
-            const found = state.inventoryCart.inventoryItems.find(i => i.itemId === item.itemId);
-            if (!!found) {
-                const updatedInventory = state.inventoryCart
-                updatedInventory.inventoryItems = updatedInventory.inventoryItems.filter(i => i.itemId !== item.itemId);
-                return {
-                    ...state,
-                    inventoryCart: updatedInventory
-                }
-            } else {
-                const newItem = new InventoryItem({
-                    ...action.item,
-                    purchasePrice: 0,
-                    purchaseQty: 0,
-                    sellingPrice: 0
-                })
-                const updatedInventory = state.inventoryCart
-                updatedInventory.inventoryItems.push(newItem);
-                return {
-                    ...state,
-                    inventoryCart: updatedInventory
-                }
-            }
 
         default:
             return state;

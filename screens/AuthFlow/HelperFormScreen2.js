@@ -127,13 +127,14 @@ const HelperFormScreen2 = ({navigation}) => {
                     placeholder={"Pin Code"}
                     keyboardType={'number-pad'}
                 />
-            </ScrollView>
-            <View style={styles.buttonContainer}>
                 <GradientButton
                     text={"Register"}
                     onPress={onSubmitPress}
+                    style={{
+                        marginTop: "55%"
+                    }}
                 />
-            </View>
+            </ScrollView>
         </View>
     )
 }

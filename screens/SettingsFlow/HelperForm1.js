@@ -127,8 +127,7 @@ const HelperForm1 = ({ navigation }) => {
                     text={"Register"}
                     onPress={onSubmitPress}
                     style={{
-                        marginBottom: 0,
-                        marginTop: "35%",
+                        marginTop: "55%",
                     }}
                 />
             </ScrollView>

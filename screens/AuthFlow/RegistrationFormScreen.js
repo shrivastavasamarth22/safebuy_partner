@@ -80,6 +80,16 @@ const RegistrationFormScreen = ({navigation}) => {
         }
     };
 
+    const askPermission = async () => {
+        let {status} = await Location.requestPermissionsAsync();
+        if (status !== "granted") {
+            setErrorMsg("Location permission not granted, tap to grant");
+        } else {
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        }
+    }
+
     const onSubmitPress = () => {
         if (name, ownerName, address1, address2, landmark, pinCode, location) {
             dispatch(shopActions.changeShopName(1, name));
@@ -144,24 +154,42 @@ const RegistrationFormScreen = ({navigation}) => {
             );
         }
 
-        if (errorMsg) {
+        if (location && errorMsg) {
             return (
                 <LinearGradient
-                    colors={["#fd3f63", "#fc3158"]}
+                    colors={[
+                        COLORS.fromPrimaryGradientColor,
+                        COLORS.toPrimaryGradientColor,
+                    ]}
                     start={{x: 0, y: 0}}
                     end={{x: 1, y: 0}}
-                    style={styles.errorButton}
+                    style={styles.locationButtonIdle}
                 >
-                    <Text style={[styles.idleButtonText, {width: "90%"}]}>
-                        Permission not granted, please go to settings to grant
-                        permission
-                    </Text>
-                    <MaterialIcons
-                        name="error-outline"
-                        size={24}
-                        color="white"
-                    />
+                    <Text style={styles.idleButtonText}>Location Recorded</Text>
+                    <AntDesign name="check" size={24} color="white"/>
                 </LinearGradient>
+            );
+        }
+
+        if (!location && errorMsg) {
+            return (
+                <TouchableOpacity onPress={askPermission}>
+                    <LinearGradient
+                        colors={["#fd3f63", "#fc3158"]}
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        style={styles.errorButton}
+                    >
+                        <Text style={[styles.idleButtonText, {width: "90%"}]}>
+                            {errorMsg}
+                        </Text>
+                        <MaterialIcons
+                            name="error-outline"
+                            size={24}
+                            color="white"
+                        />
+                    </LinearGradient>
+                </TouchableOpacity>
             );
         }
     };
@@ -223,8 +251,6 @@ const RegistrationFormScreen = ({navigation}) => {
                     <Text style={styles.inputText}>Madhya Pradesh</Text>
                 </View>
                 {renderButton()}
-            </ScrollView>
-            <View style={styles.buttonContainer}>
                 <GradientButton
                     text={"Continue"}
                     onPress={onSubmitPress}
@@ -232,7 +258,7 @@ const RegistrationFormScreen = ({navigation}) => {
                         marginTop: "15%",
                     }}
                 />
-            </View>
+            </ScrollView>
         </View>
     );
 };
@@ -245,7 +271,6 @@ const styles = StyleSheet.create({
     formContainer: {
         flex: 1,
         paddingTop: 15,
-        marginBottom: 5,
         paddingHorizontal: 24,
     },
     input: {
@@ -307,10 +332,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         width: "100%",
-        paddingHorizontal: 24,
         alignItems: 'center',
-        justifyContent: 'flex-end'
-    },
+        paddingHorizontal: 24
+    }
 });
 
 export default RegistrationFormScreen;

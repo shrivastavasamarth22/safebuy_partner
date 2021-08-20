@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, BackHandler, StatusBar, TextInput, Alert, ScrollView} from 'react-native';
-import { HeaderBar, GradientButton } from '../../components'
+import {HeaderBar, GradientButton} from '../../components'
 import {COLORS} from "../../constants";
 import {useDispatch} from "react-redux";
 import {addHelper} from "../../store/actions/helper";
 
-const HelperFormScreen1 = ({ navigation, route }) => {
+const HelperFormScreen1 = ({navigation, route}) => {
     const {count} = route.params;
 
     const [name, setName] = useState("Ram Mohan");
@@ -132,13 +132,14 @@ const HelperFormScreen1 = ({ navigation, route }) => {
                     placeholder={"Pin Code"}
                     keyboardType={'number-pad'}
                 />
-            </ScrollView>
-            <View style={styles.buttonContainer}>
                 <GradientButton
                     text={count === 1 ? "Register" : "Fill Helper 2 Details"}
                     onPress={onSubmitPress}
+                    style={{
+                        marginTop: "55%"
+                    }}
                 />
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -152,7 +153,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 24,
         paddingTop: 20,
-        marginBottom: 5
     },
     headingText: {
         fontFamily: 'Roboto_500Medium',
@@ -205,12 +205,6 @@ const styles = StyleSheet.create({
         fontFamily: 'uber_move_medium',
         fontSize: 16,
         color: "white"
-    },
-    buttonContainer: {
-        width: "100%",
-        paddingHorizontal: 24,
-        alignItems: 'center',
-        justifyContent: 'flex-end'
     },
 })
 

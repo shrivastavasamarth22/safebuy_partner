@@ -1,13 +1,13 @@
-export const TOGGLE_SELECTED_ITEM = 'TOGGLE_SELECTED_ITEM';
+export const ADD_ITEMS = 'ADD_ITEMS';
 export const UPDATE_PURCHASE_QTY = 'UPDATE_PURCHASE_QTY';
 export const UPDATE_PURCHASE_PRICE = 'ADD_PURCHASE_PRICE';
 export const UPDATE_SELLING_PRICE = 'UPDATE_SELLING_PRICE'
 
 
-export const toggleSelectedItem = item => {
+export const addItems = (items) => {
     return {
-        type: TOGGLE_SELECTED_ITEM,
-        item
+        type: ADD_ITEMS,
+        ADD_ITEMS
     }
 }
 

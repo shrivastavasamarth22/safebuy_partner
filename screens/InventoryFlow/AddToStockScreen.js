@@ -13,19 +13,37 @@ import {
 } from '../../components'
 import * as inventoryCartActions from '../../store/actions/inventoryCart'
 import {COLORS, images} from "../../constants";
-import {items} from '../../mock-data/items';
+import {InventoryItem} from "../../models";
+import {items} from '../../mock-data';
 
 const AddToStockScreen = ({navigation}) => {
+    const inventoryCartItems = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems)
+
     const [barVisible, setBarVisible] = useState(false)
     const [search, setSearch] = useState("");
     const [active, setActive] = useState("vegetable");
-
-    let selectedItems = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems)
-    const dispatch = useDispatch();
+    const [cartItems, setCartItems] = useState(inventoryCartItems)
 
     const checkForSelected = (itemId) => {
-        const found = selectedItems.find(item => item.itemId === itemId);
+        const found = cartItems.find(item => item.itemId === itemId);
         return !!found
+    }
+
+    const toggleSelected = (item) => {
+        if (checkForSelected(item.itemId)) {
+            const newList = [...cartItems];
+            const updatedList = newList.filter(i => i.itemId !== item.itemId);
+            setCartItems([...updatedList]);
+
+        } else {
+            const newItem = new InventoryItem({
+                ...item,
+                purchasePrice: 0,
+                purchaseQty: 0,
+                sellingPrice: 0
+            })
+            setCartItems(prevArray => [...prevArray, newItem])
+        }
     }
 
     const isSmallDevice = useMediaQuery({
@@ -128,20 +146,27 @@ const AddToStockScreen = ({navigation}) => {
                         return (
                             <StockItemCard
                                 item={item}
-                                onPress={() => dispatch(inventoryCartActions.toggleSelectedItem(item))
-                                }
+                                onPress={() => toggleSelected(item)}
                             />
                         )
                     } else {
                         return (
                             <SelectedStockItemCard
                                 item={item}
-                                onPress={() => dispatch(inventoryCartActions.toggleSelectedItem(item))}
+                                onPress={() => toggleSelected(item)}
                             />
                         )
                     }
                 }}
             />
+
+            <View style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'flex-end'
+            }}>
+
+            </View>
         </ImageBackground>
     )
 }
