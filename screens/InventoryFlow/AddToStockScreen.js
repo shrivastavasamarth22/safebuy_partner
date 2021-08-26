@@ -160,11 +160,7 @@ const AddToStockScreen = ({navigation}) => {
                 }}
             />
 
-            <View style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'flex-end'
-            }}>
+            <View style={styles.buttonContainer}>
 
             </View>
         </ImageBackground>
@@ -208,6 +204,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto_500Medium',
         color: 'white',
         fontSize: 20,
+    },
+    buttonContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        backgroundColor: 'red'
     }
 })
 

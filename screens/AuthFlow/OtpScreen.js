@@ -8,15 +8,16 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Alert,
-    StatusBar
+    StatusBar, ScrollView
 } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import BottomSheet from "reanimated-bottom-sheet";
+import '@expo/match-media';
+import { useMediaQuery } from "react-responsive";
 
 import {images} from '../../constants'
 import {GradientButton} from '../../components'
 import { changePhoneNumber } from "../../store/actions/shop";
-import {clear} from "react-native/Libraries/LogBox/Data/LogBoxData";
 
 const OtpScreen = ({ navigation }) => {
     const stored_phone = useSelector(state => state.shop.shop.phone)
@@ -37,6 +38,10 @@ const OtpScreen = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
 
     const dispatch = useDispatch();
+
+    const isSmallDevice = useMediaQuery({
+        maxDeviceWidth: 360
+    })
 
     const onPhoneChange = (query) => {
         setPhone(query)
@@ -129,11 +134,13 @@ const OtpScreen = ({ navigation }) => {
                 [
                     {
                         text: "Resend OTP",
-                        onPress: () => {}
+                        onPress: () => {
+                        }
                     },
                     {
                         text: "Try Again",
-                        onPress: () => {}
+                        onPress: () => {
+                        }
                     }
                 ]
             )
@@ -208,13 +215,13 @@ const OtpScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <Image
                     source={images.login_background}
-                    style={styles.background}
+                    style={isSmallDevice ? smallStyles.background : styles.background}
                 />
                 <Image
                     source={images.white_logo}
                     style={styles.logo}
                 />
-                <View style={styles.inputContainer}>
+                <View style={!isSmallDevice ? styles.inputContainer : smallStyles.inputContainer}>
                     <View style={styles.codeContainer}>
                         <Text style={styles.countryCode}>
                             + 91
@@ -265,6 +272,23 @@ const OtpScreen = ({ navigation }) => {
         </>
     )
 }
+
+const smallStyles = StyleSheet.create({
+    background: {
+        left: "-20%",
+        top: "-30%",
+        width: "140%",
+        height: "90%",
+        position: 'absolute',
+        resizeMode: "contain"
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        width: "100%",
+        paddingHorizontal: 24,
+        marginTop: 10
+    },
+})
 
 const styles = StyleSheet.create({
     container: {

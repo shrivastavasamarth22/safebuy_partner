@@ -5,7 +5,6 @@ import {
     StyleSheet,
     BackHandler,
     StatusBar,
-    TouchableOpacity,
     ScrollView,
     TextInput,
     Alert
@@ -16,8 +15,6 @@ import {useDispatch} from "react-redux";
 import * as shopActions from "../../store/actions/shop";
 import {GradientButton, HeaderBar} from "../../components";
 import {COLORS} from "../../constants";
-import {LinearGradient} from "expo-linear-gradient";
-import {FontAwesome, AntDesign, MaterialIcons} from "@expo/vector-icons";
 
 const RegistrationFormScreen = ({navigation}) => {
     const [name, setName] = useState("Gupta Vegetable Shop");
@@ -37,6 +34,9 @@ const RegistrationFormScreen = ({navigation}) => {
             let {status} = await Location.requestPermissionsAsync();
             if (status !== "granted") {
                 setErrorMsg("Location permission not granted, tap to grant");
+            } else {
+                let location = await Location.getCurrentPositionAsync({});
+                setLocation(location);
             }
         })();
 
@@ -45,6 +45,8 @@ const RegistrationFormScreen = ({navigation}) => {
             BackHandler.removeEventListener('hardwareBackPress', () => false)
 
     }, []);
+
+    console.log(location)
 
     const onNameChange = (name) => {
         setName(name);
@@ -69,26 +71,6 @@ const RegistrationFormScreen = ({navigation}) => {
     const onPinCodeChange = (pinCode) => {
         setPinCode(pinCode);
     };
-
-    const onLocationPress = async () => {
-        try {
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-        } catch (e) {
-            setErrorMsg(e.message);
-            console.log(e.message)
-        }
-    };
-
-    const askPermission = async () => {
-        let {status} = await Location.requestPermissionsAsync();
-        if (status !== "granted") {
-            setErrorMsg("Location permission not granted, tap to grant");
-        } else {
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-        }
-    }
 
     const onSubmitPress = () => {
         if (name, ownerName, address1, address2, landmark, pinCode, location) {
@@ -122,78 +104,6 @@ const RegistrationFormScreen = ({navigation}) => {
 
     };
 
-    const renderButton = () => {
-        if (!location && !errorMsg) {
-            return (
-                <TouchableOpacity
-                    style={styles.locationButtonIdle}
-                    onPress={onLocationPress}
-                >
-                    <Text style={styles.idleButtonText}>
-                        Tap to access location
-                    </Text>
-                    <FontAwesome name="map-marker" size={24} color="white"/>
-                </TouchableOpacity>
-            );
-        }
-
-        if (location && !errorMsg) {
-            return (
-                <LinearGradient
-                    colors={[
-                        COLORS.fromPrimaryGradientColor,
-                        COLORS.toPrimaryGradientColor,
-                    ]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    style={styles.locationButtonIdle}
-                >
-                    <Text style={styles.idleButtonText}>Location Recorded</Text>
-                    <AntDesign name="check" size={24} color="white"/>
-                </LinearGradient>
-            );
-        }
-
-        if (location && errorMsg) {
-            return (
-                <LinearGradient
-                    colors={[
-                        COLORS.fromPrimaryGradientColor,
-                        COLORS.toPrimaryGradientColor,
-                    ]}
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    style={styles.locationButtonIdle}
-                >
-                    <Text style={styles.idleButtonText}>Location Recorded</Text>
-                    <AntDesign name="check" size={24} color="white"/>
-                </LinearGradient>
-            );
-        }
-
-        if (!location && errorMsg) {
-            return (
-                <TouchableOpacity onPress={askPermission}>
-                    <LinearGradient
-                        colors={["#fd3f63", "#fc3158"]}
-                        start={{x: 0, y: 0}}
-                        end={{x: 1, y: 0}}
-                        style={styles.errorButton}
-                    >
-                        <Text style={[styles.idleButtonText, {width: "90%"}]}>
-                            {errorMsg}
-                        </Text>
-                        <MaterialIcons
-                            name="error-outline"
-                            size={24}
-                            color="white"
-                        />
-                    </LinearGradient>
-                </TouchableOpacity>
-            );
-        }
-    };
-
     return (
         <View style={styles.container}>
             <StatusBar
@@ -203,7 +113,7 @@ const RegistrationFormScreen = ({navigation}) => {
             <HeaderBar
                 headerText={"Register"}
                 style={{
-                    height: 70,
+                    height: 50,
                 }}
             />
             <ScrollView style={styles.formContainer}>
@@ -250,12 +160,11 @@ const RegistrationFormScreen = ({navigation}) => {
                 <View style={styles.inputView}>
                     <Text style={styles.inputText}>Madhya Pradesh</Text>
                 </View>
-                {renderButton()}
                 <GradientButton
                     text={"Continue"}
                     onPress={onSubmitPress}
                     style={{
-                        marginTop: "15%",
+                        marginTop: 10,
                     }}
                 />
             </ScrollView>
@@ -284,7 +193,6 @@ const styles = StyleSheet.create({
         paddingLeft: 12,
         fontFamily: "uber_move_medium",
         fontSize: 16,
-        marginBottom: 5,
     },
     inputView: {
         width: "100%",

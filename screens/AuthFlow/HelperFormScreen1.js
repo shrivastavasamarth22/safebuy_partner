@@ -4,6 +4,8 @@ import {HeaderBar, GradientButton} from '../../components'
 import {COLORS} from "../../constants";
 import {useDispatch} from "react-redux";
 import {addHelper} from "../../store/actions/helper";
+import '@expo/match-media';
+import { useMediaQuery } from "react-responsive";
 
 const HelperFormScreen1 = ({navigation, route}) => {
     const {count} = route.params;
@@ -16,6 +18,10 @@ const HelperFormScreen1 = ({navigation, route}) => {
     const [pinCode, setPinCode] = useState("123456");
 
     const dispatch = useDispatch();
+
+    const isSmallDevice = useMediaQuery({
+        maxDeviceWidth: 360
+    })
 
     const onNameChange = (query) => {
         setName(query);
@@ -135,8 +141,10 @@ const HelperFormScreen1 = ({navigation, route}) => {
                 <GradientButton
                     text={count === 1 ? "Register" : "Fill Helper 2 Details"}
                     onPress={onSubmitPress}
-                    style={{
+                    style={!isSmallDevice ? {
                         marginTop: "55%"
+                    } : {
+                        marginTop: "15%"
                     }}
                 />
             </ScrollView>
