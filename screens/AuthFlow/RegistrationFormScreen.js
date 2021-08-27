@@ -11,10 +11,13 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import {useDispatch} from "react-redux";
+import '@expo/match-media'
+import {useMediaQuery} from "react-responsive";
 
 import * as shopActions from "../../store/actions/shop";
 import {GradientButton, HeaderBar} from "../../components";
 import {COLORS} from "../../constants";
+
 
 const RegistrationFormScreen = ({navigation}) => {
     const [name, setName] = useState("Gupta Vegetable Shop");
@@ -28,6 +31,9 @@ const RegistrationFormScreen = ({navigation}) => {
     const [errorMsg, setErrorMsg] = useState(null);
 
     const dispatch = useDispatch();
+    const isSmallDevice = useMediaQuery({
+        maxDeviceWidth: 360
+    })
 
     useEffect(() => {
         (async () => {
@@ -45,8 +51,6 @@ const RegistrationFormScreen = ({navigation}) => {
             BackHandler.removeEventListener('hardwareBackPress', () => false)
 
     }, []);
-
-    console.log(location)
 
     const onNameChange = (name) => {
         setName(name);
@@ -112,11 +116,13 @@ const RegistrationFormScreen = ({navigation}) => {
             />
             <HeaderBar
                 headerText={"Register"}
-                style={{
+                style={isSmallDevice ? {
                     height: 50,
+                } : {
+                    height: 70
                 }}
             />
-            <ScrollView style={styles.formContainer}>
+            <View style={styles.formContainer}>
                 <TextInput
                     value={name}
                     onChangeText={onNameChange}
@@ -160,14 +166,17 @@ const RegistrationFormScreen = ({navigation}) => {
                 <View style={styles.inputView}>
                     <Text style={styles.inputText}>Madhya Pradesh</Text>
                 </View>
-                <GradientButton
-                    text={"Continue"}
-                    onPress={onSubmitPress}
-                    style={{
-                        marginTop: 10,
-                    }}
-                />
-            </ScrollView>
+                <View style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'flex-end'
+                }}>
+                    <GradientButton
+                        text={"Continue"}
+                        onPress={onSubmitPress}
+                    />
+                </View>
+            </View>
         </View>
     );
 };
