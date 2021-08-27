@@ -9,3 +9,4 @@
 - [ ] Fix clashing between change functions in the otp screen, i.e. between the backspace onKeyPressed functions and onChangeFunctions
 - [x] Disable back tracking in AuthFlow navigation
 - [x] Finish Helper Settings screen, i.e., Add More function and navigation issues with HelperForm screen
+- [ ] expoLocation not working in physical device when apk is built.

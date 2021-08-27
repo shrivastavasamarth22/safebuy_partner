@@ -77,21 +77,37 @@ const RegistrationFormScreen = ({navigation}) => {
     };
 
     const onSubmitPress = () => {
-        if (name, ownerName, address1, address2, landmark, pinCode, location) {
+        if (name, ownerName, address1, address2, landmark, pinCode) {
             dispatch(shopActions.changeShopName(1, name));
             dispatch(shopActions.changeOwnerName(1, ownerName));
-            dispatch(
-                shopActions.changeShopAddress(
-                    1,
-                    address1,
-                    address2,
-                    landmark,
-                    pinCode,
-                    location.coords.latitude,
-                    location.coords.longitude
-                )
-            );
-            navigation.navigate("ShopDetailFormScreen")
+            if (location) {
+                dispatch(
+                    shopActions.changeShopAddress(
+                        1,
+                        address1,
+                        address2,
+                        landmark,
+                        pinCode,
+                        location.coords.latitude,
+                        location.coords.longitude
+                    )
+                );
+                navigation.navigate("ShopDetailFormScreen")
+            } else {
+                dispatch(
+                    shopActions.changeShopAddress(
+                        1,
+                        address1,
+                        address2,
+                        landmark,
+                        pinCode,
+                        0,
+                        0
+                    )
+                );
+                navigation.navigate("ShopDetailFormScreen")
+            }
+
         } else {
             Alert.alert(
                 "Form filled incorrectly",
