@@ -3,10 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import {
     AddSellingPriceScreen,
+    AddPurchaseDetailsScreen,
     AddToStockScreen,
     InventoryHistoryScreen,
     InventoryScreen,
-    StockBoughtSummaryScreen
+    StockBoughtSummaryScreen,
 } from '../../screens'
 
 const Stack = createStackNavigator();
@@ -22,6 +23,11 @@ const InventoryNavigator = () => {
             <Stack.Screen
                 name={"AddToStockScreen"}
                 component={AddToStockScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name={"AddPurchaseDetailsScreen"}
+                component={AddPurchaseDetailsScreen}
                 options={{ headerShown: false }}
             />
             <Stack.Screen

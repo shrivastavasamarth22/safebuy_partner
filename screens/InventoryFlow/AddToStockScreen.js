@@ -1,5 +1,5 @@
 import React, {useState, useMemo} from 'react';
-import {View, StyleSheet, StatusBar, FlatList, ImageBackground} from 'react-native';
+import {View, StyleSheet, StatusBar, FlatList, ImageBackground, Alert} from 'react-native';
 import '@expo/match-media'
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import {
     ActiveFruitPicker,
     ActiveVegetablePicker,
     StockItemCard,
-    SelectedStockItemCard,
+    SelectedStockItemCard, GradientButton,
 } from '../../components'
 import * as inventoryCartActions from '../../store/actions/inventoryCart'
 import {COLORS, images} from "../../constants";
@@ -23,6 +23,8 @@ const AddToStockScreen = ({navigation}) => {
     const [search, setSearch] = useState("");
     const [active, setActive] = useState("vegetable");
     const [cartItems, setCartItems] = useState(inventoryCartItems)
+
+    const dispatch = useDispatch();
 
     const checkForSelected = (itemId) => {
         const found = cartItems.find(item => item.itemId === itemId);
@@ -87,11 +89,28 @@ const AddToStockScreen = ({navigation}) => {
         return data;
     }
 
+    const onSubmitPress = () => {
+        if (cartItems.length > 0) {
+            dispatch(inventoryCartActions.addItems(cartItems));
+            navigation.navigate("AddPurchaseDetailsScreen");
+        } else {
+            Alert.alert(
+                "Your inventory is empty",
+                "Please select items to add them to your inventory",
+                [
+                    {
+                        text: "Ok",
+                        onPress: () => {}
+                    }
+                ]
+            )
+        }
+    }
+
 
 
     return (
-        <ImageBackground
-            source={images.background}
+        <View
             style={styles.container}
         >
             <StatusBar
@@ -159,11 +178,13 @@ const AddToStockScreen = ({navigation}) => {
                     }
                 }}
             />
-
             <View style={styles.buttonContainer}>
-
+                <GradientButton
+                    text={"Continue"}
+                    onPress={onSubmitPress}
+                />
             </View>
-        </ImageBackground>
+        </View>
     )
 }
 
@@ -206,10 +227,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     buttonContainer: {
-        flex: 1,
+        width: "100%",
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        backgroundColor: 'red'
+        paddingHorizontal: 24,
+        marginTop: 10
     }
 })
 

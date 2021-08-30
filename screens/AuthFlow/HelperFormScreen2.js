@@ -90,7 +90,7 @@ const HelperFormScreen2 = ({navigation}) => {
                 </Text>
                 <TextInput
                     value={name}
-                    style={[styles.input, {marginBottom: 10}]}
+                    style={styles.input}
                     onChangeText={onNameChange}
                     placeholder={"Name"}
                 />
@@ -101,7 +101,7 @@ const HelperFormScreen2 = ({navigation}) => {
                         </Text>
                     </View>
                     <TextInput
-                        style={[styles.phoneInput, {marginBottom: 10}]}
+                        style={styles.phoneInput}
                         value={phone}
                         onChangeText={onPhoneChange}
                         placeholder={"Mobile Number"}
@@ -110,39 +110,37 @@ const HelperFormScreen2 = ({navigation}) => {
                 </View>
                 <TextInput
                     value={address1}
-                    style={[styles.input, {marginBottom: 10}]}
+                    style={[styles.input, { marginTop: 0 }]}
                     onChangeText={onAddress1Change}
                     placeholder={" Home Address Line 1"}
                 />
                 <TextInput
                     value={address2}
-                    style={[styles.input, {marginBottom: 10}]}
+                    style={styles.input}
                     onChangeText={onAddress2Change}
-                    placeholder={" Home Address Line 2"}
+                    placeholder={"Home Address Line 2"}
                 />
                 <TextInput
                     value={landmark}
-                    style={[styles.input, {marginBottom: 10}]}
+                    style={styles.input}
                     onChangeText={onLandmarkChange}
                     placeholder={"Landmark"}
                 />
                 <TextInput
                     value={pinCode}
-                    style={[styles.input, {marginBottom: 10}]}
+                    style={styles.input}
                     onChangeText={onPinCodeChange}
                     placeholder={"Pin Code"}
                     keyboardType={'number-pad'}
                 />
+
+            </ScrollView>
+            <View style={styles.buttonContainer}>
                 <GradientButton
                     text={"Register"}
                     onPress={onSubmitPress}
-                    style={!isSmallDevice ? {
-                        marginTop: "55%"
-                    } : {
-                        marginTop: "15%"
-                    }}
                 />
-            </ScrollView>
+            </View>
         </View>
     )
 }
@@ -153,10 +151,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     mainContainer: {
-        flex: 1,
         paddingHorizontal: 24,
         paddingTop: 20,
-        marginBottom: 5
     },
     headingText: {
         fontFamily: 'Roboto_500Medium',
@@ -211,11 +207,12 @@ const styles = StyleSheet.create({
         color: "white"
     },
     buttonContainer: {
+        marginTop: 20,
         width: "100%",
-        paddingHorizontal: 24,
         alignItems: 'center',
-        justifyContent: 'flex-end'
-    },
+        justifyContent: 'flex-end',
+        paddingHorizontal: 24,
+    }
 })
 
 export default HelperFormScreen2;

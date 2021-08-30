@@ -722,27 +722,8 @@ export const items = [
         "KG",
         0.5
     ),
-    new Item("", "Bananas", "केले", images.bananas, "fruit", "pc", 6),
-    new Item(
-        "",
-        "Apples - Washington",
-        "सेब - वाशिंगटन",
-        images.apple_washington,
-        "fruit",
-        "KG",
-        0.5
-    ),
-    new Item(
-        "",
-        "Mango - Alphonso",
-        "आम - अलफांसो",
-        images.mango_alphonso,
-        "fruit",
-        "KG",
-        0.5
-    ),
-    new Item("", "Orange", "संतरा", images.orange, "fruit", "KG", 0.5),
-    new Item("", "Pear", "नाशपाती", images.pear, "fruit", "KG", 0.5),
-    new Item("", "Pomegranate", "अनार", images.pomegranate, "fruit", "KG", 0.5),
-    new Item("", "Watermelon", "तरबूज", images.watermelon, "fruit", "KG", 0.5),
+    new Item(91, "Orange", "संतरा", images.orange, "fruit", "KG", 0.5),
+    new Item(92, "Pear", "नाशपाती", images.pear, "fruit", "KG", 0.5),
+    new Item(93, "Pomegranate", "अनार", images.pomegranate, "fruit", "KG", 0.5),
+    new Item(94, "Watermelon", "तरबूज", images.watermelon, "fruit", "KG", 0.5),
 ];

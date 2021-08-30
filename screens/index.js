@@ -5,6 +5,7 @@ import ExpenseSummaryScreen from "./AccountsFlow/ExpenseSummaryScreen";
 import RevenueSummaryScreen from "./AccountsFlow/RevenueSummaryScreen";
 import AddSellingPriceScreen from "./InventoryFlow/AddSellingPriceScreen";
 import AddToStockScreen from "./InventoryFlow/AddToStockScreen";
+import AddPurchaseDetailsScreen from "./InventoryFlow/AddPurchaseDetailsScreen";
 import InventoryHistoryScreen from "./InventoryFlow/InventoryHistoryScreen";
 import InventoryScreen from "./InventoryFlow/InventoryScreen";
 import StockBoughtSummaryScreen from "./InventoryFlow/StockBoughtSummaryScreen";
@@ -38,6 +39,7 @@ export {
     RevenueSummaryScreen,
     AddSellingPriceScreen,
     AddToStockScreen,
+    AddPurchaseDetailsScreen,
     InventoryHistoryScreen,
     InventoryScreen,
     StockBoughtSummaryScreen,

@@ -138,7 +138,7 @@ const RegistrationFormScreen = ({navigation}) => {
                     height: 70
                 }}
             />
-            <View style={styles.formContainer}>
+            <ScrollView style={styles.formContainer}>
                 <TextInput
                     value={name}
                     onChangeText={onNameChange}
@@ -182,16 +182,12 @@ const RegistrationFormScreen = ({navigation}) => {
                 <View style={styles.inputView}>
                     <Text style={styles.inputText}>Madhya Pradesh</Text>
                 </View>
-                <View style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    justifyContent: 'flex-end'
-                }}>
-                    <GradientButton
-                        text={"Continue"}
-                        onPress={onSubmitPress}
-                    />
-                </View>
+            </ScrollView>
+            <View style={styles.buttonContainer}>
+                <GradientButton
+                    text={"Continue"}
+                    onPress={onSubmitPress}
+                />
             </View>
         </View>
     );
@@ -203,7 +199,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     formContainer: {
-        flex: 1,
         paddingTop: 15,
         paddingHorizontal: 24,
     },
@@ -264,8 +259,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     buttonContainer: {
+        flex: 1,
+        marginTop: 20,
         width: "100%",
         alignItems: 'center',
+        justifyContent: 'flex-end',
         paddingHorizontal: 24
     }
 });

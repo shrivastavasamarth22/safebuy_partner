@@ -7,7 +7,7 @@ export const UPDATE_SELLING_PRICE = 'UPDATE_SELLING_PRICE'
 export const addItems = (items) => {
     return {
         type: ADD_ITEMS,
-        ADD_ITEMS
+        items
     }
 }
 

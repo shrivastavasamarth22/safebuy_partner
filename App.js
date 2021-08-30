@@ -18,6 +18,8 @@ import inventoryCartReducer from './store/reducers/inventory-cart';
 import AuthNavigator from "./navigation/AuthNavigator";
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
 
+import { InventoryScreen } from './screens'
+
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
     inventoryCart: inventoryCartReducer,
