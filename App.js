@@ -94,13 +94,13 @@ export default function App() {
         <Provider store={store}>
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen
-                        name={"Auth"}
-                        component={AuthNavigator}
-                        options={{
-                            headerShown: false
-                        }}
-                    />
+                    {/*<Stack.Screen*/}
+                    {/*    name={"Auth"}*/}
+                    {/*    component={AuthNavigator}*/}
+                    {/*    options={{*/}
+                    {/*        headerShown: false*/}
+                    {/*    }}*/}
+                    {/*/>*/}
                     <Stack.Screen
                         name={"BottomTab"}
                         component={MainBottomTabNavigator}

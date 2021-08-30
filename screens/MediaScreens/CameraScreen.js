@@ -61,7 +61,7 @@ const CameraScreen2 = ({ navigation, route }) => {
             }
             navigation.reset({
                 index: 0,
-                routes: [{ name: "ShopSettingsScreen" }]
+                routes: [{ name: "ShopDetailFormScreen" }]
             })
         } catch (e) {
             console.error(e)

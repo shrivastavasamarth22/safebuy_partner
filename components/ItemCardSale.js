@@ -1,23 +1,18 @@
 import React from "react";
-import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Image, Text, StyleSheet } from "react-native";
 import { Card } from "react-native-shadow-cards";
 import { COLORS } from "../constants";
-import QuantityCounter from "./QuantityCounter";
-import PriceCounter from "./PriceCounter";
+import PriceCounterUnit from "./PriceCounterUnit";
 
 /**
  * @param {OrderItem|Item} item The actual item/product to render in the card
- * @param {number} quantity The quantity of the item in the bag
  * @param {number} price The price of the item
- * @param {func} onQtyAdd The callback to call when we're increasing the quantity
- * @param {func} onQtyRemove The callback to call when we're decreasing the quantity
  * @param {func} onPriceAdd The callback to call when we're increasing the price
  * @param {func} onPriceRemove The callback to call when we're decreasing the price
- * @param {func} onQtyPressOut
  * @param {func} onPricePressOut
  * @returns
  */
-export default function ItemCard({ item, quantity, price, onQtyAdd, onQtyRemove, onPriceAdd, onPriceRemove, onQtyPressOut,onPricePressOut }) {
+export default function ItemCardSale({ item, price, onPriceAdd, onPriceRemove, onPricePressOut }) {
     return (
         <Card style={styles.cardStyle}>
             <View style={styles.cardContainerStyle}>
@@ -30,16 +25,10 @@ export default function ItemCard({ item, quantity, price, onQtyAdd, onQtyRemove,
                 <Text style={styles.itemNameTextStyle}>{item.name}</Text>
             </View>
             <View style={styles.counterContainerStyle}>
-                <Text style={styles.quantityTextStyle}>Quantity</Text>
-                <QuantityCounter
-                    quantity={`${quantity} ${item.unit}`}
-                    onAdd={onQtyAdd}
-                    onRemove={onQtyRemove}
-                    onQtyPressOut={onQtyPressOut}
-                />
                 <Text style={styles.quantityTextStyle}>Price</Text>
-                <PriceCounter
-                    price={`₹ ${price}`}
+                <PriceCounterUnit
+                    price={price}
+                    unit={item.unit}
                     onAdd={onPriceAdd}
                     onRemove={onPriceRemove}
                     onPricePressOut={onPricePressOut}
@@ -53,7 +42,7 @@ const styles = StyleSheet.create({
     cardStyle: {
         flexDirection: "row",
         alignItems: "center",
-        width: "99.99%",
+        width: "99%",
         marginBottom: 15,
         elevation: 5,
         paddingVertical: 10
@@ -72,14 +61,6 @@ const styles = StyleSheet.create({
     imageStyle: {
         width: 100,
         height: 90,
-    },
-    gradientStyle: {
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        height: 30,
-        paddingHorizontal: 10,
-        borderBottomLeftRadius: 5
     },
     itemRateTextStyle: {
         fontSize: 16,

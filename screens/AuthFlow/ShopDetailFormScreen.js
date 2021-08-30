@@ -9,18 +9,19 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     FlatList,
-    Image,
+    Image, ScrollView,
 } from "react-native";
 import {useSelector, useDispatch} from "react-redux";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import BottomSheet from "reanimated-bottom-sheet";
 import {Entypo, Feather, AntDesign} from "@expo/vector-icons";
+import '@expo/match-media'
+import {useMediaQuery} from "react-responsive";
 import {HeaderBar, TimePicker, DaySelector, GradientButton} from "../../components";
 import {COLORS} from "../../constants";
 import {days, prices} from "../../mock-data";
 import * as shopActions from '../../store/actions/shop'
 import {LinearGradient} from "expo-linear-gradient";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {logIn, logOut} from "../../store/actions/auth";
 
 const ShopDetailFormScreen = ({navigation}) => {
@@ -34,6 +35,10 @@ const ShopDetailFormScreen = ({navigation}) => {
     const [visible, setVisible] = useState(false)
     const [showPrice, setShowPrice] = useState(shopDetails.homeDeliveryCapable);
     const [selectedPrice, setSelectedPrice] = useState(shopDetails.homeDeliveryMinOrderAmount)
+
+    const isSmallDevice = useMediaQuery({
+        maxDeviceWidth: 360
+    })
 
     const [openTime, setOpenTime] = useState({
         hours: "09",
@@ -243,7 +248,6 @@ const ShopDetailFormScreen = ({navigation}) => {
     return (
         <>
             <View style={styles.container}>
-
                 <StatusBar
                     backgroundColor={COLORS.green}
                     barStyle={"light-content"}
@@ -251,171 +255,178 @@ const ShopDetailFormScreen = ({navigation}) => {
 
                 <HeaderBar
                     headerText={"Shop Details"}
-                />
-
-                <TimePicker
-                    heading={"Enter Opening Time: "}
-                    style={{
-                        marginTop: 15
+                    style={isSmallDevice ? {
+                        height: 50,
+                    } : {
+                        height: 70
                     }}
-                    hours={openTime.hours}
-                    minutes={openTime.minutes}
-                    icon={<Feather name={"sun"} size={24} color={"#000"}/>}
-                    onPress={() => setOpenTimeShow(true)}
                 />
 
-                <TimePicker
-                    heading={"Enter Closing Time: "}
-                    style={{
-                        marginTop: 15
-                    }}
-                    hours={closeTime.hours}
-                    minutes={closeTime.minutes}
-                    icon={<Feather name={"moon"} size={24} color={"#000"}/>}
-                    onPress={() => setCloseTimeShow(true)}
-                />
+                <ScrollView style={styles.formContainer}>
+                    <TimePicker
+                        heading={"Enter Opening Time: "}
+                        style={{
+                            marginTop: 15
+                        }}
+                        hours={openTime.hours}
+                        minutes={openTime.minutes}
+                        icon={<Feather name={"sun"} size={24} color={"#000"}/>}
+                        onPress={() => setOpenTimeShow(true)}
+                    />
 
-                <TouchableOpacity
-                    style={styles.holidayButtonContainer}
-                    onPress={() => onOpenBottomSheet(holidaySheetRef)}
-                >
-                    <Text style={styles.holidayButtonText}>
-                        Holidays :
-                    </Text>
-                    <Entypo name="chevron-right" size={24} color="#555"/>
-                </TouchableOpacity>
-                <View
-                    style={styles.divider}
-                />
+                    <TimePicker
+                        heading={"Enter Closing Time: "}
+                        style={{
+                            marginTop: 15
+                        }}
+                        hours={closeTime.hours}
+                        minutes={closeTime.minutes}
+                        icon={<Feather name={"moon"} size={24} color={"#000"}/>}
+                        onPress={() => setCloseTimeShow(true)}
+                    />
 
-                <TouchableOpacity
-                    style={styles.holidayButtonContainer}
-                    onPress={() => navigation.navigate("CameraScreen", {
-                        purpose: 'shop'
-                    })}
-                >
-                    <Text style={styles.holidayButtonText}>
-                        Shop Photo
-                    </Text>
-                    <AntDesign name="camera" size={28} color="#CCC"/>
-                </TouchableOpacity>
-                {
-                    shopImage !== ""
-                        ? <Image source={{uri: shopImage}} style={styles.previewImage}/>
-                        : null
-                }
-                <View
-                    style={styles.divider}
-                />
-
-                <TouchableOpacity
-                    style={styles.holidayButtonContainer}
-                    onPress={() => navigation.navigate("CameraScreen", {
-                        purpose: 'user'
-                    })}
-                >
-                    <Text style={styles.holidayButtonText}>
-                        Owner Photo
-                    </Text>
-                    <AntDesign name="user" size={28} color="#CCC"/>
-                </TouchableOpacity>
-                {
-                    ownerImage !== ""
-                        ? <Image source={{uri: ownerImage}} style={styles.previewImage}/>
-                        : null
-                }
-                <View
-                    style={styles.divider}
-                />
-
-                <TouchableOpacity
-                    style={styles.holidayButtonContainer}
-                    onPress={() => navigation.navigate("CameraScreen3")}
-                >
-                    <Text style={styles.holidayButtonText}>
-                        Shop QR photo
-                    </Text>
-                    <AntDesign name="qrcode" size={28} color="#CCC"/>
-                </TouchableOpacity>
-                {
-                    qrImage !== ""
-                        ? <Image source={{uri: qrImage}} style={styles.previewImage}/>
-                        : null
-                }
-                <View
-                    style={styles.divider}
-                />
-
-                <TouchableOpacity
-                    style={styles.holidayButtonContainer}
-                    onPress={toggleSwitch}
-                >
-                    <Text style={styles.holidayButtonText}>
-                        Home Delivery:
-                    </Text>
-                    <View style={showPrice ?
-                        [styles.switchButtonContainer, {backgroundColor: COLORS.primary, alignItems: 'flex-end'}]
-                        : [styles.switchButtonContainer, {backgroundColor: "#c4c4c4"}]}>
-                        <View style={!showPrice ? [styles.switchButton, {
-                            borderWidth: 1,
-                            borderColor: "#CCC"
-                        }] : [styles.switchButton, {borderWidth: 1, borderColor: COLORS.primary}]}/>
-                    </View>
-                </TouchableOpacity>
-                {
-                    showPrice ?
-                        <View style={styles.priceOptionContainer}>
-                            <FlatList
-                                data={prices}
-                                horizontal
-                                contentContainerStyle={{
-                                    width: "100%",
-                                    justifyContent: 'space-between'
-                                }}
-                                keyExtractor={item => item.toString()}
-                                renderItem={({item}) => {
-                                    if (selectedPrice === item) {
-                                        return (
-                                            <TouchableOpacity
-                                                style={styles.selectedPriceContainer}
-                                                onPress={() => onPricePress(item)}
-                                            >
-                                                <Text style={styles.selectedPriceText}>
-                                                    {`₹ ${item}`}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        )
-                                    } else {
-                                        return (
-                                            <TouchableOpacity
-                                                style={styles.regularPriceContainer}
-                                                onPress={() => onPricePress(item)}
-                                            >
-                                                <Text style={styles.regularPriceText}>
-                                                    {`₹ ${item}`}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }
-
-                                }}
-                            />
-                        </View> : null
-                }
-                {
-                    showPrice ?
-                        <Text style={styles.noticeText}>
-                            *Minimum order amount
+                    <TouchableOpacity
+                        style={styles.holidayButtonContainer}
+                        onPress={() => onOpenBottomSheet(holidaySheetRef)}
+                    >
+                        <Text style={styles.holidayButtonText}>
+                            Holidays :
                         </Text>
-                        : null
-                }
-                <View
-                    style={styles.divider}
-                />
+                        <Entypo name="chevron-right" size={24} color="#555"/>
+                    </TouchableOpacity>
+                    <View
+                        style={styles.divider}
+                    />
+
+                    <TouchableOpacity
+                        style={styles.holidayButtonContainer}
+                        onPress={() => navigation.navigate("CameraScreen", {
+                            purpose: 'shop'
+                        })}
+                    >
+                        <Text style={styles.holidayButtonText}>
+                            Shop Photo
+                        </Text>
+                        <AntDesign name="camera" size={28} color="#CCC"/>
+                    </TouchableOpacity>
+                    {
+                        shopImage !== ""
+                            ? <Image source={{uri: shopImage}} style={styles.previewImage}/>
+                            : null
+                    }
+                    <View
+                        style={styles.divider}
+                    />
+
+                    <TouchableOpacity
+                        style={styles.holidayButtonContainer}
+                        onPress={() => navigation.navigate("CameraScreen", {
+                            purpose: 'user'
+                        })}
+                    >
+                        <Text style={styles.holidayButtonText}>
+                            Owner Photo
+                        </Text>
+                        <AntDesign name="user" size={28} color="#CCC"/>
+                    </TouchableOpacity>
+                    {
+                        ownerImage !== ""
+                            ? <Image source={{uri: ownerImage}} style={styles.previewImage}/>
+                            : null
+                    }
+                    <View
+                        style={styles.divider}
+                    />
+
+                    <TouchableOpacity
+                        style={styles.holidayButtonContainer}
+                        onPress={() => navigation.navigate("CameraScreen3")}
+                    >
+                        <Text style={styles.holidayButtonText}>
+                            Shop QR photo
+                        </Text>
+                        <AntDesign name="qrcode" size={28} color="#CCC"/>
+                    </TouchableOpacity>
+                    {
+                        qrImage !== ""
+                            ? <Image source={{uri: qrImage}} style={styles.previewImage}/>
+                            : null
+                    }
+                    <View
+                        style={styles.divider}
+                    />
+
+                    <TouchableOpacity
+                        style={styles.holidayButtonContainer}
+                        onPress={toggleSwitch}
+                    >
+                        <Text style={styles.holidayButtonText}>
+                            Home Delivery:
+                        </Text>
+                        <View style={showPrice ?
+                            [styles.switchButtonContainer, {backgroundColor: COLORS.primary, alignItems: 'flex-end'}]
+                            : [styles.switchButtonContainer, {backgroundColor: "#c4c4c4"}]}>
+                            <View style={!showPrice ? [styles.switchButton, {
+                                borderWidth: 1,
+                                borderColor: "#CCC"
+                            }] : [styles.switchButton, {borderWidth: 1, borderColor: COLORS.primary}]}/>
+                        </View>
+                    </TouchableOpacity>
+                    {
+                        showPrice ?
+                            <View style={styles.priceOptionContainer}>
+                                <FlatList
+                                    data={prices}
+                                    horizontal
+                                    contentContainerStyle={{
+                                        width: "100%",
+                                        justifyContent: 'space-between'
+                                    }}
+                                    keyExtractor={item => item.toString()}
+                                    renderItem={({item}) => {
+                                        if (selectedPrice === item) {
+                                            return (
+                                                <TouchableOpacity
+                                                    style={styles.selectedPriceContainer}
+                                                    onPress={() => onPricePress(item)}
+                                                >
+                                                    <Text style={styles.selectedPriceText}>
+                                                        {`₹ ${item}`}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            )
+                                        } else {
+                                            return (
+                                                <TouchableOpacity
+                                                    style={styles.regularPriceContainer}
+                                                    onPress={() => onPricePress(item)}
+                                                >
+                                                    <Text style={styles.regularPriceText}>
+                                                        {`₹ ${item}`}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            )
+                                        }
+
+                                    }}
+                                />
+                            </View> : null
+                    }
+                    {
+                        showPrice ?
+                            <Text style={styles.noticeText}>
+                                *Minimum order amount
+                            </Text>
+                            : null
+                    }
+                    <View
+                        style={styles.divider}
+                    />
+                </ScrollView>
                 <View style={{
                     flex: 1,
                     justifyContent: 'flex-end',
-                    paddingHorizontal: 24
+                    paddingHorizontal: 24,
                 }}>
                     <GradientButton
                         text={"Continue"}
@@ -489,7 +500,8 @@ const ShopDetailFormScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: "100%",
+        height: "100%",
         backgroundColor: 'white'
     },
     holidayButtonContainer: {
@@ -528,12 +540,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    formContainer: {
+        width: "100%",
+        height: "70%",
+        marginBottom: "5%"
+    },
     buttonContainer: {
         flex: 1,
         paddingHorizontal: 24,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     cancelButtonContainer: {
         height: 60,

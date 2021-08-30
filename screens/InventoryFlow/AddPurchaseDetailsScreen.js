@@ -1,13 +1,25 @@
 import React, { useState, useRef } from 'react';
-import {View, Text, StyleSheet, StatusBar, FlatList, ImageBackground, ToastAndroid} from 'react-native';
-import {useSelector} from "react-redux";
+import {
+    View,
+    Text,
+    StyleSheet,
+    StatusBar,
+    FlatList,
+    ImageBackground,
+    ToastAndroid,
+    Alert
+} from 'react-native';
+import {useSelector, useDispatch} from "react-redux";
 
-import {TopBar, ItemCard, GradientButton} from '../../components'
+import {TopBar, ItemCardPurchase, GradientButton} from '../../components'
 import {COLORS, images} from "../../constants";
+import * as inventoryCartActions from '../../store/actions/inventoryCart'
 
 const AddPurchaseDetailsScreen = ({ navigation }) => {
     const cart = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems);
     const [cartItems, setCartItems] = useState(cart);
+
+    const dispatch = useDispatch();
 
     const qtyTimer = useRef(null);
     const priceTimer = useRef(null);
@@ -34,7 +46,7 @@ const AddPurchaseDetailsScreen = ({ navigation }) => {
             }
         }
 
-        qtyTimer.current = setTimeout(() => editQuantity(id, action), 100)
+        qtyTimer.current = setTimeout(() => editQuantity(id, action), 75)
     }
 
     const editPrice = (id, action) => {
@@ -42,7 +54,7 @@ const AddPurchaseDetailsScreen = ({ navigation }) => {
         const foundItem = updatedCartItems.find(item => item.itemId === id);
         const foundIndex = updatedCartItems.indexOf(item => item.itemId === id);
         if (action === "+") {
-            foundItem.purchasePrice += 10;
+            foundItem.purchasePrice += 5;
             updatedCartItems[foundIndex] = foundItem;
             setCartItems([...updatedCartItems])
         } else {
@@ -53,7 +65,7 @@ const AddPurchaseDetailsScreen = ({ navigation }) => {
                     ToastAndroid.CENTER
                 )
             } else {
-                foundItem.purchasePrice -= 10;
+                foundItem.purchasePrice -= 5;
                 updatedCartItems[foundIndex] = foundItem;
                 setCartItems([...updatedCartItems])
             }
@@ -71,7 +83,35 @@ const AddPurchaseDetailsScreen = ({ navigation }) => {
     }
 
     const onSubmitPress = () => {
-        console.log("Hello")
+        const copiedItems = [...cartItems];
+
+        let canPass = true;
+
+        copiedItems.forEach(item => {
+            if (item.purchaseQty === 0 || item.purchasePrice === 0) {
+                canPass = false;
+                Alert.alert(
+                    "Please fill all values correctly",
+                    "A value was found to be 0. Kindly double check and fill again",
+                    [
+                        {
+                            text: "OK",
+                            onPress: () => {}
+                        }
+                    ]
+                )
+            }
+        })
+
+        if (canPass) {
+            const updatedItems = copiedItems.map(item => {
+                item.totalPurchaseCostPerUnit = item.purchasePrice / item.purchaseQty;
+                return item;
+            })
+            setCartItems([...updatedItems]);
+            dispatch(inventoryCartActions.addItems(cartItems));
+            navigation.navigate("AddSellingPriceScreen")
+        }
     }
 
 
@@ -103,7 +143,7 @@ const AddPurchaseDetailsScreen = ({ navigation }) => {
                     }}
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) => (
-                        <ItemCard
+                        <ItemCardPurchase
                             item={item}
                             quantity={item.purchaseQty}
                             price={item.purchasePrice}
@@ -138,7 +178,7 @@ const styles = StyleSheet.create({
         paddingTop: 10
     },
     headerText: {
-        fontFamily: 'uber_move_medium',
+        fontFamily: 'uber_move_bold',
         fontSize: 20,
         color: "#555",
         marginBottom: 10,

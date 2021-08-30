@@ -8,7 +8,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Alert,
-    StatusBar, ScrollView
+    StatusBar,
 } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import BottomSheet from "reanimated-bottom-sheet";

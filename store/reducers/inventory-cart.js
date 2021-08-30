@@ -1,5 +1,5 @@
-import {ADD_ITEMS, UPDATE_PURCHASE_QTY, UPDATE_PURCHASE_PRICE, UPDATE_SELLING_PRICE} from "../actions/inventoryCart";
-import {Inventory, InventoryItem} from "../../models";
+import {ADD_ITEMS} from "../actions/inventoryCart";
+import {Inventory} from "../../models";
 
 const randomId = () => {
     return Math.random().toString(36).substr(2, 4).toUpperCase();

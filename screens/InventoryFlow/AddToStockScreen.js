@@ -42,7 +42,8 @@ const AddToStockScreen = ({navigation}) => {
                 ...item,
                 purchasePrice: 0,
                 purchaseQty: 0,
-                sellingPrice: 0
+                sellingPrice: 0,
+                totalPurchaseCostPerUnit: 0
             })
             setCartItems(prevArray => [...prevArray, newItem])
         }
