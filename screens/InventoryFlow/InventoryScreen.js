@@ -9,11 +9,13 @@ import { useSelector, useDispatch } from "react-redux";
 const InventoryScreen = ({ navigation }) => {
 
     const shopName = useSelector(state => state.shop.shop.name)
-    const inventoryList = useSelector(state => state.inventory.inventory)
+    const stockItems = useSelector(state => state.stockList.stockList)
 
     const dispatch = useDispatch();
 
-    if (inventoryList.length === 0) {
+    console.log(stockItems)
+
+    if (stockItems.length === 0) {
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -56,16 +58,19 @@ const InventoryScreen = ({ navigation }) => {
                 </View>
             </View>
         )
-    }
+    } else {
+        return (
+            <View style={styles.container}>
 
-    else {
-        return null;
+            </View>
+        )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white'
     },
     buttonContainer: {
         flex: 1,

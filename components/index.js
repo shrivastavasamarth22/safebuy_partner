@@ -15,6 +15,8 @@ import ItemCardSale from "./ItemCardSale";
 import QuantityCounter from "./QuantityCounter";
 import PriceCounter from "./PriceCounter";
 import PriceCounterUnit from "./PriceCounterUnit";
+import TableComponent from "./TableComponent";
+import SummaryCard from "./SummaryCard";
 export {
     TopBar,
     HeaderBar,
@@ -32,5 +34,7 @@ export {
     ItemCardSale,
     QuantityCounter,
     PriceCounter,
-    PriceCounterUnit
+    PriceCounterUnit,
+    TableComponent,
+    SummaryCard
 }

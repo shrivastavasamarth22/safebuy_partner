@@ -1,5 +1,5 @@
 export default class Inventory {
-    constructor(id, inventoryItems, date, transportationCost, totalAmount) {
+    constructor({id, inventoryItems, date, transportationCost, totalAmount}) {
         this.id = id;
         this.inventoryItems = inventoryItems;
         this.date = date;

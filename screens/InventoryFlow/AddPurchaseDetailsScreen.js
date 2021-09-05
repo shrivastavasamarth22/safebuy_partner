@@ -16,7 +16,7 @@ import {COLORS, images} from "../../constants";
 import * as inventoryCartActions from '../../store/actions/inventoryCart'
 
 const AddPurchaseDetailsScreen = ({ navigation }) => {
-    const cart = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems);
+    const cart = useSelector(state => state.inventoryCart.inventoryCart);
     const [cartItems, setCartItems] = useState(cart);
 
     const dispatch = useDispatch();

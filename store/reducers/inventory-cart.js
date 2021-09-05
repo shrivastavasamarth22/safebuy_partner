@@ -1,33 +1,24 @@
 import {ADD_ITEMS} from "../actions/inventoryCart";
-import {Inventory} from "../../models";
+import {ADD_INVENTORY} from "../actions/inventory";
 
-const randomId = () => {
-    return Math.random().toString(36).substr(2, 4).toUpperCase();
-}
 
 const initialState = {
-    inventoryCart: new Inventory(
-        randomId(),
-        [],
-        new Date().toDateString(),
-        0,
-        0
-    )
+    inventoryCart: []
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
         case ADD_ITEMS: {
-            const updatedCart = state.inventoryCart;
-            let updatedItems = updatedCart.inventoryItems;
-            updatedItems = action.items;
-            updatedCart.inventoryItems = updatedItems;
-
+            let updatedCart = state.inventoryCart;
+            updatedCart = action.items
             return {
                 ...state,
                 inventoryCart: updatedCart
             }
+        }
 
+        case ADD_INVENTORY: {
+            return initialState;
         }
 
         default:

@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto_400Regular",
         color: COLORS.grey,
         marginBottom: 15,
+        textAlign: 'center',
+        alignSelf: 'center',
     },
     quantityTextStyle: {
         fontSize: 14,

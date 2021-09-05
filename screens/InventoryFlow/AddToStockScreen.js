@@ -1,5 +1,5 @@
 import React, {useState, useMemo} from 'react';
-import {View, StyleSheet, StatusBar, FlatList, ImageBackground, Alert} from 'react-native';
+import {View, StyleSheet, StatusBar, FlatList, Alert} from 'react-native';
 import '@expo/match-media'
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ import {InventoryItem} from "../../models";
 import {items} from '../../mock-data';
 
 const AddToStockScreen = ({navigation}) => {
-    const inventoryCartItems = useSelector(state => state.inventoryCart.inventoryCart.inventoryItems)
+    const inventoryCartItems = useSelector(state => state.inventoryCart.inventoryCart)
 
     const [barVisible, setBarVisible] = useState(false)
     const [search, setSearch] = useState("");

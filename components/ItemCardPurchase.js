@@ -84,10 +84,12 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     itemNameTextStyle: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: "Roboto_400Regular",
         color: COLORS.grey,
         marginBottom: 15,
+        textAlign: 'center',
+        alignSelf: 'center',
     },
     quantityTextStyle: {
         fontSize: 14,

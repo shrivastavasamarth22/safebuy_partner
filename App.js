@@ -15,14 +15,14 @@ import inventoryReducer from './store/reducers/inventory'
 import shopReducer from './store/reducers/shop'
 import HelperReducer from './store/reducers/helper'
 import inventoryCartReducer from './store/reducers/inventory-cart';
+import stockListReducer from './store/reducers/stockList'
 import AuthNavigator from "./navigation/AuthNavigator";
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
-
-import { InventoryScreen } from './screens'
 
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
     inventoryCart: inventoryCartReducer,
+    stockList: stockListReducer,
     shop: shopReducer,
     auth: AuthReducer,
     helper: HelperReducer
