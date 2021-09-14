@@ -1,23 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, TouchableNativeFeedback} from 'react-native';
-import {COLORS} from "../../constants";
+import {View, Text, StyleSheet, StatusBar, TouchableNativeFeedback, ImageBackground} from 'react-native';
+import {COLORS, images} from "../../constants";
 import {HeaderBar} from "../../components";
 import {LinearGradient} from "expo-linear-gradient";
 import {Entypo} from "@expo/vector-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const InventoryScreen = ({ navigation }) => {
 
     const shopName = useSelector(state => state.shop.shop.name)
     const stockItems = useSelector(state => state.stockList.stockList)
-
-    const dispatch = useDispatch();
-
-    console.log(stockItems)
-
+    const inventoryList = useSelector(state => state.inventory.inventory)
+    
     if (stockItems.length === 0) {
         return (
-            <View style={styles.container}>
+            <ImageBackground
+                style={styles.container}
+                source={images.background}
+            >
                 <StatusBar
                     backgroundColor={COLORS.green}
                     barStyle={"light-content"}
@@ -45,18 +45,8 @@ const InventoryScreen = ({ navigation }) => {
                             <Entypo name="chevron-right" size={24} color="white"/>
                         </LinearGradient>
                     </TouchableNativeFeedback>
-                    <View style={styles.inactiveButtonStyle}>
-                        <Text style={styles.inactiveButtonTextStyle}>
-                            Set Selling Price
-                        </Text>
-                    </View>
-                    <View style={styles.inactiveButtonStyle}>
-                        <Text style={styles.inactiveButtonTextStyle}>
-                            View Inventory History
-                        </Text>
-                    </View>
                 </View>
-            </View>
+            </ImageBackground>
         )
     } else {
         return (
@@ -98,16 +88,6 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto_500Medium",
         color: "white",
         fontSize: 16,
-    },
-    inactiveButtonStyle: {
-        width: "100%",
-        height: 50,
-        borderRadius: 5,
-        paddingHorizontal: 15,
-        borderWidth: 1,
-        borderColor: "#CCC",
-        marginBottom: 15,
-        justifyContent: 'center'
     },
     inactiveButtonTextStyle: {
         fontFamily: "Roboto_500Medium",

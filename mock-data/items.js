@@ -47,7 +47,7 @@ export const items = [
         0.5
     ),
     new Item(
-        12,
+        13,
         "Artichoke",
         "हाथी चक",
         images.artichoke,
@@ -56,7 +56,7 @@ export const items = [
         50
     ),
     new Item(
-        13,
+        14,
         "Ash Gourd",
         "सफेद पेठा",
         images.ash_gourd,
@@ -65,7 +65,7 @@ export const items = [
         0.5
     ),
     new Item(
-        14,
+        15,
         "Asparagus",
         "शतावरी",
         images.asparagus,
@@ -74,7 +74,7 @@ export const items = [
         50
     ),
     new Item(
-        15,
+        16,
         "Basil",
         "तुलसी",
         images.basil,
@@ -83,7 +83,7 @@ export const items = [
         50
     ),
     new Item(
-        16,
+        17,
         "White Goose Foot",
         "बथुआ",
         images.bathua,
@@ -92,7 +92,7 @@ export const items = [
         50
     ),
     new Item(
-        17,
+        18,
         "Beetroot",
         "चुकंदर",
         images.beetroots,
@@ -101,7 +101,7 @@ export const items = [
         0.5
     ),
     new Item(
-        18,
+        19,
         "Bitter Gourd",
         "करेला",
         images.bitter_gourd,
@@ -110,7 +110,7 @@ export const items = [
         0.5
     ),
     new Item(
-        19,
+        20,
         "Black Carrot",
         "काली गाजर",
         images.black_carrot,
@@ -120,7 +120,7 @@ export const items = [
 
     ),
     new Item(
-        20,
+        21,
         "Broccoli",
         "ब्रॉकली",
         images.broccoli,
@@ -129,7 +129,7 @@ export const items = [
         0.5
     ),
     new Item(
-        21,
+        22,
         "Brussels Sprouts",
         "बंदगोभी",
         images.brussels_sprouts,
@@ -138,7 +138,7 @@ export const items = [
         50
     ),
     new Item(
-        22,
+        23,
         "Cabbage",
         "पत्ता गोभी",
         images.cabbage,
@@ -147,7 +147,7 @@ export const items = [
         0.5
     ),
     new Item(
-        23,
+        24,
         "Capsicum",
         "शिमला मिर्च",
         images.capsicum,
@@ -156,7 +156,7 @@ export const items = [
         50
     ),
     new Item(
-        24,
+        25,
         "Carrot",
         "गाजर",
         images.carrot,
@@ -165,7 +165,7 @@ export const items = [
         0.5
     ),
     new Item(
-        25,
+        26,
         "Cauliflower",
         "गोभी",
         images.cauliflower,
@@ -174,7 +174,7 @@ export const items = [
         0.5
     ),
     new Item(
-        26,
+        27,
         "Chayote",
         "इस्कुस",
         images.chayote,
@@ -183,7 +183,7 @@ export const items = [
         50
     ),
     new Item(
-        27,
+        28,
         "Cluster Beans",
         "ग्वार फली",
         images.cluster_beans,
@@ -192,7 +192,7 @@ export const items = [
         0.5
     ),
     new Item(
-        28,
+        29,
         "Colocasia Leaves",
         "अरबी पात्रा",
         images.colocasia_leaves,
@@ -201,7 +201,7 @@ export const items = [
         50
     ),
     new Item(
-        29,
+        30,
         "Colocasia",
         "अरबी",
         images.colocasia,
@@ -210,7 +210,7 @@ export const items = [
         0.5
     ),
     new Item(
-        30,
+        31,
         "Coriander",
         "धनिया",
         images.coriander,
@@ -219,7 +219,7 @@ export const items = [
         50
     ),
     new Item(
-        31,
+        32,
         "Corn",
         "मक्का",
         images.corn,
@@ -228,7 +228,7 @@ export const items = [
         0.5
     ),
     new Item(
-        32,
+        33,
         "Cowpea",
         "लोबिया",
         images.cowpea,
@@ -237,7 +237,7 @@ export const items = [
         0.5
     ),
     new Item(
-        33,
+        34,
         "Cucumber",
         "खीरा",
         images.cucumbers,
@@ -246,7 +246,7 @@ export const items = [
         0.5,
     ),
     new Item(
-        34,
+        35,
         "Curry Leaves",
         "कड़ी पत्ता",
         images.curry_leaves,
@@ -255,7 +255,7 @@ export const items = [
         50
     ),
     new Item(
-        35,
+        36,
         "Dill Leaves",
         "सोया भाजी",
         images.dill_leaves,
@@ -264,7 +264,7 @@ export const items = [
         0.5
     ),
     new Item(
-        36,
+        37,
         "Drumsticks",
         "सहजन की फली",
         images.drumsticks,
@@ -273,7 +273,7 @@ export const items = [
         0.5
     ),
     new Item(
-        37,
+        38,
         "Eggplant",
         "बैंगन",
         images.eggplant,
@@ -282,7 +282,7 @@ export const items = [
         0.5
     ),
     new Item(
-        38,
+        39,
         "Yam",
         "जिमीकंद",
         images.elephant_foot_yam,
@@ -291,7 +291,7 @@ export const items = [
         0.5
     ),
     new Item(
-        39,
+        40,
         "Fava Beans",
         "बाकला",
         images.fava_beans,
@@ -300,7 +300,7 @@ export const items = [
         0.5,
     ),
     new Item(
-        40,
+        41,
         "Fenugreek",
         "मेंथी",
         images.fenugreek,
@@ -309,7 +309,7 @@ export const items = [
         50
     ),
     new Item(
-        41,
+        42,
         "French Beans",
         "फ्रेंच बीन्स",
         images.french_beans,
@@ -318,7 +318,7 @@ export const items = [
         50
     ),
     new Item(
-        42,
+        43,
         "Ridge Gourd",
         "तोरई",
         images.gilki,
@@ -327,7 +327,7 @@ export const items = [
         0.5,
     ),
     new Item(
-        43,
+        44,
         "Green Mustard",
         "हरी सरसों भाजी",
         images.green_mustard,
@@ -336,7 +336,7 @@ export const items = [
         0.5
     ),
     new Item(
-        44,
+        45,
         "Green Peas",
         "हरी मटर",
         images.green_peas,
@@ -345,7 +345,7 @@ export const items = [
         0.5
     ),
     new Item(
-        45,
+        46,
         "Hog Plum",
         "अमड़ा",
         images.hog_plum,

@@ -4,14 +4,11 @@ import GradientButton from "./GradientButton";
 
 /**
  * @param {array} data The data array to be passed into the card
- * @param {string} cost The transport cost of the entire stock
- * @param {func} onChange The callback to call when we change text
- * @param {func} onSubmitPress The callback to call when we press the cta
  * @param {number} totalAmount The total purchase cost
  * @param {func} onSubmitPress The callback to call when the cta is pressed
  * */
 
-const SummaryCard = ({data, cost, onChange, totalAmount, onSubmitPress}) => {
+const SummaryCard = ({data, totalAmount, onSubmitPress}) => {
 
 
 
@@ -36,16 +33,8 @@ const SummaryCard = ({data, cost, onChange, totalAmount, onSubmitPress}) => {
                         ₹ {totalAmount}
                     </Text>
                 </View>
-                <View style={styles.contentContainer}>
-                    <Text style={styles.summaryTextStyle}>
-                        Gross Total :
-                    </Text>
-                    <Text style={styles.summaryTextStyle}>
-                        ₹ {totalAmount + Number(cost)}
-                    </Text>
-                </View>
                 <GradientButton
-                    text={"Submit"}
+                    text={"Confirm"}
                     onPress={onSubmitPress}
                 />
             </View>
