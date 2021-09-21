@@ -1,17 +1,26 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, TouchableNativeFeedback, ImageBackground} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    StatusBar,
+    TouchableNativeFeedback,
+    ImageBackground,
+    TouchableOpacity
+} from 'react-native';
 import {COLORS, images} from "../../constants";
 import {HeaderBar} from "../../components";
 import {LinearGradient} from "expo-linear-gradient";
 import {Entypo} from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-const InventoryScreen = ({ navigation }) => {
+const InventoryScreen = ({navigation}) => {
 
     const shopName = useSelector(state => state.shop.shop.name)
     const stockItems = useSelector(state => state.stockList.stockList)
     const inventoryList = useSelector(state => state.inventory.inventory)
-    
+
+
     if (stockItems.length === 0) {
         return (
             <ImageBackground
@@ -50,8 +59,69 @@ const InventoryScreen = ({ navigation }) => {
         )
     } else {
         return (
-            <View style={styles.container}>
+            <View
+                style={styles.container}
+            >
+                <StatusBar
+                    backgroundColor={COLORS.green}
+                    barStyle={"light-content"}
+                />
+                <HeaderBar
+                    headerText={shopName}
+                />
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.outlineButtonStyle}
+                        onPress={() => navigation.navigate("StockSummaryScreen", {
+                            id: inventoryList[inventoryList.length - 1].id
+                        })}
+                    >
+                        <Text style={styles.outlineButtonText}>
+                            View Today's Stock
+                        </Text>
+                        <Entypo name="chevron-right" size={24} color={COLORS.primary}/>
+                    </TouchableOpacity>
 
+                    <TouchableOpacity
+                        style={styles.outlineButtonStyle}
+                        onPress={() => navigation.navigate("SetSellingPriceScreen")}
+                    >
+                        <Text style={styles.outlineButtonText}>
+                            Set Selling Price
+                        </Text>
+                        <Entypo name="chevron-right" size={24} color={COLORS.primary}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.outlineButtonStyle}
+                        onPress={() => navigation.navigate("InventoryHistoryScreen")}
+                    >
+                        <Text style={styles.outlineButtonText}>
+                            View Inventory History
+                        </Text>
+                        <Entypo name="chevron-right" size={24} color={COLORS.primary}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.outlineButtonStyle}
+                        onPress={() => navigation.navigate("AddToStockScreen")}
+                    >
+                        <Text style={styles.outlineButtonText}>
+                            Purchase Stock
+                        </Text>
+                        <Entypo name="chevron-right" size={24} color={COLORS.primary}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.outlineButtonStyle}
+                        onPress={() => navigation.navigate("ChangeStockScreen")}
+                    >
+                        <Text style={styles.outlineButtonText}>
+                            Change Stock Values
+                        </Text>
+                        <Entypo name="chevron-right" size={24} color={COLORS.primary}/>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -69,9 +139,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12
     },
     headingText: {
-        fontFamily: 'uber_move_medium',
+        fontFamily: 'Roboto_500Medium',
         fontSize: 16,
-        color: "#555",
+        color: '#555',
         marginBottom: 10
     },
     gradientButtonStyle: {
@@ -89,9 +159,21 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 16,
     },
-    inactiveButtonTextStyle: {
+    outlineButtonStyle: {
+        width: "100%",
+        height: 50,
+        flexDirection: 'row',
+        borderRadius: 5,
+        paddingHorizontal: 15,
+        borderWidth: 1,
+        borderColor: COLORS.primary,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 15
+    },
+    outlineButtonText: {
         fontFamily: "Roboto_500Medium",
-        color: "#CCC",
+        color: COLORS.primary,
         fontSize: 16,
     }
 })

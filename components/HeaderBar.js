@@ -39,7 +39,7 @@ const HeaderBar = ({ headerText, isLavender, style }) => {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: "8%",
+        height: "9%",
         backgroundColor: COLORS.primary,
         elevation: 5,
         paddingHorizontal: 24,

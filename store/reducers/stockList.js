@@ -1,4 +1,4 @@
-import {ADD_ITEMS_TO_STOCK} from "../actions/stockList";
+import {ADD_ITEMS_TO_STOCK, UPDATE_STOCK} from "../actions/stockList";
 import StockItem from "../../models/stock-item";
 
 const initialState = {
@@ -31,6 +31,14 @@ export default (state = initialState, action) => {
                 stockList: newList
             }
 
+        }
+
+        case UPDATE_STOCK: {
+            const {newStock} = action;
+            return {
+                ...state,
+                stockList: newStock
+            }
         }
 
         default:

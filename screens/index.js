@@ -9,6 +9,7 @@ import AddPurchaseDetailsScreen from "./InventoryFlow/AddPurchaseDetailsScreen";
 import InventoryHistoryScreen from "./InventoryFlow/InventoryHistoryScreen";
 import InventoryScreen from "./InventoryFlow/InventoryScreen";
 import StockBoughtSummaryScreen from "./InventoryFlow/StockBoughtSummaryScreen";
+import StockSummaryScreen from "./InventoryFlow/StockSummaryScreen";
 import OfflineOrderScreen from "./OrdersFlow/OfflineOrderScreen";
 import OfflineOrderSummaryScreen from "./OrdersFlow/OfflineOrderSummaryScreen";
 import OrderExpandedScreen from "./OrdersFlow/OrderExpandedScreen";
@@ -30,6 +31,9 @@ import CameraScreen3 from "./MediaScreens/CameraScreen3";
 import CameraScreen4 from "./MediaScreens/CameraScreen4";
 import HelperForm1 from "./SettingsFlow/HelperForm1";
 import HelperForm2 from "./SettingsFlow/HelperForm2";
+import SetSellingPriceScreen from "./InventoryFlow/SetSellingPriceScreen";
+import ChangeStockScreen from "./InventoryFlow/ChangeStockScreen";
+
 
 export {
     AccountsDetailScreen,
@@ -43,6 +47,7 @@ export {
     InventoryHistoryScreen,
     InventoryScreen,
     StockBoughtSummaryScreen,
+    StockSummaryScreen,
     OfflineOrderScreen,
     OfflineOrderSummaryScreen,
     OrderExpandedScreen,
@@ -64,4 +69,6 @@ export {
     CameraScreen4,
     HelperForm1,
     HelperForm2,
+    SetSellingPriceScreen,
+    ChangeStockScreen
 }
