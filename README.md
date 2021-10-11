@@ -10,5 +10,5 @@
 - [x] Disable back tracking in AuthFlow navigation
 - [x] Finish Helper Settings screen, i.e., Add More function and navigation issues with HelperForm screen
 - [ ] expoLocation not working in physical device when apk is built.
-- [ ] Correct distorting button possies fue to keyboard in form screens 
+- [ ] Correct distorting button positions due to keyboard in form screens 
 - [ ] How to directly go to InventoryFlow after Registration?

@@ -18,7 +18,7 @@ const ChangeStockScreen = ({navigation}) => {
         const foundItem = updatedStockList.find(item => item.itemId === id);
         const foundIndex = updatedStockList.findIndex(item => item.itemId === id)
 
-        if (foundItem.qty === 0) {
+        if (foundItem.qty === foundItem.increment) {
             const newUpdate = updatedStockList.filter(item => item.itemId !== id)
             setStock([...newUpdate])
         } else {
@@ -35,12 +35,7 @@ const ChangeStockScreen = ({navigation}) => {
 
     const onSubmitPress = () => {
         dispatch(updateStock(stock));
-        navigation.reset({
-            index: 0,
-            routes: [
-                {name: 'InventoryScreen'}
-            ]
-        })
+        navigation.navigate("InventoryScreen")
     }
 
 
