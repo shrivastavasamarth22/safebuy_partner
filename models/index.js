@@ -6,6 +6,11 @@ import Inventory from "./inventory";
 import Shop from "./shop";
 import Order from './order'
 import Customer from './customer'
+import Account from "./account";
+import ElectricityBill from "./electricity-bill";
+import Salary from "./salary";
+import MiscellaneousExpense from "./miscellaneous-expense";
+import OrderItem from "./order-item";
 
 export {
     Item,
@@ -14,5 +19,11 @@ export {
     Inventory,
     Shop,
     Order,
-    Customer
+    Customer,
+    StockItem,
+    Account,
+    Salary,
+    ElectricityBill,
+    MiscellaneousExpense,
+    OrderItem
 }

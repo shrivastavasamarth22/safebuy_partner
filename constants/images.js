@@ -189,6 +189,7 @@ export const circular_background = require("../assets/images/circular_background
 export const rider = require("../assets/images/rider.png");
 export const success = require("../assets/images/success.png");
 export const helper = require("../assets/images/helper.png");
+export const empty_order = require("../assets/images/empty_order.png")
 
 export default {
     amaranth,
@@ -376,4 +377,5 @@ export default {
     rider,
     success,
     helper,
+    empty_order
 };

@@ -1,5 +1,5 @@
 import {ADD_ITEMS_TO_STOCK, UPDATE_STOCK} from "../actions/stockList";
-import StockItem from "../../models/stock-item";
+import {StockItem} from "../../models";
 
 const initialState = {
     stockList: []

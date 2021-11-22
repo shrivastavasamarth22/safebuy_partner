@@ -1,5 +1,6 @@
+import {useSelector} from "react-redux";
 import {ADD_INVENTORY, UPDATE_INVENTORY} from "../actions/inventory";
-import {Inventory, InventoryItem} from "../../models";
+import {Inventory} from "../../models";
 import {parseDate} from "../../Functions";
 
 const initialState = {
@@ -10,7 +11,12 @@ const randomId = () => {
     return Math.random().toString(36).substr(2, 4).toUpperCase();
 }
 
+const getShopId = () => {
+    return useSelector(state => state.shop.shop.id)
+}
+
 export default (state = initialState, action) => {
+
     switch(action.type) {
         case ADD_INVENTORY: {
             const inventoryArray = [...state.inventory];
@@ -21,6 +27,7 @@ export default (state = initialState, action) => {
                 if (parseDate(latest.date) !== parseDate(new Date())) {
                     const updatedInventory = new Inventory({
                         id: randomId(),
+                        shopId: getShopId(),
                         inventoryItems: action.items,
                         date: new Date(),
                         transportationCost: action.transportCost,
@@ -66,6 +73,7 @@ export default (state = initialState, action) => {
             } else {
                 const updatedInventory = new Inventory({
                     id: randomId(),
+                    shopId: getShopId(),
                     inventoryItems: action.items,
                     date: new Date(),
                     transportationCost: action.transportCost,
