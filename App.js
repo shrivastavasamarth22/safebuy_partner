@@ -16,6 +16,7 @@ import shopReducer from './store/reducers/shop'
 import HelperReducer from './store/reducers/helper'
 import inventoryCartReducer from './store/reducers/inventory-cart';
 import stockListReducer from './store/reducers/stockList'
+import AccountsReducer from './store/reducers/accounts'
 import AuthNavigator from "./navigation/AuthNavigator";
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator";
 
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     stockList: stockListReducer,
     shop: shopReducer,
     auth: AuthReducer,
-    helper: HelperReducer
+    helper: HelperReducer,
+    accounts: AccountsReducer
 })
 
 const store = createStore(rootReducer);

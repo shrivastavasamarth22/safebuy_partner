@@ -25,5 +25,6 @@ export default class Order {
         this.paymentStatus = paymentStatus;
         this.amountPaid = amountPaid;
         this.creditDue = creditDue;
+        this.total = this.creditDue + this.amountPaid;
     }
 }

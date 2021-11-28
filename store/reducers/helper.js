@@ -1,9 +1,7 @@
 import {Helper} from '../../models'
 import {ADD_HELPER, CHANGE_HELPER_PHONE, REMOVE_HELPER, CHANGE_HELPER_STATUS} from "../actions/helper";
+import {randomId} from "../../Functions";
 
-const randomId = () => {
-    return Math.random().toString(36).substr(2, 4).toUpperCase();
-}
 
 const initialState = {
     helpers: []

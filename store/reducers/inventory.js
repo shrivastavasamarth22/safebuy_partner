@@ -1,18 +1,10 @@
 import {useSelector} from "react-redux";
 import {ADD_INVENTORY, UPDATE_INVENTORY} from "../actions/inventory";
 import {Inventory} from "../../models";
-import {parseDate} from "../../Functions";
+import {parseDate, randomId} from "../../Functions";
 
 const initialState = {
     inventory: []
-}
-
-const randomId = () => {
-    return Math.random().toString(36).substr(2, 4).toUpperCase();
-}
-
-const getShopId = () => {
-    return useSelector(state => state.shop.shop.id)
 }
 
 export default (state = initialState, action) => {
@@ -27,7 +19,7 @@ export default (state = initialState, action) => {
                 if (parseDate(latest.date) !== parseDate(new Date())) {
                     const updatedInventory = new Inventory({
                         id: randomId(),
-                        shopId: getShopId(),
+                        shopId: action.shopId,
                         inventoryItems: action.items,
                         date: new Date(),
                         transportationCost: action.transportCost,
@@ -48,6 +40,8 @@ export default (state = initialState, action) => {
                         if (!!found) {
                             const foundIndex = latestItems.findIndex(i => i.itemId === item.itemId);
                             latestItems[foundIndex].purchaseQty += found.purchaseQty
+                            latestItems[foundIndex].purchasePrice += found.purchasePrice
+                            latestItems[foundIndex].totalPurchaseCostPerUnit = latestItems[foundIndex].purchasePrice / latestItems[foundIndex].purchaseQty
                         } else {
                             latestItems.push(item)
                         }
@@ -55,12 +49,8 @@ export default (state = initialState, action) => {
 
                     latest.inventoryItems = latestItems;
 
-                    let totalAmount = 0;
-                    items.forEach(item => {
-                        totalAmount += item.purchasePrice
-                    })
 
-                    latest.totalAmount += totalAmount;
+                    latest.totalAmount += action.totalAmount;
                     latest.transportationCost += action.transportCost
 
                     inventoryArray[inventoryArray.length - 1] = latest;
@@ -73,7 +63,7 @@ export default (state = initialState, action) => {
             } else {
                 const updatedInventory = new Inventory({
                     id: randomId(),
-                    shopId: getShopId(),
+                    shopId: action.shopId,
                     inventoryItems: action.items,
                     date: new Date(),
                     transportationCost: action.transportCost,

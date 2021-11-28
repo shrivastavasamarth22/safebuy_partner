@@ -10,15 +10,19 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from "react-redux";
 import * as inventoryActions from '../../store/actions/inventory'
+import * as accountsActions from '../../store/actions/accounts'
 import * as stockActions from '../../store/actions/stockList'
+import {Purchase} from '../../models'
 import BottomSheet from "reanimated-bottom-sheet";
 
 import {COLORS, images} from "../../constants";
 import {TableComponent, TopBar, SummaryCard, GradientButton} from "../../components";
-import { parseDate } from "../../Functions";
+import { parseDate, randomId } from "../../Functions";
 
 const StockBoughtSummaryScreen = ({navigation}) => {
     const cartItems = useSelector(state => state.inventoryCart.inventoryCart)
+    const shopId = useSelector(state => state.shop.shop.id)
+
 
     const [transportCost, setTransportCost] = useState("");
     const [visible, setVisible] = useState(false);
@@ -49,8 +53,16 @@ const StockBoughtSummaryScreen = ({navigation}) => {
                 ]
             )
         } else {
-            dispatch(inventoryActions.addInventory(cartItems, Number(transportCost), addAmount()))
+            dispatch(inventoryActions.addInventory(cartItems, Number(transportCost), addAmount(), shopId))
             dispatch(stockActions.addItemsToStock(cartItems))
+            // const newPurchase = new Purchase({
+            //     id: randomId(),
+            //     shopId,
+            //     inventoryItems: cartItems,
+            //     transportCost: Number(transportCost),
+            //     totalAmount: addAmount() + Number(transportCost)
+            // })
+            // dispatch(accountsActions.addInventoryToAccounts(newPurchase, shopId))
             navigation.navigate("InventoryScreen");
         }
     }

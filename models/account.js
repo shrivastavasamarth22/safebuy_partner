@@ -1,8 +1,10 @@
 export default class Account {
-    constructor({id, date, purchases, sales}) {
+    constructor({id, shopId, date, purchase, sales, miscExpenses}) {
         this.id = id;
+        this.shopId = shopId;
         this.date = date;
-        this.purchases = purchases;
+        this.purchase = purchase;
         this.sales = sales;
+        this.miscExpenses = miscExpenses
     }
 }

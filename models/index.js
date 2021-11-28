@@ -11,6 +11,7 @@ import ElectricityBill from "./electricity-bill";
 import Salary from "./salary";
 import MiscellaneousExpense from "./miscellaneous-expense";
 import OrderItem from "./order-item";
+import Purchase from "./purchase";
 
 export {
     Item,
@@ -25,5 +26,6 @@ export {
     Salary,
     ElectricityBill,
     MiscellaneousExpense,
-    OrderItem
+    OrderItem,
+    Purchase
 }
