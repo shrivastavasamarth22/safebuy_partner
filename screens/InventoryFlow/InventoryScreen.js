@@ -19,11 +19,6 @@ const InventoryScreen = ({navigation}) => {
     const shopName = useSelector(state => state.shop.shop.name)
     const stockItems = useSelector(state => state.stockList.stockList)
     const inventoryList = useSelector(state => state.inventory.inventory)
-    const accounts = useSelector(state => state.accounts.accounts)
-
-    const len = inventoryList.length
-
-    console.log(inventoryList[len - 1])
 
 
     if (stockItems.length === 0) {
