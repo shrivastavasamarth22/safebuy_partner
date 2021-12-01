@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import * as Font from 'expo-font';
 import AppLoading from "expo-app-loading";
 import {NavigationContainer} from "@react-navigation/native";
@@ -7,6 +7,7 @@ import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {enablePatches, enableES5} from "immer";
+import {Provider as PaperProvider} from 'react-native-paper'
 
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
 
@@ -94,24 +95,26 @@ export default function App() {
 
     return (
         <Provider store={store}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    {/*<Stack.Screen*/}
-                    {/*    name={"Auth"}*/}
-                    {/*    component={AuthNavigator}*/}
-                    {/*    options={{*/}
-                    {/*        headerShown: false*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-                    <Stack.Screen
-                        name={"BottomTab"}
-                        component={MainBottomTabNavigator}
-                        options={{
-                            headerShown: false
-                        }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <PaperProvider>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        {/*<Stack.Screen*/}
+                        {/*    name={"Auth"}*/}
+                        {/*    component={AuthNavigator}*/}
+                        {/*    options={{*/}
+                        {/*        headerShown: false*/}
+                        {/*    }}*/}
+                        {/*/>*/}
+                        <Stack.Screen
+                            name={"BottomTab"}
+                            component={MainBottomTabNavigator}
+                            options={{
+                                headerShown: false
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </PaperProvider>
         </Provider>
     )
 }

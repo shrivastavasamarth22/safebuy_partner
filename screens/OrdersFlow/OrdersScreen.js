@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         resizeMode: "contain",
-        marginTop: -50
+        marginTop: 20
     },
     headerMediumTextStyle: {
         fontFamily: "Roboto_400Regular",
         fontSize: 18,
-        marginTop: -20,
+        marginTop: 60,
         marginBottom: 10,
         textAlign: "center",
         color: COLORS.green,

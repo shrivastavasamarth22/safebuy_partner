@@ -12,3 +12,4 @@
 - [ ] expoLocation not working in physical device when apk is built.
 - [ ] Correct distorting button positions due to keyboard in form screens 
 - [ ] How to directly go to InventoryFlow after Registration?
+- [ ] Add Order History and Purchase History to both Customer and Partner apps.

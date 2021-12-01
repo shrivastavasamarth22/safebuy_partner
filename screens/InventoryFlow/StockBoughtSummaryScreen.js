@@ -55,14 +55,14 @@ const StockBoughtSummaryScreen = ({navigation}) => {
         } else {
             dispatch(inventoryActions.addInventory(cartItems, Number(transportCost), addAmount(), shopId))
             dispatch(stockActions.addItemsToStock(cartItems))
-            // const newPurchase = new Purchase({
-            //     id: randomId(),
-            //     shopId,
-            //     inventoryItems: cartItems,
-            //     transportCost: Number(transportCost),
-            //     totalAmount: addAmount() + Number(transportCost)
-            // })
-            // dispatch(accountsActions.addInventoryToAccounts(newPurchase, shopId))
+            const newPurchase = new Purchase({
+                id: randomId(),
+                shopId,
+                inventoryItems: cartItems,
+                transportCost: Number(transportCost),
+                totalAmount: addAmount() + Number(transportCost)
+            })
+            dispatch(accountsActions.addInventoryToAccounts(newPurchase, shopId))
             navigation.navigate("InventoryScreen");
         }
     }

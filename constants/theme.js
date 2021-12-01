@@ -9,6 +9,7 @@ export const COLORS = {
     darkLavender: '#6d0fbc',
     green: '#56B532',
     blue: '#2699FB',
+    darkGrey: '#1d1d1d',
 
     // linear-gradient-primary
     fromPrimaryGradientColor: '#32B100',

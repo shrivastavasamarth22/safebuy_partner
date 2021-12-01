@@ -190,6 +190,7 @@ export const rider = require("../assets/images/rider.png");
 export const success = require("../assets/images/success.png");
 export const helper = require("../assets/images/helper.png");
 export const empty_order = require("../assets/images/empty_order.png")
+export const empty_accounts = require('../assets/images/empty_accounts.png')
 
 export default {
     amaranth,
@@ -377,5 +378,6 @@ export default {
     rider,
     success,
     helper,
-    empty_order
+    empty_order,
+    empty_accounts
 };
