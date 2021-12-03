@@ -17,7 +17,7 @@ import {HeaderBar} from "../../components";
 import {parseDate} from "../../Functions";
 
 
-const AccountsScreen = ({ navigation }) => {
+const AccountsScreen = ({navigation}) => {
     const accounts = useSelector(state => state.accounts.accounts)
 
     if (accounts.length === 0) {
@@ -79,7 +79,7 @@ const AccountsScreen = ({ navigation }) => {
                             renderItem={({item}) => (
                                 <>
                                     <TouchableOpacity
-                                        onPress={() => navigation.navigate("AccountDetailScreen", {
+                                        onPress={() => navigation.navigate("AccountsDetailScreen", {
                                             id: item.id
                                         })}
                                     >
@@ -89,16 +89,6 @@ const AccountsScreen = ({ navigation }) => {
                                             style={styles.listItemStyle}
                                         />
                                     </TouchableOpacity>
-                                    <List.Item
-                                        title={parseDate(item.date)}
-                                        titleStyle={styles.listItemTextStyle}
-                                        style={styles.listItemStyle}
-                                    />
-                                    <List.Item
-                                        title={parseDate(item.date)}
-                                        titleStyle={styles.listItemTextStyle}
-                                        style={styles.listItemStyle}
-                                    />
                                 </>
                             )}
                         />
@@ -178,10 +168,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto_500Medium'
     },
     listItemStyle: {
-        backgroundColor: COLORS.orange,
+        backgroundColor: COLORS.primary,
         width: "97%",
         alignSelf: 'center',
-        marginVertical: 2,
+        marginVertical: 5,
         borderRadius: 5
     },
     listItemTextStyle: {

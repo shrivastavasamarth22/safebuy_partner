@@ -16,6 +16,7 @@ import QuantityCounter from "./QuantityCounter";
 import PriceCounter from "./PriceCounter";
 import PriceCounterUnit from "./PriceCounterUnit";
 import TableComponent from "./TableComponent";
+import TableComponent2 from "./TableComponent2";
 import SummaryCard from "./SummaryCard";
 import StockSummaryCard from "./StockSummaryCard";
 import ItemCardStock from "./ItemCardStock";
@@ -38,6 +39,7 @@ export {
     PriceCounter,
     PriceCounterUnit,
     TableComponent,
+    TableComponent2,
     SummaryCard,
     StockSummaryCard,
     ItemCardStock

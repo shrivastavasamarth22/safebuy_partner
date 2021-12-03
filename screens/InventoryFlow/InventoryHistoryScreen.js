@@ -1,5 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    StatusBar,
+    FlatList,
+    TouchableOpacity,
+    ImageBackground,
+    TouchableNativeFeedback
+} from 'react-native';
 import {useSelector} from "react-redux";
 import {Entypo} from "@expo/vector-icons";
 import {TopBar} from '../../components'
@@ -28,32 +37,28 @@ const InventoryHistoryScreen = ({navigation}) => {
                 Select Date :
             </Text>
 
-            <View style={styles.listContainer}>
-                <FlatList
-                    data={inventoryList}
-                    keyExtractor={item => item.id}
-                    renderItem={({item}) => {
-                        return (
-                            <TouchableOpacity
-                                style={styles.listContent}
+            <FlatList
+                data={inventoryList}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => {
+                    return (
+                        <>
+                            <TouchableNativeFeedback
                                 onPress={() => navigation.navigate("StockSummaryScreen", {
                                     id: item.id
                                 })}
                             >
-                                <View style={styles.listItem}>
-                                    <Text style={styles.listText}>
+                                <View style={styles.buttonStyle}>
+                                    <Text style={styles.buttonTextStyle}>
                                         {parseDate(item.date)}
                                     </Text>
                                     <Entypo name="chevron-right" size={28} color="#555"/>
                                 </View>
-                                <View
-                                    style={styles.divider}
-                                />
-                            </TouchableOpacity>
-                        )
-                    }}
-                />
-            </View>
+                            </TouchableNativeFeedback>
+                        </>
+                    )
+                }}
+            />
         </ImageBackground>
     )
 }
@@ -97,6 +102,21 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 0.5,
         backgroundColor: "#555"
+    },
+    buttonStyle: {
+        width: "100%",
+        height: 50,
+        marginBottom: 10,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: COLORS.lightGrey
+    },
+    buttonTextStyle: {
+        fontFamily: 'Roboto_500Medium',
+        color: COLORS.darkGrey,
+        fontSize: 16
     },
 })
 

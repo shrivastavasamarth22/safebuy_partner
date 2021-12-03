@@ -74,7 +74,7 @@ const MainBottomTabNavigator = () => {
             <Tab.Screen
                 name={'Accounts'}
                 component={AccountsNavigator}
-                options={{
+                options={({route}) => ({
                     tabBarIcon: ({focused}) => {
                         return (
                             <Image
@@ -82,8 +82,13 @@ const MainBottomTabNavigator = () => {
                                 style={focused ? styles.activeIconStyle : styles.inactiveIconStyle}
                             />
                         )
-                    }
-                }}
+                    },
+                    tabBarVisible: ((route) => {
+                        const routeName = getFocusedRouteNameFromRoute(route) ?? ""
+
+                        return routeName === "AccountsScreen"
+                    })(route),
+                })}
             />
             <Tab.Screen
                 name={'Settings'}
