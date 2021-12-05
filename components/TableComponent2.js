@@ -1,5 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, FlatList} from "react-native";
+import {COLORS} from "../constants";
 
 /**
  * @param {array} data The data array for the order items
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     },
     tableHeaderText: {
         fontSize: 16,
-        color: "black",
+        color: COLORS.primary,
         fontFamily: "Roboto_500Medium",
         textAlign: 'center'
     },

@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
                         shopId: action.shopId,
                         date: new Date(),
                         purchase: action.purchase,
-                        sales: [],
+                        sales: [newOrder],
                         miscExpenses: [],
                     })
 
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
                     shopId: action.shopId,
                     date: new Date(),
                     purchase: action.purchase,
-                    sales: [],
+                    sales: [newOrder],
                     miscExpenses: []
                 })
 

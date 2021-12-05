@@ -11,7 +11,7 @@ import {
 import {useSelector} from "react-redux";
 import BottomSheet from "reanimated-bottom-sheet";
 import {Entypo} from '@expo/vector-icons';
-import {TopBar, TableComponent2} from '../../components'
+import {TopBar, TableComponent2, SummaryCard2, GradientButton} from '../../components'
 import {COLORS} from "../../constants";
 import {parseDate} from "../../Functions";
 
@@ -66,6 +66,17 @@ const AccountsDetailScreen = ({navigation, route}) => {
                 <TableComponent2
                     data={account.purchase.inventoryItems}
                 />
+                <SummaryCard2
+                    totalItems={account.purchase.inventoryItems.length}
+                    totalAmount={account.purchase.totalAmount}
+                    transportationCost={account.purchase.transportCost}
+                />
+                <View style={styles.buttonContainer}>
+                    <GradientButton
+                        text={"Okay"}
+                        onPress={() => onCloseSheet(expenseSheetRef)}
+                    />
+                </View>
             </View>
         )
     }
@@ -275,6 +286,11 @@ const styles = StyleSheet.create({
         fontSize: 21,
         alignSelf: 'center',
         marginBottom: 25
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 12
     }
 })
 
