@@ -16,7 +16,8 @@ export default (state = initialState, action) => {
             const accountsArray = [...state.accounts]
 
             if (len !== 0 )  {
-                const latest = state.accounts[state.accounts.length - 1]
+                const latest = state.accounts[len - 1]
+
                 if (parseDate(latest.date) !== parseDate(new Date())) {
                     const newAccount = new Account({
                         id: randomId(),
@@ -49,10 +50,11 @@ export default (state = initialState, action) => {
                         }
                     })
 
+                    latest.purchase.inventoryItem = latestPurchaseItems;
                     latest.purchase.transportCost += purchase.transportCost;
                     latest.purchase.totalAmount += purchase.totalAmount;
 
-                    accountsArray[len - 1] = latest;
+                    accountsArray[len - 1].purchase = latest;
 
                     return {
                         ...state,
