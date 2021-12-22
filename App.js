@@ -22,6 +22,9 @@ import OrdersReducer from './store/reducers/orders'
 import AuthNavigator from "./navigation/AuthNavigator"
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator"
 
+
+// These are the reducers of the entire project
+
 const rootReducer = combineReducers({
     inventory: inventoryReducer,
     inventoryCart: inventoryCartReducer,
@@ -32,6 +35,8 @@ const rootReducer = combineReducers({
     accounts: AccountsReducer,
     orders: OrdersReducer
 })
+
+
 
 const store = createStore(rootReducer);
 

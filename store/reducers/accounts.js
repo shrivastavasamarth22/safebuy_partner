@@ -2,6 +2,7 @@ import {ADD_INVENTORY_TO_ACCOUNTS} from "../actions/accounts";
 import {Account} from "../../models"
 import {parseDate, randomId} from "../../Functions";
 
+
 const initialState = {
     accounts: []
 }
@@ -10,6 +11,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
 
         case ADD_INVENTORY_TO_ACCOUNTS: {
+
             const len = state.accounts.length;
             const accountsArray = [...state.accounts]
 
@@ -21,7 +23,7 @@ export default (state = initialState, action) => {
                         shopId: action.shopId,
                         date: new Date(),
                         purchase: action.purchase,
-                        sales: [newOrder],
+                        sales: [],
                         miscExpenses: [],
                     })
 
@@ -65,7 +67,7 @@ export default (state = initialState, action) => {
                     shopId: action.shopId,
                     date: new Date(),
                     purchase: action.purchase,
-                    sales: [newOrder],
+                    sales: [],
                     miscExpenses: []
                 })
 
