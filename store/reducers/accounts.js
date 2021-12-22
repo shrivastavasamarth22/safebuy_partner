@@ -50,11 +50,11 @@ export default (state = initialState, action) => {
                         }
                     })
 
-                    latest.purchase.inventoryItem = latestPurchaseItems;
+                    latest.purchase.inventoryItems = latestPurchaseItems;
                     latest.purchase.transportCost += purchase.transportCost;
                     latest.purchase.totalAmount += purchase.totalAmount;
 
-                    accountsArray[len - 1].purchase = latest;
+                    accountsArray[len - 1] = latest;
 
                     return {
                         ...state,
