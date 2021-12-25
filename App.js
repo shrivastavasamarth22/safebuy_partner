@@ -21,6 +21,7 @@ import AccountsReducer from './store/reducers/accounts'
 import OrdersReducer from './store/reducers/orders'
 import AuthNavigator from "./navigation/AuthNavigator"
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator"
+import ShopBeatScreen from "./screens/ShopBeatFlow/ShopBeatScreen";
 
 
 // These are the reducers of the entire project
@@ -102,26 +103,28 @@ export default function App() {
 
     return (
         <Provider store={store}>
-            <PaperProvider>
-                <NavigationContainer>
-                    <Stack.Navigator>
-                        {/*<Stack.Screen*/}
-                        {/*    name={"Auth"}*/}
-                        {/*    component={AuthNavigator}*/}
-                        {/*    options={{*/}
-                        {/*        headerShown: false*/}
-                        {/*    }}*/}
-                        {/*/>*/}
-                        <Stack.Screen
-                            name={"BottomTab"}
-                            component={MainBottomTabNavigator}
-                            options={{
-                                headerShown: false
-                            }}
-                        />
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </PaperProvider>
+            {/*<PaperProvider>*/}
+            {/*    <NavigationContainer>*/}
+            {/*        <Stack.Navigator>*/}
+            {/*            <Stack.Screen*/}
+            {/*                name={"Auth"}*/}
+            {/*                component={AuthNavigator}*/}
+            {/*                options={{*/}
+            {/*                    headerShown: false*/}
+            {/*                }}*/}
+            {/*            />*/}
+            {/*            <Stack.Screen*/}
+            {/*                name={"BottomTab"}*/}
+            {/*                component={MainBottomTabNavigator}*/}
+            {/*                options={{*/}
+            {/*                    headerShown: false*/}
+            {/*                }}*/}
+            {/*            />*/}
+            {/*        </Stack.Navigator>*/}
+            {/*    </NavigationContainer>*/}
+            {/*</PaperProvider>*/}
+
+            <ShopBeatScreen />
         </Provider>
     )
 }

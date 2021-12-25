@@ -28,8 +28,8 @@ const initialState = {
         city: "Bhopal",
         state: "Madhya Pradesh",
         pinCode: "462026",
-        lat: 23.188,
-        lng: 77.447,
+        lat: 23.188670,
+        lng: 77.446871,
         category: "vegetable",
         weeklyHolidays: [2, 4],
         openTime: {

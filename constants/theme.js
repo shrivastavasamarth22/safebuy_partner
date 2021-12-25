@@ -7,6 +7,7 @@ export const COLORS = {
     lightLavender: '#ab47ff',
     lavender: '#8c24e3',
     darkLavender: '#6d0fbc',
+    mainLavender: '#510a8c',
     green: '#56B532',
     blue: '#2699FB',
     darkGrey: '#1d1d1d',
