@@ -40,7 +40,7 @@ const InventoryScreen = ({navigation}) => {
                     </Text>
                     <TouchableNativeFeedback
                         useForeground={true}
-                        onPress={() => navigation.navigate("AddToStockScreen")}
+                        onPress={() => navigation.navigate("ShopBeatScreen")}
                     >
                         <LinearGradient
                             colors={[COLORS.fromPrimaryGradientColor, COLORS.toPrimaryGradientColor]}

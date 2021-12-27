@@ -23,6 +23,9 @@ export const inventory_check = require('../assets/icons/inventory_check.png');
 export const accounts_calc = require('../assets/icons/accounts_calc.png');
 export const settings_cog = require('../assets/icons/settings_cog.png')
 export const helper_icon = require('../assets/icons/helper_icon.png')
+export const map_shop_icon = require('../assets/icons/map_shop_icon.png')
+export const map_user_icon = require('../assets/icons/map_user_icon.png')
+
 
 export default {
     add,
@@ -49,5 +52,7 @@ export default {
     inventory_check,
     accounts_calc,
     settings_cog,
-    helper_icon
+    helper_icon,
+    map_shop_icon,
+    map_user_icon
 }

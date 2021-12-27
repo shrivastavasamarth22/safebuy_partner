@@ -19,6 +19,7 @@ import inventoryCartReducer from './store/reducers/inventory-cart'
 import stockListReducer from './store/reducers/stockList'
 import AccountsReducer from './store/reducers/accounts'
 import OrdersReducer from './store/reducers/orders'
+import LocationReducer from './store/reducers/location'
 import AuthNavigator from "./navigation/AuthNavigator"
 import MainBottomTabNavigator from "./navigation/MainBottomTabNavigator"
 import ShopBeatScreen from "./screens/ShopBeatFlow/ShopBeatScreen";
@@ -34,7 +35,8 @@ const rootReducer = combineReducers({
     auth: AuthReducer,
     helper: HelperReducer,
     accounts: AccountsReducer,
-    orders: OrdersReducer
+    orders: OrdersReducer,
+    location: LocationReducer
 })
 
 
@@ -103,28 +105,28 @@ export default function App() {
 
     return (
         <Provider store={store}>
-            {/*<PaperProvider>*/}
-            {/*    <NavigationContainer>*/}
-            {/*        <Stack.Navigator>*/}
-            {/*            <Stack.Screen*/}
-            {/*                name={"Auth"}*/}
-            {/*                component={AuthNavigator}*/}
-            {/*                options={{*/}
-            {/*                    headerShown: false*/}
-            {/*                }}*/}
-            {/*            />*/}
-            {/*            <Stack.Screen*/}
-            {/*                name={"BottomTab"}*/}
-            {/*                component={MainBottomTabNavigator}*/}
-            {/*                options={{*/}
-            {/*                    headerShown: false*/}
-            {/*                }}*/}
-            {/*            />*/}
-            {/*        </Stack.Navigator>*/}
-            {/*    </NavigationContainer>*/}
-            {/*</PaperProvider>*/}
+            <PaperProvider>
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        {/*<Stack.Screen*/}
+                        {/*    name={"Auth"}*/}
+                        {/*    component={AuthNavigator}*/}
+                        {/*    options={{*/}
+                        {/*        headerShown: false*/}
+                        {/*    }}*/}
+                        {/*/>*/}
+                        <Stack.Screen
+                            name={"BottomTab"}
+                            component={MainBottomTabNavigator}
+                            options={{
+                                headerShown: false
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </PaperProvider>
 
-            <ShopBeatScreen />
+            {/*<ShopBeatScreen />*/}
         </Provider>
     )
 }

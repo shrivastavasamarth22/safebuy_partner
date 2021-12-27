@@ -1,6 +1,5 @@
-import {useSelector} from "react-redux";
-import {ADD_INVENTORY, UPDATE_INVENTORY} from "../actions/inventory";
 import {Inventory} from "../../models";
+import {ADD_INVENTORY, UPDATE_INVENTORY} from "../actions/inventory";
 import {parseDate, randomId} from "../../Functions";
 
 const initialState = {

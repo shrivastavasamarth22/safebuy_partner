@@ -10,7 +10,8 @@ import {
     StockBoughtSummaryScreen,
     StockSummaryScreen,
     SetSellingPriceScreen,
-    ChangeStockScreen
+    ChangeStockScreen,
+    ShopBeatScreen
 } from '../../screens'
 
 const Stack = createStackNavigator();
@@ -21,6 +22,11 @@ const InventoryNavigator = () => {
             <Stack.Screen
                 name={"InventoryScreen"}
                 component={InventoryScreen}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name={"ShopBeatScreen"}
+                component={ShopBeatScreen}
                 options={{ headerShown: false }}
             />
             <Stack.Screen

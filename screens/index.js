@@ -33,6 +33,7 @@ import HelperForm1 from "./SettingsFlow/HelperForm1";
 import HelperForm2 from "./SettingsFlow/HelperForm2";
 import SetSellingPriceScreen from "./InventoryFlow/SetSellingPriceScreen";
 import ChangeStockScreen from "./InventoryFlow/ChangeStockScreen";
+import ShopBeatScreen from "./ShopBeatFlow/ShopBeatScreen";
 
 
 export {
@@ -70,5 +71,6 @@ export {
     HelperForm1,
     HelperForm2,
     SetSellingPriceScreen,
-    ChangeStockScreen
+    ChangeStockScreen,
+    ShopBeatScreen
 }

@@ -1,60 +1,36 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, StatusBar} from "react-native";
-import * as Location from 'expo-location';
-import {useSelector} from "react-redux";
-import MapView, {PROVIDER_GOOGLE, Marker, Polyline, Circle} from "react-native-maps";
-import {COLORS} from "../../constants";
+import React, {useEffect} from 'react';
+import {ActivityIndicator, StatusBar, StyleSheet, View} from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+import {useDispatch, useSelector} from "react-redux";
+import MapView, {Circle, Marker, PROVIDER_GOOGLE} from "react-native-maps";
+import '../../_mockLocation';
+import useLocation from "../../hooks/useLocation";
+import * as locationActions from '../../store/actions/location';
+import {COLORS, icons} from "../../constants";
 import {TopBar} from '../../components'
 
 const ShopBeatScreen = ({navigation}) => {
     const shop = useSelector(state => state.shop.shop)
+    const currentLocation = useSelector(state => state.location.currentLocation)
 
-    const [location, setLocation] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
+    const dispatch = useDispatch();
+    const isFocused = useIsFocused();
 
-    useEffect(() => {
-        (async () => {
-            let {status} = await Location.requestPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                setLocation(null)
-                return;
-            }
+    const [err] = useLocation(isFocused, (location) => dispatch(locationActions.addGeopoint(location)))
 
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-        })();
-    }, []);
 
-    if (errorMsg) {
-        console.log(errorMsg)
-    }
-
-    const initRegion = {
+    const shopRegion = {
         latitude: shop.lat,
         longitude: shop.lng,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01
     }
 
-    // let points = [];
-    // for (let i = 0; i < 20; i++) {
-    //     if (i % 2 === 0) {
-    //         points.push({
-    //             latitude:  initRegion.latitude + i * 0.001,
-    //             longitude: initRegion.longitude + i * 0.001
-    //         })
-    //     } else {
-    //         points.push({
-    //             latitude:  initRegion.latitude - i * 0.002,
-    //             longitude: initRegion.longitude - i * 0.001
-    //         })
-    //     }
-    //
-    // }
 
-
-    if (location) {
+    if (currentLocation) {
+        const initRegion = {
+            ...currentLocation.coords,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01
+        }
         return (
             <View style={styles.container}>
                 <StatusBar
@@ -63,15 +39,16 @@ const ShopBeatScreen = ({navigation}) => {
                 />
                 <TopBar
                     headerText={"My Shop Beat"}
-                    onBackButtonPress={() => console.log('The back button was pressed')}
+                    onBackButtonPress={navigation.goBack}
                 />
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     initialRegion={initRegion}
+                    region={initRegion}
                     style={styles.mapStyle}
                 >
                     <Circle
-                        center={{latitude: initRegion.latitude, longitude: initRegion.longitude}}
+                        center={{latitude: shopRegion.latitude, longitude: shopRegion.longitude}}
                         radius={2000}
                         strokeWidth={3}
                         strokeColor={COLORS.mainLavender}
@@ -83,21 +60,38 @@ const ShopBeatScreen = ({navigation}) => {
                             longitude: shop.lng
                         }}
                         title={shop.name}
-                        pinColor={COLORS.mainLavender}
+                        image={icons.map_shop_icon}
                     />
                     <Marker
-                        coordinate={{
-                            latitude: location.coords.latitude,
-                            longitude: location.coords.longitude
-                        }}
-                        title={"My location"}
-                        pinColor={COLORS.mainLavender}
+                        coordinate={currentLocation.coords}
+                        title={"My Location"}
+                        image={icons.map_user_icon}
                     />
                 </MapView>
             </View>
         )
     } else {
-        return (<Text>{errorMsg}</Text>)
+        return (
+            <View style={styles.container}>
+                <StatusBar
+                    backgroundColor={COLORS.green}
+                    barStyle={"light-content"}
+                />
+                <TopBar
+                    headerText={"My Shop Beat"}
+                    onBackButtonPress={navigation.goBack}
+                />
+                <View style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <ActivityIndicator
+                        size={"large"}
+                    />
+                </View>
+            </View>
+        )
     }
 
 }

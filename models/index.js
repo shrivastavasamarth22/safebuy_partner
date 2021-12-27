@@ -33,5 +33,5 @@ export {
     MiscellaneousExpense,
     OrderItem,
     Purchase,
-    Sale
+    Sale,
 }
