@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
-import {ActivityIndicator, StatusBar, StyleSheet, View} from "react-native";
+import React from 'react';
+import {ActivityIndicator, ImageBackground, StatusBar, StyleSheet, View} from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from "react-native-maps";
-import '../../_mockLocation';
+// import '../../_mockLocation';
 import useLocation from "../../hooks/useLocation";
 import * as locationActions from '../../store/actions/location';
-import {COLORS, icons} from "../../constants";
-import {TopBar} from '../../components'
+import {COLORS, icons, images} from "../../constants";
+import {TopBar, GradientButton} from '../../components'
 
 const ShopBeatScreen = ({navigation}) => {
     const shop = useSelector(state => state.shop.shop)
@@ -32,7 +32,10 @@ const ShopBeatScreen = ({navigation}) => {
             longitudeDelta: 0.01
         }
         return (
-            <View style={styles.container}>
+            <ImageBackground
+                style={styles.container}
+                source={images.background}
+            >
                 <StatusBar
                     backgroundColor={COLORS.green}
                     barStyle={"light-content"}
@@ -51,8 +54,8 @@ const ShopBeatScreen = ({navigation}) => {
                         center={{latitude: shopRegion.latitude, longitude: shopRegion.longitude}}
                         radius={2000}
                         strokeWidth={3}
-                        strokeColor={COLORS.mainLavender}
-                        fillColor={"rgba(81, 10, 140, 0.12)"}
+                        strokeColor={COLORS.yellow}
+                        fillColor={"rgba(255, 157, 0, 0.1)"}
                     />
                     <Marker
                         coordinate={{
@@ -68,7 +71,12 @@ const ShopBeatScreen = ({navigation}) => {
                         image={icons.map_user_icon}
                     />
                 </MapView>
-            </View>
+                <View style={styles.buttonContainer}>
+                    <GradientButton
+                        text={"Start Recording"}
+                    />
+                </View>
+            </ImageBackground>
         )
     } else {
         return (
@@ -99,11 +107,18 @@ const ShopBeatScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        resizeMode: 'cover'
     },
     mapStyle: {
         width: "100%",
         height: "50%"
+    },
+    buttonContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 12
     }
 })
 
