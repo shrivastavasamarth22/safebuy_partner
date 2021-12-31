@@ -7,9 +7,9 @@ import {
 
 export default (shouldTrack, callback) => {
     const [errorMsg, setErrorMsg] = useState(null);
-    const [subscriber, setSubscriber] = useState(null);
 
     useEffect(() => {
+        let subscriber;
         if (shouldTrack) {
             (async () => {
                 let {status} = await requestPermissionsAsync();
@@ -17,19 +17,26 @@ export default (shouldTrack, callback) => {
                     setErrorMsg('Permission to access location was denied');
                     return;
                 }
-                const sub = await watchPositionAsync({
+                subscriber = await watchPositionAsync({
                     accuracy: Accuracy.BestForNavigation,
                     timeInterval: 250,
                     distanceInterval: 5
                 }, callback)
-                setSubscriber(sub)
             })();
         } else {
-            subscriber.remove();
-            setSubscriber(null);
+            if (subscriber) {
+                subscriber.remove();
+            }
+            subscriber = null;
         }
 
-    }, [shouldTrack]);
+        return () => {
+            if (subscriber) {
+                subscriber.remove();
+            }
+        };
+
+    }, [shouldTrack, callback]);
 
     return [errorMsg]
 }
