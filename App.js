@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {enablePatches, enableES5} from "immer";
 import {Provider as PaperProvider} from 'react-native-paper'
+import VersionCheck from 'react-native-version-check-expo'
 
 import {changeShopImage, changeOwnerImage} from "./store/actions/shop";
 

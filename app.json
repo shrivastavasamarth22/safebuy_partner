@@ -24,6 +24,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDt8inVaM5UkYbcqpNd914MTc2z6ooyCeI"
+        }
+      },
       "package": "com.shrivastavasamarth22.safebuy_partner",
       "permissions": ["ACCESS_BACKGROUND_LOCATION"]
     },

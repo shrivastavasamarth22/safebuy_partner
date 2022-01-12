@@ -7,14 +7,14 @@ import MapView, {Circle, Marker, PROVIDER_GOOGLE, Polyline, Polygon} from "react
 import useLocation from "../../hooks/useLocation";
 import * as locationActions from '../../store/actions/location';
 import {COLORS, icons, images} from "../../constants";
-import {TopBar, GradientButton} from '../../components'
+import {TopBar, GradientButton} from '../../components';
+import {convexHull} from "../../Functions";
 
 const ShopBeatScreen = ({navigation}) => {
     const shop = useSelector(state => state.shop.shop)
     const currentLocation = useSelector(state => state.location.currentLocation)
     const recording = useSelector(state => state.location.recording)
     const points = useSelector(state => state.location.points);
-
 
     const dispatch = useDispatch();
     const isFocused = useIsFocused();
@@ -131,6 +131,15 @@ const ShopBeatScreen = ({navigation}) => {
 
                         : null
                     }
+                    {/*{!recording && points.length > 0 ?*/}
+                    {/*    <Polygon*/}
+                    {/*        coordinates={convexHull(points)}*/}
+                    {/*        strokeWidth={3}*/}
+                    {/*        strokeColor={COLORS.mainLavender}*/}
+                    {/*        fillColor={'rgba(129, 10, 140, 0.3)'}*/}
+                    {/*    />*/}
+                    {/*    : null*/}
+                    {/*}*/}
                 </MapView>
 
 

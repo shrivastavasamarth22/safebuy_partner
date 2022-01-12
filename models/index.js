@@ -15,6 +15,7 @@ import MiscellaneousExpense from "./miscellaneous-expense";
 import OrderItem from "./order-item";
 import Purchase from "./purchase";
 import Sale from "./sale";
+import Point from './point'
 
 export {
     Item,
@@ -34,4 +35,5 @@ export {
     OrderItem,
     Purchase,
     Sale,
+    Point
 }
